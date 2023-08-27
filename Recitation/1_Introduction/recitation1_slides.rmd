@@ -186,7 +186,7 @@ Please read the document "Assignments in APEC 8211 and 8212".
 + Every file needed for a given assignment—data, markdown, functions, etc.—should be in the same directory (folder).
 
 ```{r, out.width = "80%"}
-knitr::include_graphics("pictures/foulder_structure.png")
+knitr::include_graphics("pictures/folder_structure.png")
 ```
 
 ---
