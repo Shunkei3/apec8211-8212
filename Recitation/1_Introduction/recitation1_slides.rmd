@@ -32,13 +32,13 @@ suppressMessages(library(data.table))
 suppressMessages(library(tidyverse))
 suppressMessages(library(DT))
 suppressMessages(library(sf))
-suppressMessages(library(here))
+# suppressMessages(library(here))
 suppressMessages(library(flextable))
 suppressMessages(library(printr))
 suppressMessages(library(tmap))
 suppressMessages(library(RefManageR))
 
-here::i_am("GitControlled/Recitation/1_Introduction/recitation1_slides.rmd")
+# here::i_am("GitControlled/Recitation/1_Introduction/recitation1_slides.rmd")
 ```
 
 ```{r, eval=F, include=F}
@@ -137,7 +137,7 @@ name: intro
 .right6[
 
 ```{r  echo = F, out.width = "80%"}
-knitr::include_graphics(here("./Gitcontrolled/Photos/recitation1/pictures.png"))
+knitr::include_graphics("pictures/pictures.png")
 ```
 .pull-right[Source: Google Maps]
 ]
@@ -149,7 +149,7 @@ class: middle
 + My area of interest: Environmental Economics, Groundwater Management, the impact of climate change or weather shocks on agricultural production
 
 ```{r  echo = F, out.width = "80%"}
-knitr::include_graphics(here("./Gitcontrolled/Photos/recitation1/water.png"))
+knitr::include_graphics("pictures/water.png")
 ```
 <!-- <font size="2"> -->
 Source: [Braun and Schlenker (2023)](https://www.nber.org/papers/w30966#:~:text=Cooling%2Dby%2Dirrigation%20propagates%20downwind,that%20are%20of%20equal%20magnitude); [Kustu et al.(2010)](https://www.sciencedirect.com/science/article/abs/pii/S0022169410004130)
@@ -186,7 +186,7 @@ Please read the document "Assignments in APEC 8211 and 8212".
 + Every file needed for a given assignment—data, markdown, functions, etc.—should be in the same directory (folder).
 
 ```{r, out.width = "80%"}
-knitr::include_graphics(here("./Gitcontrolled/Photos/recitation1/foulder_structure.png"))
+knitr::include_graphics("pictures/foulder_structure.png")
 ```
 
 ---
@@ -214,25 +214,25 @@ From top-down of New file icon, crick R Markdown -> Select PDF format -> A new R
 
 .panel[.panel-name[1.New .Rmd file]
 ```{r, out.width = "60%"}
-knitr::include_graphics(here("./Gitcontrolled/Photos/recitation1/step1.png"))
+knitr::include_graphics("pictures/step1.png")
 ```
   ]
 
 .panel[.panel-name[2.Select PDF format]
 ```{r, out.width = "60%"}
-knitr::include_graphics(here("./Gitcontrolled/Photos/recitation1/step2.png"))
+knitr::include_graphics("pictures/step2.png")
 ```
   ]
 
 .panel[.panel-name[3.Crick Knit]
 ```{r, out.width = "60%"}
-knitr::include_graphics(here("./Gitcontrolled/Photos/recitation1/step3.png"))
+knitr::include_graphics("pictures/step3.png")
 ```
   ]
 
 .panel[.panel-name[4.Output]
 ```{r, out.width = "40%"}
-knitr::include_graphics(here("./Gitcontrolled/Photos/recitation1/step4.png"))
+knitr::include_graphics("pictures/step4.png")
 ```
   ]
 ]
