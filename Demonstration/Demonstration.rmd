@@ -13,16 +13,6 @@ header-includes:
    - \usepackage{bm}
 geometry: margin=2cm
 ---
-<!-- extra_dependencies: ["titling", "tabularx", "verbatim", "xcolor", "bm"] -->
-
-<!-- new command -->
-<!-- \newcommand{\gfcb}[1]{%
-    \fcolorbox{white}{gray!10!}{\quad\strut #1\quad}
-    } % gfcb := gray fcolorbox
-\newcommand{\cop}[1]{%
-    \gfcb{\texttt{\detokenize{#1}}} 
-    \ensuremath{\quad\longrightarrow\quad #1}
-    } % cop := code outpu -->
 
 
 ```{r setup, include=FALSE}
@@ -38,10 +28,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-<!-- # Objective
-+ To show you can use Rmarkdown file with latex notation. 
-+ To introduce some useful latex math notation to write math equations. 
-+ For further basic information about how to use Rmarkdown, please refer [\textcolor{blue}{this}](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf). -->
  
 # Section 1: Building blocks
 
