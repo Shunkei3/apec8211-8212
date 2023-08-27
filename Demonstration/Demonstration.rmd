@@ -1,0 +1,329 @@
+---
+title: \vspace{-2cm} Latex math notations and Example R codes with PDF output
+author: "Shunkei Kakimoto"
+output:
+  pdf_document:
+    number_sections: no
+    toc: no
+    toc_depth: 3
+header-includes:
+   - \usepackage{tabularx}    
+   - \usepackage{verbatim}    
+   - \usepackage{xcolor}    
+   - \usepackage{bm}
+geometry: margin=2cm
+---
+<!-- extra_dependencies: ["titling", "tabularx", "verbatim", "xcolor", "bm"] -->
+
+<!-- new command -->
+<!-- \newcommand{\gfcb}[1]{%
+    \fcolorbox{white}{gray!10!}{\quad\strut #1\quad}
+    } % gfcb := gray fcolorbox
+\newcommand{\cop}[1]{%
+    \gfcb{\texttt{\detokenize{#1}}} 
+    \ensuremath{\quad\longrightarrow\quad #1}
+    } % cop := code outpu -->
+
+
+```{r setup, include=FALSE}
+library(knitr)
+
+knitr::opts_chunk$set(
+  echo = TRUE,
+  cache = FALSE,
+  comment = NA,
+  message = FALSE,
+  warning = FALSE,
+  tidy = FALSE
+)
+```
+
+<!-- # Objective
++ To show you can use Rmarkdown file with latex notation. 
++ To introduce some useful latex math notation to write math equations. 
++ For further basic information about how to use Rmarkdown, please refer [\textcolor{blue}{this}](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf). -->
+ 
+# Section 1: Building blocks
+
+\newsavebox{\pmat}
+\savebox{\pmat}{$\displaystyle\begin{pmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+\end{pmatrix}$} 
+
+\newsavebox{\pmatcode}
+\begin{SaveVerbatim}{pmatcode}
+\begin{pmatrix}
+  1 & 2 & 3 \\
+  4 & 5 & 6 \\
+\end{pmatrix}
+\end{SaveVerbatim}
+
+\newsavebox{\bmat}
+\savebox{\bmat}{$\displaystyle\begin{bmatrix}
+\beta_0 \\
+\beta_1 \\
+\beta_2 \\
+\end{bmatrix}$}
+
+\begin{SaveVerbatim}{bmatcode}
+\begin{bmatrix}
+  \beta_0 \\
+  \beta_1 \\
+  \beta_2 \\
+\end{bmatrix}
+\end{SaveVerbatim}
+
+<!-- \begin{center} -->
+\renewcommand\arraystretch{2}
+<!-- \hspace*{-0.4in} -->
+\begin{tabular}{|>{$\displaystyle}l<{$}|l|>{\footnotesize}>{\raggedright\arraybackslash}p{3in}|}
+\omit\,\textbf{Goal}&\omit \textbf{\,How to get it}\hfill &\omit\textbf{\,Notes} \\
+\hline
+\alpha, \beta, \omega, \Omega &
+\begin{BVerbatim}
+\alpha, \beta, \omega, \Omega 
+\end{BVerbatim}
+& Spell names of Greek letters. \\
+\hline
+\bar X, \hat\beta, \tilde\beta &
+\begin{BVerbatim}
+\bar X, \hat\beta, \tilde\beta
+\end{BVerbatim}
+& Can't do stats without $\bar X$. Can't do econometrics without $\hat\beta$! \\
+\hline 
+\mathbf{X}, \boldsymbol{\beta} &
+\begin{BVerbatim}
+\mathbf{X}, \boldsymbol{\beta}
+\end{BVerbatim}
+& Bold math symbols. To make Latin-letters bold, you can use
+\begin{BVerbatim} 
+\boldsymbol
+\end{BVerbatim}
+ from "bm" package:
+\begin{BVerbatim} 
+\usepackage{bm} 
+\end{BVerbatim}
+\\
+\hline 
+\sigma^2 &
+\begin{BVerbatim}
+\sigma^2 
+\end{BVerbatim}
+& Superscripts. \\
+\hline
+\sim &
+\begin{BVerbatim}
+\sim
+\end{BVerbatim}
+& For example, $X \sim N(0, 1)$\\
+\hline
+\succ, \succsim&
+\begin{BVerbatim}
+\succ, \succsim
+\end{BVerbatim}
+& Preference relations in micro\\
+\hline
+\xrightarrow{p}, \xrightarrow{d}&
+\begin{BVerbatim}
+\xrightarrow{p}, \xrightarrow{d}
+\end{BVerbatim}
+& Convergence in probability, and convergence in distribution \\
+\hline
+\ge, \leq, >, <&
+\begin{BVerbatim}
+\ge, \leq, >, <
+\end{BVerbatim}
+& Inequality \\
+\hline
+X_i, \sigma_{ij} & \begin{BVerbatim}
+X_i, \sigma_{ij} 
+\end{BVerbatim}
+& Subscripts. When a sub(super)script has more than one symbol, like the $ij$, braces around it are needed to say where the sub(super)script ends. \\
+\hline
+\sum_{i=1}^n X_i  & \begin{BVerbatim}
+\sum_{i=1}^n X_i 
+\end{BVerbatim}
+& Summation.   \\
+\hline
+\prod_{i=1}^n X_i  & \begin{BVerbatim}
+\prod_{i=1}^n X_i 
+\end{BVerbatim}
+& Products.\\
+\hline
+\int_{x=-\infty}^\infty x\,dx  & \begin{BVerbatim}
+\int_{x=-\infty}^\infty x\,dx
+\end{BVerbatim}
+& Integrals. \\
+\hline
+\frac{1}{1-\beta}  & \begin{BVerbatim}
+\frac{1}{1 - \beta}
+\end{BVerbatim}
+& Fractions. Braces enclose numerator and denominator. \\
+\hline 
+\frac{\partial f(x,y)}{\partial x} & \begin{BVerbatim}
+\frac{\partial f(x,y)}{\partial x} 
+\end{BVerbatim} 
+& Partial derivative. \\
+\hline
+\log(x), \exp(x)  & \begin{BVerbatim}
+\log(x), \exp(x) 
+\end{BVerbatim}
+& Named functions. Looks better if you don't omit the \verb|\|.\\
+\hline
+\sqrt{V+1}  & \begin{BVerbatim}
+\sqrt{V+1} 
+\end{BVerbatim}
+& Square root.\\
+\hline
+\usebox{\pmat} &
+ \BUseVerbatim[baseline=c]{pmatcode} & Matrices.\rule[-0.25in]{0pt}{0.6in}\\
+\hline 
+\usebox{\bmat} & \BUseVerbatim[baseline=c]{bmatcode} & Matrices.\rule[-0.33in]{0pt}{0.8in}\\
+\hline
+\end{tabular}
+<!-- \enlargethispage{0.25in} -->
+
+\newpage
+
+# Section 2: Example math equations
+## Example 1: Aligning equations with expression after equal sign
+Syntax:
+```{r, eval=F}
+\begin{align*}
+\hat{\beta} 
+  &= \mathbf{(X^{\prime}X)^{-1} (X^{\prime}Y)} \\
+  &= \mathbf{(X^{\prime}X)^{-1} (X^{\prime} (X \beta + \mathbf{e}))} \\
+  &= \mathbf{(X^{\prime} X)^{-1} X^{\prime}{X} \beta 
+   + (X^{\prime} X)^{-1} X^{\prime} e}\\ 
+  &= \beta + \mathbf{(X^{\prime} X)^{-1} X^{\prime} e}
+\end{align*}
+````
+becomes:
+\begin{align*}
+\hat{\beta} 
+  &= \mathbf{(X^{\prime}X)^{-1} (X^{\prime}Y)} \\
+  &= \mathbf{(X^{\prime}X)^{-1} (X^{\prime} (X \beta + \mathbf{e}))} \\
+  &= \mathbf{(X^{\prime} X)^{-1} X^{\prime}{X} \beta 
+   + (X^{\prime} X)^{-1} X^{\prime} e}\\ 
+  &= \beta + \mathbf{(X^{\prime} X)^{-1} X^{\prime} e}
+\end{align*}
+
+
+
+\
+
+## Example 2: Writing equations within a curly brace
+Syntax:
+```{r, eval=F}
+\begin{equation*}
+  F(x) =
+    \begin{cases}
+      0 &  \quad x < 0 \\
+      x &  \quad 0 \ge x \ge 1\\
+      1 &  \quad x > 1
+    \end{cases}       
+\end{equation*}
+```
+becomes:
+\begin{equation*}
+  F(x) =
+    \begin{cases}
+      0 & x < 0 \\
+      x & 0 \ge x \ge 1\\
+      1 & x > 1
+    \end{cases}   
+\end{equation*}
+
+\newpage
+
+## Example 3: Including comments within equations
+Syntax:
+```{r, eval=F}
+\begin{equation*}
+  Z_n =
+    \begin{cases}
+      -n & \text{with probability $1/n$}\\
+      0 &  \text{with probability $1-2/n$}\\
+      n &  \text{with probability $1/n$}\\
+    \end{cases}       
+\end{equation*}
+```
+becomes:
+\begin{equation*}
+  Z_n =
+    \begin{cases}
+      -n & \text{with probability $1/n$}\\
+      0 &  \text{with probability $1-2/n$}\\
+      n &  \text{with probability $1/n$}\\
+    \end{cases}       
+\end{equation*}
+
+Sintax:
+```{r, eval=F}
+\begin{align*}
+\overline{X}_n = 
+  \frac{1}{n}\sum{i=1}^{n}X_i \xrightarrow{p} E[X] 
+  \quad \text{ as } n \rightarrow \infty
+\end{align*}
+```
+becomes:
+\begin{align*}
+\overline{X}_n = \frac{1}{n}\sum_{i=1}^{n}X_i \xrightarrow{p} E[X] \quad \text{ as } n \rightarrow \infty
+\end{align*}
+
+\
+
+## Example 4: Maximization problem
+Syntax:
+```{r, eval=F}
+\begin{equation*}
+\begin{aligned}
+\max_{x_1, x_2} \quad & u(x_1, x_2) = \frac{1}{2}log x_1 + \frac{1}{2} log x_2 \\
+\textrm{s.t.} \quad & w=p_1 x_1 + p_2 x_2 \\
+\end{aligned}
+\end{equation*}
+```
+becomes:
+\begin{equation*}
+\begin{aligned}
+\max_{x_1, x_2} \quad & u(x_1, x_2) = \frac{1}{2}log x_1 + \frac{1}{2} log x_2 \\
+\textrm{s.t.} \quad & w=p_1 x_1 + p_2 x_2 \\
+\end{aligned}
+\end{equation*}
+
+\newpage 
+
+# Section 3: Write R codes
+
+```{r}
+# === Load Packages === #
+library(data.table)
+library(ggplot2)
+
+# === Data === #
+#built-in dataset in R
+data(iris) 
+# Convert the data into data.table
+setDT(iris)
+# Filter for the species "setosa" 
+virginica <- iris[Species == "virginica",]
+```
+
+```{r, out.width="80%"}
+# === Visualization === #
+ggplot(virginica, aes(x=Sepal.Length, y=Petal.Length))+
+  geom_point()+
+  geom_smooth(method = lm, se = FALSE)+
+  labs(title = "Relationship between Sepal.Length and Petal.Length")+
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+
+# Section 4: Insert a picture to a document
+Below is an example R chunk code to insert a picture. 
+````markdown
+`r ''````{r, fig.cap='A caption', out.width = '80%'}
+knitr::include_graphics("path to the file")
+```
+````

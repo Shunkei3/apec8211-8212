@@ -1,0 +1,253 @@
+---
+title: "Recitation 1"
+author: 
+  - "Shunkei Kakimoto" 
+header-includes:
+   - \usepackage{mathtools}
+   - \usepackage{color}
+   - \usepackage{amsmath}
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css 
+    lib_dir: libs
+    nature: 
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false![]()
+---
+class: middle
+
+```{r, child = 'setup.rmd', cache = FALSE}
+```
+
+```{css}
+.remark-slide-number {
+  display: none;
+}
+```
+
+```{r, include = F, cache = FALSE}
+#--- load packages ---#
+suppressMessages(library(data.table))
+suppressMessages(library(tidyverse))
+suppressMessages(library(DT))
+suppressMessages(library(sf))
+suppressMessages(library(here))
+suppressMessages(library(flextable))
+suppressMessages(library(printr))
+suppressMessages(library(tmap))
+suppressMessages(library(RefManageR))
+
+here::i_am("GitControlled/Recitation/1_Introduction/recitation1_slides.rmd")
+```
+
+```{r, eval=F, include=F}
+httpgd::hgd()
+httpgd::hgd_browse()
+```
+
+```{r tmap-layout, cache = FALSE}
+tm_layout_to_add <-
+  tm_layout(
+    legend.outside = "TRUE",
+    frame = FALSE,
+    legend.title.size = 2,
+    legend.text.size = 1.5
+  )
+```
+
+
+```{r figure_setup, cache = F}
+theme_update(
+  axis.title.x =
+    element_text(
+      size = 9, angle = 0, hjust = .5, vjust = -0.3, face = "plain"
+    ),
+  axis.title.y =
+    element_text(
+      size = 9, angle = 90, hjust = .5, vjust = .9, face = "plain"
+    ),
+  axis.text.x =
+    element_text(
+      size = 7, angle = 0, hjust = .5, vjust = 1.5, face = "plain"
+    ),
+  axis.text.y =
+    element_text(
+      size = 7, angle = 0, hjust = 1, vjust = 0, face = "plain"
+    ),
+  axis.ticks =
+    element_line(
+      size = 0.3, linetype = "solid"
+    ),
+  axis.ticks.length = unit(.15, "cm"),
+  #--- legend ---#
+  legend.text =
+    element_text(
+      size = 7, angle = 0, hjust = 0, vjust = 0, face = "plain"
+    ),
+  legend.title =
+    element_text(
+      size = 7, angle = 0, hjust = 0, vjust = 0, face = "plain"
+    ),
+  legend.key.size = unit(0.5, "cm"),
+  #--- strip (for faceting) ---#
+  strip.text = element_text(size = 7),
+  #--- plot title ---#
+  plot.title = element_text(family = "Times", face = "bold", size = 9),
+  #--- margin ---#
+  # plot.margin = margin(0, 0, 0, 0, "cm"),
+  #--- panel ---#
+  panel.grid.major = element_blank(),
+  panel.grid.minor = element_blank(),
+  panel.background = element_blank(),
+  panel.border = element_rect(fill = NA)
+)
+```
+
+
+# Outline
+
+1. [Introduction](#intro)
+2. [Assignment Procedure](#assignment)
+3. [R markdown to create a PDF file](#Rmarkdown)
+
+---
+
+class: inverse, center, middle
+name: intro
+
+# Introduction
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+# Welcome to APEC!!
+.content-box-green[**About me**]
+.left4[
++ My name is Shunkei Kakimoto
+  * 2nd year Ph.D at APEC
++ I am from Japan
+
++ I like eating good food
+  + Ramen restaurant: Ichiddo ramen
+  + Chinese restaurant: Tea House
+  + Other Japanese food restaurants: ?
+  + Ice cream store: Sonny's Ice Cream
+]
+.right6[
+
+```{r  echo = F, out.width = "80%"}
+knitr::include_graphics(here("./Gitcontrolled/Photos/recitation1/pictures.png"))
+```
+.pull-right[Source: Google Maps]
+]
+
+---
+class: middle
+
+.content-box-green[**About me**]
++ My area of interest: Environmental Economics, Groundwater Management, the impact of climate change or weather shocks on agricultural production
+
+```{r  echo = F, out.width = "80%"}
+knitr::include_graphics(here("./Gitcontrolled/Photos/recitation1/water.png"))
+```
+<!-- <font size="2"> -->
+Source: [Braun and Schlenker (2023)](https://www.nber.org/papers/w30966#:~:text=Cooling%2Dby%2Dirrigation%20propagates%20downwind,that%20are%20of%20equal%20magnitude); [Kustu et al.(2010)](https://www.sciencedirect.com/science/article/abs/pii/S0022169410004130)
+<!-- </font> -->
+
+---
+class: inverse, center, middle
+name: assignment
+
+# Assignment Prodecure
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+# General note
+Please read the document "Assignments in APEC 8211 and 8212".
+
+.content-box-green[**Assignment Submission**]
++ Submit your assignment as <span style="color:blue">one single PDF file</span>
++ Submission location: Gradescope
++ To make PDF file: 
+  * LaTeX, R markdown (I will demonstrate how to do it later)
+
+---
+# General note
+Please read the document "Assignments in APEC 8211 and 8212".
+
+.content-box-green[**Assignment Submission**]
++ Submit your assignment as <span style="color:blue">one single PDF file including R codes and R outputs</span>
++ Submission ocation: Gradescope
++ To create a PDF document: 
+  * LaTeX, R markdown (I will demonstrate how to do it later), or combination of the two
+  
+.content-box-green[**Folder Organization**]
++ Every file needed for a given assignment—data, markdown, functions, etc.—should be in the same directory (folder).
+
+```{r, out.width = "80%"}
+knitr::include_graphics(here("./Gitcontrolled/Photos/recitation1/foulder_structure.png"))
+```
+
+---
+class: inverse, center, middle
+name: Rmarkdown
+
+# R markdown and LaTex math notations
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+class: middle
+# Create PDF reports using R markdown
+Of course LaTeX might be a first choice to make PDF report, but you can build a PDF report with R markdown.
+
+.content-box-green[**Pros**]
++ You can use LaTeX math notations
++ You can easily incorporate R codes and R outputs in the same document
+  * See Section 3: Write R codes in Demonstration.pdf
+
+---
+## How to do it?
+From top-down of New file icon, crick R Markdown -> Select PDF format -> A new Rmarkdown (`.Rmd`) file pops up -> Crick "Knit" bottom to run the Rmd file
+
+.panelset[ 
+
+.panel[.panel-name[1.New .Rmd file]
+```{r, out.width = "60%"}
+knitr::include_graphics(here("./Gitcontrolled/Photos/recitation1/step1.png"))
+```
+  ]
+
+.panel[.panel-name[2.Select PDF format]
+```{r, out.width = "60%"}
+knitr::include_graphics(here("./Gitcontrolled/Photos/recitation1/step2.png"))
+```
+  ]
+
+.panel[.panel-name[3.Crick Knit]
+```{r, out.width = "60%"}
+knitr::include_graphics(here("./Gitcontrolled/Photos/recitation1/step3.png"))
+```
+  ]
+
+.panel[.panel-name[4.Output]
+```{r, out.width = "40%"}
+knitr::include_graphics(here("./Gitcontrolled/Photos/recitation1/step4.png"))
+```
+  ]
+]
+
++ When you knit your `.Rmd` file, you may get an error message. If you are asked to install "tinytex" package, follow that instruction (e.g. Run `install.packages("tinytex")`)
+
+---
+class: middle
+# LaTeX Math Notations
+See the document "Demonstration.pdf". 
++ Section 1: Building blocks
++ Section 2: Example math equations
+
+<br>
+.content-box-green[**Exercise**]
++ Let's write some math equations using LaTeX math notations on your `.Rmd` file and see it's correctly appeared on a PDF document. 
+
+
