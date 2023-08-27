@@ -5,5 +5,5 @@ This is the repository for APEC 8211-8212 at the University of Minnesota, where 
 + LaTeX math notations([here](https://shunkei3.github.io/apec8211-8212/Demonstration/Demonstration.pdf))
 
 ## Slides
-+ Recitation 1 ([html](https://shunkei3.github.io/apec8211-8212/Demonstration/Demonstration.pdf), [pdf])
++ Recitation 1 ([html](https://shunkei3.github.io/Recitation/1_Introduction/recitation1_slides.html), [pdf])
 + Recitation 2 (slides)
