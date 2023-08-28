@@ -226,14 +226,14 @@ becomes:
 ## Example 3: Including comments within equations
 Syntax:
 ```{r, eval=F}
-\begin{equation*}
+\begin{align*}
   Z_n =
     \begin{cases}
       -n & \text{with probability $1/n$}\\
       0 &  \text{with probability $1-2/n$}\\
       n &  \text{with probability $1/n$}\\
     \end{cases}       
-\end{equation*}
+\end{align*}
 ```
 becomes:
 \begin{equation*}

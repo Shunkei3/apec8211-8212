@@ -13,31 +13,14 @@ output:
     nature: 
       highlightStyle: github
       highlightLines: true
-      countIncrementalSlides: false![]()
 ---
 class: middle
 
 ```{r, child = 'setup.rmd', cache = FALSE}
 ```
 
-```{css}
-.remark-slide-number {
-  display: none;
-}
-```
 
 ```{r, include = F, cache = FALSE}
-#--- load packages ---#
-suppressMessages(library(data.table))
-suppressMessages(library(tidyverse))
-suppressMessages(library(DT))
-suppressMessages(library(sf))
-# suppressMessages(library(here))
-suppressMessages(library(flextable))
-suppressMessages(library(printr))
-suppressMessages(library(tmap))
-suppressMessages(library(RefManageR))
-
 # here::i_am("GitControlled/Recitation/1_Introduction/recitation1_slides.rmd")
 ```
 
@@ -167,9 +150,9 @@ name: assignment
 Please read the document "Assignments in APEC 8211 and 8212".
 
 .content-box-green[**Assignment Submission**]
-+ Submit your assignment as <span style="color:blue">one single PDF file</span>
++ Submit your assignment as <span style="color:blue">one single PDF file including R codes and R outputs</span>
 + Submission location: Gradescope
-+ To make PDF file: 
++ To create a PDF document: 
   * LaTeX, R markdown (I will demonstrate how to do it later)
 
 ---

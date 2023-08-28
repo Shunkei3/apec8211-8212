@@ -398,9 +398,10 @@ slides &gt; slide {
 
 # Outline
 
-1. [Introduction](#intro)
+1. [Review some contexts](#intro)
++ 
 2. [Assignment Procedure](#assignment)
-3. [R markdown to create a PDF file](#Rmarkdown)
+3. [Exercise](#Rmarkdown)
 
 ---
 
@@ -412,122 +413,6 @@ name: intro
 &lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
 
 ---
-# Welcome to APEC!!
-.content-box-green[**About me**]
-.left4[
-+ My name is Shunkei Kakimoto
-  * 2nd year Ph.D at APEC
-+ I am from Japan
-
-+ I like eating good food
-  + Ramen restaurant: Ichiddo ramen
-  + Chinese restaurant: Tea House
-  + Other Japanese food restaurants: ?
-  + Ice cream store: Sonny's Ice Cream
-]
-.right6[
-
-&lt;img src="pictures/pictures.png" width="80%" style="display: block; margin: auto;" /&gt;
-.pull-right[Source: Google Maps]
-]
-
----
-class: middle
-
-.content-box-green[**About me**]
-+ My area of interest: Environmental Economics, Groundwater Management, the impact of climate change or weather shocks on agricultural production
-
-&lt;img src="pictures/water.png" width="80%" style="display: block; margin: auto;" /&gt;
-&lt;!-- &lt;font size="2"&gt; --&gt;
-Source: [Braun and Schlenker (2023)](https://www.nber.org/papers/w30966#:~:text=Cooling%2Dby%2Dirrigation%20propagates%20downwind,that%20are%20of%20equal%20magnitude); [Kustu et al.(2010)](https://www.sciencedirect.com/science/article/abs/pii/S0022169410004130)
-&lt;!-- &lt;/font&gt; --&gt;
-
----
-class: inverse, center, middle
-name: assignment
-
-# Assignment Prodecure
-&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
-
----
-# General note
-Please read the document "Assignments in APEC 8211 and 8212".
-
-.content-box-green[**Assignment Submission**]
-+ Submit your assignment as &lt;span style="color:blue"&gt;one single PDF file including R codes and R outputs&lt;/span&gt;
-+ Submission location: Gradescope
-+ To create a PDF document: 
-  * LaTeX, R markdown (I will demonstrate how to do it later)
-
----
-# General note
-Please read the document "Assignments in APEC 8211 and 8212".
-
-.content-box-green[**Assignment Submission**]
-+ Submit your assignment as &lt;span style="color:blue"&gt;one single PDF file including R codes and R outputs&lt;/span&gt;
-+ Submission ocation: Gradescope
-+ To create a PDF document: 
-  * LaTeX, R markdown (I will demonstrate how to do it later), or combination of the two
-  
-.content-box-green[**Folder Organization**]
-+ Every file needed for a given assignment—data, markdown, functions, etc.—should be in the same directory (folder).
-
-&lt;img src="pictures/folder_structure.png" width="80%" style="display: block; margin: auto;" /&gt;
-
----
-class: inverse, center, middle
-name: Rmarkdown
-
-# R markdown and LaTex math notations
-&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
-
----
-class: middle
-# Create PDF reports using R markdown
-Of course LaTeX might be a first choice to make PDF report, but you can build a PDF report with R markdown.
-
-.content-box-green[**Pros**]
-+ You can use LaTeX math notations
-+ You can easily incorporate R codes and R outputs in the same document
-  * See Section 3: Write R codes in Demonstration.pdf
-
----
-## How to do it?
-From top-down of New file icon, crick R Markdown -&gt; Select PDF format -&gt; A new Rmarkdown (`.Rmd`) file pops up -&gt; Crick "Knit" bottom to run the Rmd file
-
-.panelset[ 
-
-.panel[.panel-name[1.New .Rmd file]
-&lt;img src="pictures/step1.png" width="60%" style="display: block; margin: auto;" /&gt;
-  ]
-
-.panel[.panel-name[2.Select PDF format]
-&lt;img src="pictures/step2.png" width="60%" style="display: block; margin: auto;" /&gt;
-  ]
-
-.panel[.panel-name[3.Crick Knit]
-&lt;img src="pictures/step3.png" width="60%" style="display: block; margin: auto;" /&gt;
-  ]
-
-.panel[.panel-name[4.Output]
-&lt;img src="pictures/step4.png" width="40%" style="display: block; margin: auto;" /&gt;
-  ]
-]
-
-+ When you knit your `.Rmd` file, you may get an error message. If you are asked to install "tinytex" package, follow that instruction (e.g. Run `install.packages("tinytex")`)
-
----
-class: middle
-# LaTeX Math Notations
-See the document "Demonstration.pdf". 
-+ Section 1: Building blocks
-+ Section 2: Example math equations
-
-&lt;br&gt;
-.content-box-green[**Exercise**]
-+ Let's write some math equations using LaTeX math notations on your `.Rmd` file and see it's correctly appeared on a PDF document. 
-
-
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

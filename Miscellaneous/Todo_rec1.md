@@ -11,7 +11,7 @@
     * When is due date?
         - Every Monday?
 
-# 1st reciation
+# Reciation 1
 ## Contents:
 + Check student's name
 + Introduction
@@ -38,8 +38,22 @@
 ## Preparation
 + 
 
-
 ## Things to tell
 + Please don’t use any R packages that are not discussed in class/lab or requested for
 an assignment.
-+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
