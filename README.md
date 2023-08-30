@@ -6,4 +6,4 @@ This is the repository for APEC 8211-8212 at the University of Minnesota, where 
 
 ## Slides
 + Recitation 1 ([html](https://shunkei3.github.io/apec8211-8212/Recitation/rec1/recitation1_slides.html))
-+ Recitation 2 (slides)
++ Recitation 2 ([html](https://shunkei3.github.io/apec8211-8212/Recitation/rec2/recitation2_slides.html))
