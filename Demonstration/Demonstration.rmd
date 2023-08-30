@@ -179,9 +179,9 @@ Syntax:
 \begin{align*}
 \hat{\beta} 
   &= \mathbf{(X^{\prime}X)^{-1} (X^{\prime}Y)} \\
-  &= \mathbf{(X^{\prime}X)^{-1} (X^{\prime} (X \beta + \mathbf{e}))} \\
+  &= \mathbf{(X^{\prime}X)^{-1} (X^{\prime}(X\beta + e))} \\
   &= \mathbf{(X^{\prime} X)^{-1} X^{\prime}{X} \beta 
-   + (X^{\prime} X)^{-1} X^{\prime} e}\\ 
+      + (X^{\prime} X)^{-1} X^{\prime} e} \\ 
   &= \beta + \mathbf{(X^{\prime} X)^{-1} X^{\prime} e}
 \end{align*}
 ````
@@ -191,7 +191,7 @@ becomes:
   &= \mathbf{(X^{\prime}X)^{-1} (X^{\prime}Y)} \\
   &= \mathbf{(X^{\prime}X)^{-1} (X^{\prime} (X \beta + \mathbf{e}))} \\
   &= \mathbf{(X^{\prime} X)^{-1} X^{\prime}{X} \beta 
-   + (X^{\prime} X)^{-1} X^{\prime} e}\\ 
+   + (X^{\prime} X)^{-1} X^{\prime} e} \\ 
   &= \beta + \mathbf{(X^{\prime} X)^{-1} X^{\prime} e}
 \end{align*}
 
@@ -206,7 +206,7 @@ Syntax:
   F(x) =
     \begin{cases}
       0 &  \quad x < 0 \\
-      x &  \quad 0 \ge x \ge 1\\
+      x &  \quad 0 \ge x \ge 1 \\
       1 &  \quad x > 1
     \end{cases}       
 \end{equation*}
@@ -216,7 +216,7 @@ becomes:
   F(x) =
     \begin{cases}
       0 & x < 0 \\
-      x & 0 \ge x \ge 1\\
+      x & 0 \ge x \ge 1 \\
       1 & x > 1
     \end{cases}   
 \end{equation*}
@@ -229,9 +229,9 @@ Syntax:
 \begin{align*}
   Z_n =
     \begin{cases}
-      -n & \text{with probability $1/n$}\\
-      0 &  \text{with probability $1-2/n$}\\
-      n &  \text{with probability $1/n$}\\
+      -n & \text{with probability $1/n$} \\
+      0 &  \text{with probability $1-2/n$} \\
+      n &  \text{with probability $1/n$} \\
     \end{cases}       
 \end{align*}
 ```
@@ -239,9 +239,9 @@ becomes:
 \begin{equation*}
   Z_n =
     \begin{cases}
-      -n & \text{with probability $1/n$}\\
-      0 &  \text{with probability $1-2/n$}\\
-      n &  \text{with probability $1/n$}\\
+      -n & \text{with probability $1/n$} \\
+      0 &  \text{with probability $1-2/n$} \\
+      n &  \text{with probability $1/n$} \\
     \end{cases}       
 \end{equation*}
 

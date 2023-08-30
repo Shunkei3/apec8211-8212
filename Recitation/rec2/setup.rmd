@@ -188,6 +188,10 @@ theme_update(
   background: #ffe7e7;
 } 
 
+.remark-code, .remark-inline-code { 
+  font-family: 'Source Code Pro', 'Lucida Console', Monaco, monospace;font-size: 50%;
+}
+
 .hljs-github .hljs {
   background: #f2f2fd;
 }

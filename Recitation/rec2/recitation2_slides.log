@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_1) (preloaded format=pdflatex 2022.9.14)  29 AUG 2023 19:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_1) (preloaded format=pdflatex 2022.9.14)  29 AUG 2023 20:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -444,6 +444,37 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no 2 in font nullfont!
 Missing character: There is no ) in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no ( in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no ) in font nullfont!
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 28--32
+[]
+ []
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.33 h
+      ttpgd::hgd()
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
 Missing character: There is no h in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no t in font nullfont!
@@ -471,7 +502,7 @@ Missing character: There is no d in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.32 httpgd::hgd_
+l.34 httpgd::hgd_
                  browse()
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -479,23 +510,23 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.34 
+l.36 
      
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 28--34
+Overfull \hbox (20.0pt too wide) in paragraph at lines 33--36
 []
  []
 
 
-Overfull \hbox (45.98088pt too wide) in paragraph at lines 28--34
+Overfull \hbox (45.98088pt too wide) in paragraph at lines 33--36
 []\OML/cmm/m/it/10 rowse\OT1/cmr/m/n/10 ()\`$ 
  []
 
 ! You can't use `macro parameter character #' in vertical mode.
-l.38 #
+l.40 #
        Outline
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -509,7 +540,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.38 # O
+l.40 # O
         utline
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -522,7 +553,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no e in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 38--39
+Overfull \hbox (20.0pt too wide) in paragraph at lines 40--41
 [] 
  []
 
@@ -533,7 +564,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.40 1
+l.42 1
       . [Review some concepts related to random variables](#intro)
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -586,7 +617,7 @@ Missing character: There is no s in font nullfont!
 Missing character: There is no ] in font nullfont!
 Missing character: There is no ( in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.40 ...me concepts related to random variables](#
+l.42 ...me concepts related to random variables](#
                                                   intro)
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -641,7 +672,7 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no ] in font nullfont!
 Missing character: There is no ( in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.43 3. [Exercise](#
+l.45 3. [Exercise](#
                     Exercise)
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -658,7 +689,7 @@ Missing character: There is no s in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no ) in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 40--44
+Overfull \hbox (20.0pt too wide) in paragraph at lines 42--46
 []
  []
 
@@ -669,7 +700,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.45 -
+l.47 -
       --
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -678,7 +709,7 @@ Missing character: There is no - in font nullfont!
 Missing character: There is no - in font nullfont!
 Missing character: There is no - in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.46 #
+l.48 #
        CDF, PDF, PMF, Quantile function
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -777,22 +808,22 @@ Missing character: There is no X in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no s in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 45--49
+Overfull \hbox (20.0pt too wide) in paragraph at lines 47--51
 []
  []
 
 
-Overfull \hbox (31.86804pt too wide) in paragraph at lines 45--49
+Overfull \hbox (31.86804pt too wide) in paragraph at lines 47--51
 \OML/cmm/m/it/10 F\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ) =
  []
 
 
-Overfull \hbox (35.00113pt too wide) in paragraph at lines 45--49
+Overfull \hbox (35.00113pt too wide) in paragraph at lines 47--51
 \OML/cmm/m/it/10 Pr\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X \OMS/cmsy/m/n/10 ^^T
  []
 
 
-Overfull \hbox (8.49306pt too wide) in paragraph at lines 45--49
+Overfull \hbox (8.49306pt too wide) in paragraph at lines 47--51
 \OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ]$ 
  []
 
@@ -803,7 +834,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.50 `
+l.52 `
       ``{r, echo=F}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -820,7 +851,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no = in font nullfont!
 Missing character: There is no F in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.51 #
+l.53 #
        Define sequence of x-values
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -868,7 +899,7 @@ Missing character: There is no 0 in font nullfont!
 Missing character: There is no 1 in font nullfont!
 Missing character: There is no ) in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.53 #
+l.55 #
        #calculate normal CDF probabilities
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -876,7 +907,7 @@ If you're in the wrong mode, you might be able to
 return to the right one by typing `I}' or `I$' or `I\par'.
 
 ! You can't use `macro parameter character #' in horizontal mode.
-l.53 # #
+l.55 # #
         calculate normal CDF probabilities
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -915,7 +946,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.54 #
+l.56 #
        cdf <- pnorm(x)
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -936,7 +967,7 @@ Missing character: There is no ( in font nullfont!
 Missing character: There is no x in font nullfont!
 Missing character: There is no ) in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.55 #
+l.57 #
        pdf <- rnorm(x)
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -957,7 +988,7 @@ Missing character: There is no ( in font nullfont!
 Missing character: There is no x in font nullfont!
 Missing character: There is no ) in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.56 #
+l.58 #
        #plot normal CDF
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -965,7 +996,7 @@ If you're in the wrong mode, you might be able to
 return to the right one by typing `I}' or `I$' or `I\par'.
 
 ! You can't use `macro parameter character #' in horizontal mode.
-l.56 # #
+l.58 # #
         plot normal CDF
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -986,7 +1017,7 @@ Missing character: There is no C in font nullfont!
 Missing character: There is no D in font nullfont!
 Missing character: There is no F in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.57 #
+l.59 #
        plot(x, cdf, type="l")
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -1014,7 +1045,7 @@ Missing character: There is no l in font nullfont!
 Missing character: There is no " in font nullfont!
 Missing character: There is no ) in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.58 #
+l.60 #
        plot(x, pdf, type="l")
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -1130,22 +1161,22 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no : in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 50--63
+Overfull \hbox (20.0pt too wide) in paragraph at lines 52--65
 []
  []
 
 
-Overfull \hbox (30.10764pt too wide) in paragraph at lines 50--63
+Overfull \hbox (30.10764pt too wide) in paragraph at lines 52--65
 \OML/cmm/m/it/10 ^^Y\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ) =
  []
 
 
-Overfull \hbox (35.00113pt too wide) in paragraph at lines 50--63
+Overfull \hbox (35.00113pt too wide) in paragraph at lines 52--65
 \OML/cmm/m/it/10 Pr\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (8.49306pt too wide) in paragraph at lines 50--63
+Overfull \hbox (8.49306pt too wide) in paragraph at lines 52--65
 \OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ]$ 
  []
 
@@ -1156,7 +1187,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.64 .
+l.66 .
       content-box-red[**Probability density function (Continuous random vari...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -1250,17 +1281,17 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no : in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 64--66
+Overfull \hbox (20.0pt too wide) in paragraph at lines 66--68
 []
  []
 
 
-Overfull \hbox (30.02084pt too wide) in paragraph at lines 64--66
+Overfull \hbox (30.02084pt too wide) in paragraph at lines 66--68
 \OML/cmm/m/it/10 f\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ) =
  []
 
 
-Overfull \hbox (32.41013pt too wide) in paragraph at lines 64--66
+Overfull \hbox (32.41013pt too wide) in paragraph at lines 66--68
 []\OML/cmm/m/it/10 F\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 )$ 
  []
 
@@ -1271,7 +1302,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.68 -
+l.70 -
       --
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1280,7 +1311,7 @@ Missing character: There is no - in font nullfont!
 Missing character: There is no - in font nullfont!
 Missing character: There is no - in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.69 #
+l.71 #
        Properties of PDF (and PMF)
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -1311,7 +1342,7 @@ Missing character: There is no M in font nullfont!
 Missing character: There is no F in font nullfont!
 Missing character: There is no ) in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 68--70
+Overfull \hbox (20.0pt too wide) in paragraph at lines 70--72
 []
  []
 
@@ -1322,7 +1353,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.73 -
+l.75 -
       --
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1331,7 +1362,7 @@ Missing character: There is no - in font nullfont!
 Missing character: There is no - in font nullfont!
 Missing character: There is no - in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.74 #
+l.76 #
        Mean, Variance and Covariance:
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -1497,27 +1528,27 @@ Missing character: There is no u in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no ? in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 73--80
+Overfull \hbox (20.0pt too wide) in paragraph at lines 75--82
 []
  []
 
 
-Overfull \hbox (9.06943pt too wide) in paragraph at lines 73--80
+Overfull \hbox (9.06943pt too wide) in paragraph at lines 75--82
 \OML/cmm/m/it/10 X$
  []
 
 
-Overfull \hbox (22.58331pt too wide) in paragraph at lines 73--80
+Overfull \hbox (22.58331pt too wide) in paragraph at lines 75--82
 \OML/cmm/m/it/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ]$
  []
 
 
-Overfull \hbox (9.06943pt too wide) in paragraph at lines 73--80
+Overfull \hbox (9.06943pt too wide) in paragraph at lines 75--82
 \OML/cmm/m/it/10 X$
  []
 
 
-Overfull \hbox (9.06943pt too wide) in paragraph at lines 73--80
+Overfull \hbox (9.06943pt too wide) in paragraph at lines 75--82
 \OML/cmm/m/it/10 X$ 
  []
 
@@ -1528,7 +1559,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.81 +
+l.83 +
        .content-box-green[Visualization]
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1568,7 +1599,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no ] in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 81--82
+Overfull \hbox (20.0pt too wide) in paragraph at lines 83--84
 []
  []
 
@@ -1579,7 +1610,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.83 `
+l.85 `
       ``{r, echo=F, out.width = "50%"}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1613,7 +1644,7 @@ Missing character: There is no x in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.84 x_
+l.86 x_
        left = 2
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1621,202 +1652,250 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.102 
-      
+l.92 
+     
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 83--102
+Overfull \hbox (20.0pt too wide) in paragraph at lines 85--92
 []
  []
 
 
-Overfull \hbox (27.86461pt too wide) in paragraph at lines 83--102
+Overfull \hbox (27.86461pt too wide) in paragraph at lines 85--92
 []\OML/cmm/m/it/10 eft \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (43.64534pt too wide) in paragraph at lines 83--102
+Overfull \hbox (43.64534pt too wide) in paragraph at lines 85--92
 \OT1/cmr/m/n/10 2\OML/cmm/m/it/10 x[]ight \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (54.05992pt too wide) in paragraph at lines 83--102
+Overfull \hbox (54.05992pt too wide) in paragraph at lines 85--92
 \OT1/cmr/m/n/10 10\OML/cmm/m/it/10 x[]enter \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (34.69107pt too wide) in paragraph at lines 83--102
+Overfull \hbox (34.69107pt too wide) in paragraph at lines 85--92
 \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]eft \OT1/cmr/m/n/10 +
  []
 
 
-Overfull \hbox (58.24953pt too wide) in paragraph at lines 83--102
+Overfull \hbox (58.24953pt too wide) in paragraph at lines 85--92
 \OML/cmm/m/it/10 x[]ight\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 =\OT1/cmr/m/n/10 2\OM
 L/cmm/m/it/10 x <
  []
 
 
-Overfull \hbox (124.73224pt too wide) in paragraph at lines 83--102
+Overfull \hbox (124.73224pt too wide) in paragraph at lines 85--92
 \OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 seq\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]ef
 t; x[]ight; length \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (39.70607pt too wide) in paragraph at lines 83--102
+Overfull \hbox (39.70607pt too wide) in paragraph at lines 85--92
 \OT1/cmr/m/n/10 1000)\OML/cmm/m/it/10 y <
  []
 
 
-Overfull \hbox (86.73048pt too wide) in paragraph at lines 83--102
+Overfull \hbox (86.73048pt too wide) in paragraph at lines 85--92
 \OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 dnorm\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x; 
 mean \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (57.84111pt too wide) in paragraph at lines 83--102
+Overfull \hbox (57.84111pt too wide) in paragraph at lines 85--92
 \OML/cmm/m/it/10 x[]enter; sd \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (54.96036pt too wide) in paragraph at lines 83--102
+Overfull \hbox (54.96036pt too wide) in paragraph at lines 85--92
 \OT1/cmr/m/n/10 1)\OML/cmm/m/it/10 plot[]ata <
  []
 
 
-Overfull \hbox (71.12852pt too wide) in paragraph at lines 83--102
+Overfull \hbox (71.12852pt too wide) in paragraph at lines 85--92
 \OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 data:table\OT1/cmr/m/n/10 (\OML/cmm/m/it/1
 0 x \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (25.97679pt too wide) in paragraph at lines 83--102
+Overfull \hbox (25.97679pt too wide) in paragraph at lines 85--92
 \OML/cmm/m/it/10 x; y \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (69.90976pt too wide) in paragraph at lines 83--102
-\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ggplot\OT1/cmr/m/n/10 (\OML
-/cmm/m/it/10 data \OT1/cmr/m/n/10 =
+Overfull \hbox (9.1505pt too wide) in paragraph at lines 85--92
+\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 )$ 
  []
 
 
-Overfull \hbox (47.18263pt too wide) in paragraph at lines 83--102
-\OML/cmm/m/it/10 plot[]ata\OT1/cmr/m/n/10 ) +
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.93 g
+      gplot(data = plot_data) +
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no g in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no ( in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no = in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no t in font nullfont!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.93 ggplot(data = plot_
+                        data) +
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.105 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 93--105
+[]
  []
 
 
-Overfull \hbox (79.26353pt too wide) in paragraph at lines 83--102
+Overfull \hbox (30.51247pt too wide) in paragraph at lines 93--105
+[]\OML/cmm/m/it/10 ata\OT1/cmr/m/n/10 ) +
+ []
+
+
+Overfull \hbox (79.26353pt too wide) in paragraph at lines 93--105
 \OML/cmm/m/it/10 geom[]ine\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 aes\OT1/cmr/m/n/10 
 (\OML/cmm/m/it/10 x \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (25.97679pt too wide) in paragraph at lines 83--102
+Overfull \hbox (25.97679pt too wide) in paragraph at lines 93--105
 \OML/cmm/m/it/10 x; y \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (46.14238pt too wide) in paragraph at lines 83--102
+Overfull \hbox (46.14238pt too wide) in paragraph at lines 93--105
 \OML/cmm/m/it/10 y\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; color \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (44.27325pt too wide) in paragraph at lines 83--102
+Overfull \hbox (44.27325pt too wide) in paragraph at lines 93--105
 \OT1/cmr/m/n/10 "\OML/cmm/m/it/10 black\OT1/cmr/m/n/10 ") +
  []
 
 
-Overfull \hbox (37.15163pt too wide) in paragraph at lines 83--102
+Overfull \hbox (37.15163pt too wide) in paragraph at lines 93--105
 \OML/cmm/m/it/10 labs\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 y \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (79.72505pt too wide) in paragraph at lines 83--102
+Overfull \hbox (79.72505pt too wide) in paragraph at lines 93--105
 \OT1/cmr/m/n/10 "\OML/cmm/m/it/10 Density\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 ; ti
 tle \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (92.35081pt too wide) in paragraph at lines 83--102
+Overfull \hbox (92.35081pt too wide) in paragraph at lines 93--105
 \OT1/cmr/m/n/10 "\OML/cmm/m/it/10 PlotofX []N\OT1/cmr/m/n/10 (6\OML/cmm/m/it/10
  ; \OT1/cmr/m/n/10 1)") +
  []
 
 
-Overfull \hbox (105.7377pt too wide) in paragraph at lines 83--102
+Overfull \hbox (105.7377pt too wide) in paragraph at lines 93--105
 \OML/cmm/m/it/10 geom[]line\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 xintercept \OT1/cm
 r/m/n/10 =
  []
 
 
-Overfull \hbox (69.9407pt too wide) in paragraph at lines 83--102
+Overfull \hbox (69.9407pt too wide) in paragraph at lines 93--105
 \OML/cmm/m/it/10 x[]enter; color \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (36.31723pt too wide) in paragraph at lines 83--102
+Overfull \hbox (36.31723pt too wide) in paragraph at lines 93--105
 \OT1/cmr/m/n/10 "\OML/cmm/m/it/10 red\OT1/cmr/m/n/10 ") +
  []
 
 
-Overfull \hbox (91.50009pt too wide) in paragraph at lines 83--102
+Overfull \hbox (91.50009pt too wide) in paragraph at lines 93--105
 \OML/cmm/m/it/10 annotate\OT1/cmr/m/n/10 ("\OML/cmm/m/it/10 text\OT1/cmr/m/n/10
  "\OML/cmm/m/it/10 ; x \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (25.26154pt too wide) in paragraph at lines 83--102
+Overfull \hbox (25.26154pt too wide) in paragraph at lines 93--105
 \OT1/cmr/m/n/10 7\OML/cmm/m/it/10 ; y \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (53.37271pt too wide) in paragraph at lines 83--102
+Overfull \hbox (53.37271pt too wide) in paragraph at lines 93--105
 \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 01\OML/cmm/m/it/10 ; label \
 OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (64.875pt too wide) in paragraph at lines 83--102
+Overfull \hbox (64.875pt too wide) in paragraph at lines 93--105
 \OT1/cmr/m/n/10 "\OML/cmm/m/it/10 MeanE\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X\OT1/
 cmr/m/n/10 ] =
  []
 
 
-Overfull \hbox (42.87915pt too wide) in paragraph at lines 83--102
+Overfull \hbox (42.87915pt too wide) in paragraph at lines 93--105
 \OT1/cmr/m/n/10 6"\OML/cmm/m/it/10 ; size \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (41.9919pt too wide) in paragraph at lines 83--102
+Overfull \hbox (41.9919pt too wide) in paragraph at lines 93--105
 \OT1/cmr/m/n/10 3\OML/cmm/m/it/10 ; color \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (36.31723pt too wide) in paragraph at lines 83--102
+Overfull \hbox (36.31723pt too wide) in paragraph at lines 93--105
 \OT1/cmr/m/n/10 "\OML/cmm/m/it/10 red\OT1/cmr/m/n/10 ") +
  []
 
 
-Overfull \hbox (54.46588pt too wide) in paragraph at lines 83--102
+Overfull \hbox (54.46588pt too wide) in paragraph at lines 93--105
 \OML/cmm/m/it/10 theme[]w\OT1/cmr/m/n/10 () +
  []
 
 
-Overfull \hbox (79.86192pt too wide) in paragraph at lines 83--102
+Overfull \hbox (79.86192pt too wide) in paragraph at lines 93--105
 \OML/cmm/m/it/10 theme\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 plot:title \OT1/cmr/m/n
 /10 =
  []
 
 
-Overfull \hbox (91.96614pt too wide) in paragraph at lines 83--102
+Overfull \hbox (91.96614pt too wide) in paragraph at lines 93--105
 \OML/cmm/m/it/10 element[]ext\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 hjust \OT1/cmr/m
 /n/10 =
  []
 
 
-Overfull \hbox (28.33342pt too wide) in paragraph at lines 83--102
+Overfull \hbox (28.33342pt too wide) in paragraph at lines 93--105
 \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 5))\`$ 
  []
 
@@ -1827,7 +1906,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.104 -
+l.107 -
        --
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1836,7 +1915,7 @@ Missing character: There is no - in font nullfont!
 Missing character: There is no - in font nullfont!
 Missing character: There is no - in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.105 #
+l.108 #
         Mean, Variance and Covariance:
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -1970,9 +2049,15 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no w in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no o in font nullfont!
-Missing character: There is no g in font nullfont!
-Missing character: There is no e in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no a in font nullfont!
 Missing character: There is no t in font nullfont!
+Missing character: There is no e in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no ? in font nullfont!
@@ -2005,37 +2090,37 @@ Missing character: There is no u in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no ? in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 104--111
+Overfull \hbox (20.0pt too wide) in paragraph at lines 107--114
 []
  []
 
 
-Overfull \hbox (9.06943pt too wide) in paragraph at lines 104--111
+Overfull \hbox (9.06943pt too wide) in paragraph at lines 107--114
 \OML/cmm/m/it/10 X$
  []
 
 
-Overfull \hbox (43.31133pt too wide) in paragraph at lines 104--111
+Overfull \hbox (43.31133pt too wide) in paragraph at lines 107--114
 \OML/cmm/m/it/10 Var\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ] =
  []
 
 
-Overfull \hbox (31.47223pt too wide) in paragraph at lines 104--111
+Overfull \hbox (31.47223pt too wide) in paragraph at lines 107--114
 \OML/cmm/m/it/10 E\OT1/cmr/m/n/10 [(\OML/cmm/m/it/10 X \OMS/cmsy/m/n/10 ^^@
  []
 
 
-Overfull \hbox (33.73613pt too wide) in paragraph at lines 104--111
+Overfull \hbox (33.73613pt too wide) in paragraph at lines 107--114
 \OML/cmm/m/it/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ])[]]$
  []
 
 
-Overfull \hbox (9.06943pt too wide) in paragraph at lines 104--111
+Overfull \hbox (9.06943pt too wide) in paragraph at lines 107--114
 \OML/cmm/m/it/10 X$
  []
 
 
-Overfull \hbox (9.06943pt too wide) in paragraph at lines 104--111
+Overfull \hbox (9.06943pt too wide) in paragraph at lines 107--114
 \OML/cmm/m/it/10 X$ 
  []
 
@@ -2046,7 +2131,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.112 +
+l.115 +
         .content-box-green[Visualization]
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -2086,7 +2171,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no ] in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 112--113
+Overfull \hbox (20.0pt too wide) in paragraph at lines 115--116
 []
  []
 
@@ -2097,7 +2182,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.114 `
+l.117 `
        ``{r, echo=F, out.width = "50%"}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -2132,7 +2217,7 @@ Missing character: There is no s in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.115 ls_
+l.118 ls_
          res <- list()
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -2140,29 +2225,29 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.117 
+l.120 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 114--117
+Overfull \hbox (20.0pt too wide) in paragraph at lines 117--120
 []
  []
 
 
-Overfull \hbox (24.32753pt too wide) in paragraph at lines 114--117
+Overfull \hbox (24.32753pt too wide) in paragraph at lines 117--120
 []\OML/cmm/m/it/10 es <
  []
 
 
-Overfull \hbox (63.72995pt too wide) in paragraph at lines 114--117
+Overfull \hbox (63.72995pt too wide) in paragraph at lines 117--120
 \OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 list\OT1/cmr/m/n/10 ()\OML/cmm/m/it/10 ls[
 ]ar <
  []
 
 
-Overfull \hbox (43.77203pt too wide) in paragraph at lines 114--117
+Overfull \hbox (43.77203pt too wide) in paragraph at lines 117--120
 \OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 c\OT1/cmr/m/n/10 (1\OML/cmm/m/it/10 ; \OT1
 /cmr/m/n/10 4\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 9)$ 
  []
@@ -2174,7 +2259,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.118 f
+l.121 f
        or (i in seq(1:length(ls_var))){
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -2204,7 +2289,7 @@ Missing character: There is no s in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.118 for (i in seq(1:length(ls_
+l.121 for (i in seq(1:length(ls_
                                 var))){
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -2212,18 +2297,18 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.124 
+l.127 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 118--124
+Overfull \hbox (20.0pt too wide) in paragraph at lines 121--127
 []
  []
 
 
-Overfull \hbox (687.73418pt too wide) in paragraph at lines 118--124
+Overfull \hbox (687.73418pt too wide) in paragraph at lines 121--127
 []\OML/cmm/m/it/10 ar\OT1/cmr/m/n/10 )))[]$ 
  []
 
@@ -2234,49 +2319,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.125 r
-       es_total <- rbindlist(ls_res)
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-Missing character: There is no r in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no s in font nullfont!
-! Missing $ inserted.
-<inserted text> 
-                $
-l.125 res_
-          total <- rbindlist(ls_res)
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.126 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (51.00116pt too wide) in paragraph at lines 125--126
-[]$[]\OML/cmm/m/it/10 otal <
- []
-
-
-Overfull \hbox (75.85338pt too wide) in paragraph at lines 125--126
-\OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 rbindlist\OT1/cmr/m/n/10 (\OML/cmm/m/it/10
- ls[]es\OT1/cmr/m/n/10 )$ 
- []
-
-
-! LaTeX Error: Missing \begin{document}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.127 g
+l.128 g
        gplot(data = res_total) +
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -2299,7 +2342,7 @@ Missing character: There is no s in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.127 ggplot(data = res_
+l.128 ggplot(data = res_
                         total) +
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -2307,78 +2350,78 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.133 
+l.134 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 127--133
+Overfull \hbox (20.0pt too wide) in paragraph at lines 128--134
 []
  []
 
 
-Overfull \hbox (32.11235pt too wide) in paragraph at lines 127--133
+Overfull \hbox (32.11235pt too wide) in paragraph at lines 128--134
 []\OML/cmm/m/it/10 otal\OT1/cmr/m/n/10 ) +
  []
 
 
-Overfull \hbox (79.26353pt too wide) in paragraph at lines 127--133
+Overfull \hbox (79.26353pt too wide) in paragraph at lines 128--134
 \OML/cmm/m/it/10 geom[]ine\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 aes\OT1/cmr/m/n/10 
 (\OML/cmm/m/it/10 x \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (25.97679pt too wide) in paragraph at lines 127--133
+Overfull \hbox (25.97679pt too wide) in paragraph at lines 128--134
 \OML/cmm/m/it/10 x; y \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (42.25348pt too wide) in paragraph at lines 127--133
+Overfull \hbox (42.25348pt too wide) in paragraph at lines 128--134
 \OML/cmm/m/it/10 y; color \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (88.63817pt too wide) in paragraph at lines 127--133
+Overfull \hbox (88.63817pt too wide) in paragraph at lines 128--134
 \OML/cmm/m/it/10 interaction\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 var\OT1/cmr/m/n/1
 0 ))) +
  []
 
 
-Overfull \hbox (37.15163pt too wide) in paragraph at lines 127--133
+Overfull \hbox (37.15163pt too wide) in paragraph at lines 128--134
 \OML/cmm/m/it/10 labs\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 y \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (57.88763pt too wide) in paragraph at lines 127--133
+Overfull \hbox (57.88763pt too wide) in paragraph at lines 128--134
 \OT1/cmr/m/n/10 "\OML/cmm/m/it/10 Density\OT1/cmr/m/n/10 ") +
  []
 
 
-Overfull \hbox (65.28317pt too wide) in paragraph at lines 127--133
+Overfull \hbox (65.28317pt too wide) in paragraph at lines 128--134
 \OML/cmm/m/it/10 guides\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 color \OT1/cmr/m/n/10 
 =
  []
 
 
-Overfull \hbox (85.82558pt too wide) in paragraph at lines 127--133
+Overfull \hbox (85.82558pt too wide) in paragraph at lines 128--134
 \OML/cmm/m/it/10 guide[]egend\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 title \OT1/cmr/m
 /n/10 =
  []
 
 
-Overfull \hbox (48.31134pt too wide) in paragraph at lines 127--133
+Overfull \hbox (48.31134pt too wide) in paragraph at lines 128--134
 \OT1/cmr/m/n/10 "\OML/cmm/m/it/10 Var\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X\OT1/cm
 r/m/n/10 ] =
  []
 
 
-Overfull \hbox (20.55562pt too wide) in paragraph at lines 127--133
+Overfull \hbox (20.55562pt too wide) in paragraph at lines 128--134
 \OT1/cmr/m/n/10 ")) +
  []
 
 
-Overfull \hbox (54.46588pt too wide) in paragraph at lines 127--133
+Overfull \hbox (54.46588pt too wide) in paragraph at lines 128--134
 \OML/cmm/m/it/10 theme[]w\OT1/cmr/m/n/10 ()\`$ 
  []
 
@@ -2389,7 +2432,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.135 -
+l.136 -
        --
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -2508,7 +2551,7 @@ Missing character: There is no a in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no > in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 135--138
+Overfull \hbox (20.0pt too wide) in paragraph at lines 136--139
 []
  []
 
@@ -2519,18 +2562,18 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.139 $
+l.140 $
        $
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 139--139
+Overfull \hbox (20.0pt too wide) in paragraph at lines 140--140
 [] 
  []
 
 ! Undefined control sequence.
-l.140 \color
+l.141 \color
             {red}{cov(X, Y) = E[(X-E[X])((Y-E[Y]))]}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2539,7 +2582,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (193.64215pt too wide) detected at line 141
+Overfull \hbox (193.64215pt too wide) detected at line 142
 [][]
  []
 
@@ -2549,9 +2592,15 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no w in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no o in font nullfont!
-Missing character: There is no g in font nullfont!
-Missing character: There is no e in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no a in font nullfont!
 Missing character: There is no t in font nullfont!
+Missing character: There is no e in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no ? in font nullfont!
@@ -2583,15 +2632,14 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no u in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no ? in font nullfont!
-Missing character: There is no + in font nullfont!
 
-Overfull \hbox (9.06943pt too wide) in paragraph at lines 141--146
+Overfull \hbox (9.06943pt too wide) in paragraph at lines 142--146
         $\OML/cmm/m/it/10 X$
  []
 
 
-Overfull \hbox (9.06943pt too wide) in paragraph at lines 141--146
-\OML/cmm/m/it/10 X$
+Overfull \hbox (9.06943pt too wide) in paragraph at lines 142--146
+\OML/cmm/m/it/10 X$ 
  []
 
 
@@ -2601,7 +2649,490 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.147 -
+l.147 +
+        .content-box-green[Visualization]
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no + in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no - in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no x in font nullfont!
+Missing character: There is no - in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no [ in font nullfont!
+Missing character: There is no V in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no ] in font nullfont!
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 147--148
+[]
+ []
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.149 `
+       ``{r, echo=F, out.width = "60%"}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ` in font nullfont!
+Missing character: There is no ` in font nullfont!
+Missing character: There is no ` in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no = in font nullfont!
+Missing character: There is no F in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no = in font nullfont!
+Missing character: There is no " in font nullfont!
+Missing character: There is no 6 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.150 list_
+           a <- c(-0.8, -0.5, 0, 0.5, 0.8)
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.153 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 149--153
+[]
+ []
+
+
+Overfull \hbox (15.39316pt too wide) in paragraph at lines 149--153
+[] \OML/cmm/m/it/10 <
+ []
+
+
+Overfull \hbox (125.88556pt too wide) in paragraph at lines 149--153
+\OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 c\OT1/cmr/m/n/10 (\OMS/cmsy/m/n/10 ^^@\OT1
+/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 8\OML/cmm/m/it/10 ; \OMS/cmsy/m/
+n/10 ^^@\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 5\OML/cmm/m/it/10 ; 
+\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr
+/m/n/10 5\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 
+8)\OML/cmm/m/it/10 n \OT1/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (52.19566pt too wide) in paragraph at lines 149--153
+\OT1/cmr/m/n/10 1000\OML/cmm/m/it/10 ls[]es <
+ []
+
+
+Overfull \hbox (30.47992pt too wide) in paragraph at lines 149--153
+\OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 list\OT1/cmr/m/n/10 ()$ 
+ []
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.154 f
+       or (i in seq(1:length(list_a))){
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no f in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no ( in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no q in font nullfont!
+Missing character: There is no ( in font nullfont!
+Missing character: There is no 1 in font nullfont!
+Missing character: There is no : in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no ( in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.154 for (i in seq(1:length(list_
+                                  a))){
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.162 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 154--162
+[]
+ []
+
+
+Overfull \hbox (682.47192pt too wide) in paragraph at lines 154--162
+[]\OT1/cmr/m/n/10 )))[]$ 
+ []
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.163 r
+       es_total <-
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no r in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.163 res_
+          total <-
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.167 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (51.00116pt too wide) in paragraph at lines 163--167
+[]$[]\OML/cmm/m/it/10 otal <
+ []
+
+
+Overfull \hbox (123.47375pt too wide) in paragraph at lines 163--167
+\OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 rbindlist\OT1/cmr/m/n/10 (\OML/cmm/m/it/10
+ ls[]es\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 ; o
+rder \OT1/cmr/m/n/10 :=
+ []
+
+
+Overfull \hbox (49.56151pt too wide) in paragraph at lines 163--167
+\OML/cmm/m/it/10 :GRP; by \OT1/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (49.95718pt too wide) in paragraph at lines 163--167
+\OML/cmm/m/it/10 a\OT1/cmr/m/n/10 ]\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 [\OML/cmm/
+m/it/10 ; type \OT1/cmr/m/n/10 :=
+ []
+
+
+Overfull \hbox (94.39606pt too wide) in paragraph at lines 163--167
+\OML/cmm/m/it/10 paste\OT1/cmr/m/n/10 0("\OML/cmm/m/it/10 Cov\OT1/cmr/m/n/10 (\
+OML/cmm/m/it/10 X; Y\OT1/cmr/m/n/10 ) =
+ []
+
+
+Overfull \hbox (118.00372pt too wide) in paragraph at lines 163--167
+\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 ; round\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 cov\
+OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x; y\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; digits
+ \OT1/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (37.331pt too wide) in paragraph at lines 163--167
+\OT1/cmr/m/n/10 1))\OML/cmm/m/it/10 ; by \OT1/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (8.06367pt too wide) in paragraph at lines 163--167
+\OML/cmm/m/it/10 a\OT1/cmr/m/n/10 ]$ 
+ []
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.168 u
+       nique(res_total$type)
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no u in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no q in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no ( in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.168 unique(res_
+                 total$type)
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Missing character: There is no t in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no ) in font nullfont!
+
+Overfull \hbox (40.44565pt too wide) in paragraph at lines 168--169
+[]$[]\OML/cmm/m/it/10 otal$ 
+ []
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.171 g
+       gplot(data = res_total) +
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no g in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no ( in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no = in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.171 ggplot(data = res_
+                        total) +
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Missing character: There is no t in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no ) in font nullfont!
+Missing character: There is no ) in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no = in font nullfont!
+Missing character: There is no " in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no " in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no = in font nullfont!
+Missing character: There is no 2 in font nullfont!
+Missing character: There is no ) in font nullfont!
+Missing character: There is no + in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no e in font nullfont!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.175   theme_
+              bw()+
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.178 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 171--178
+[]
+ []
+
+
+Overfull \hbox (32.11235pt too wide) in paragraph at lines 171--178
+[]\OML/cmm/m/it/10 otal\OT1/cmr/m/n/10 ) +
+ []
+
+
+Overfull \hbox (84.6185pt too wide) in paragraph at lines 171--178
+\OML/cmm/m/it/10 geom[]oint\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 aes\OT1/cmr/m/n/10
+ (\OML/cmm/m/it/10 x \OT1/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (25.97679pt too wide) in paragraph at lines 171--178
+\OML/cmm/m/it/10 x; y \OT1/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (20.8172pt too wide) in paragraph at lines 171--178
+\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 )) +
+ []
+
+
+Overfull \hbox (50.39423pt too wide) in paragraph at lines 171--178
+\OML/cmm/m/it/10 labs\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 title \OT1/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (216.48926pt too wide) in paragraph at lines 171--178
+\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 Plotsof\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X; Y
+\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 withvarioussizeofcovariance\OT1/cmr/m/n/10 ")
+ +
+ []
+
+
+Overfull \hbox (173.89235pt too wide) in paragraph at lines 171--178
+\OML/cmm/m/it/10 facet[]rap\OT1/cmr/m/n/10 ( []\OML/cmm/m/it/10 factor\OT1/cmr/
+m/n/10 (\OML/cmm/m/it/10 type; unique\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 res[]ota
+l$
+ []
+
+
+Overfull \hbox (27.00052pt too wide) in paragraph at lines 171--178
+[]\OML/cmm/m/it/10 w\OT1/cmr/m/n/10 () +
+ []
+
+
+Overfull \hbox (79.86192pt too wide) in paragraph at lines 171--178
+\OML/cmm/m/it/10 theme\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 plot:title \OT1/cmr/m/n
+/10 =
+ []
+
+
+Overfull \hbox (91.96614pt too wide) in paragraph at lines 171--178
+\OML/cmm/m/it/10 element[]ext\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 hjust \OT1/cmr/m
+/n/10 =
+ []
+
+
+Overfull \hbox (28.33342pt too wide) in paragraph at lines 171--178
+\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 5))\`$ 
+ []
+
+
+! LaTeX Error: The font size command \normalsize is not defined:
+               there is probably something wrong with the class file.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.178 
+      
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[1{/opt/local/var/db/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.181 -
        --
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -2610,7 +3141,7 @@ Missing character: There is no - in font nullfont!
 Missing character: There is no - in font nullfont!
 Missing character: There is no - in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.148 #
+l.182 #
         Expectation, Variance and Covariance as operators
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -2764,22 +3295,22 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no w in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 147--150
+Overfull \hbox (20.0pt too wide) in paragraph at lines 181--184
 []
  []
 
 
-Overfull \hbox (15.18051pt too wide) in paragraph at lines 147--150
+Overfull \hbox (15.18051pt too wide) in paragraph at lines 181--184
 \OML/cmm/m/it/10 E\OT1/cmr/m/n/10 [ ]$
  []
 
 
-Overfull \hbox (25.35301pt too wide) in paragraph at lines 147--150
+Overfull \hbox (25.35301pt too wide) in paragraph at lines 181--184
 \OML/cmm/m/it/10 Var\OT1/cmr/m/n/10 [ ]$
  []
 
 
-Overfull \hbox (25.13792pt too wide) in paragraph at lines 147--150
+Overfull \hbox (25.13792pt too wide) in paragraph at lines 181--184
 \OML/cmm/m/it/10 Cov\OT1/cmr/m/n/10 [ ]$
  []
 
@@ -2790,7 +3321,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.151 F
+l.185 F
        or any constants $a$ and $b$ and random variables $X$ and $Y$:
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -2836,27 +3367,27 @@ Missing character: There is no n in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no : in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 151--152
+Overfull \hbox (20.0pt too wide) in paragraph at lines 185--186
 []
  []
 
 
-Overfull \hbox (5.28589pt too wide) in paragraph at lines 151--152
+Overfull \hbox (5.28589pt too wide) in paragraph at lines 185--186
 \OML/cmm/m/it/10 a$
  []
 
 
-Overfull \hbox (4.29166pt too wide) in paragraph at lines 151--152
+Overfull \hbox (4.29166pt too wide) in paragraph at lines 185--186
 \OML/cmm/m/it/10 b$
  []
 
 
-Overfull \hbox (9.06943pt too wide) in paragraph at lines 151--152
+Overfull \hbox (9.06943pt too wide) in paragraph at lines 185--186
 \OML/cmm/m/it/10 X$
  []
 
 
-Overfull \hbox (8.02779pt too wide) in paragraph at lines 151--152
+Overfull \hbox (8.02779pt too wide) in paragraph at lines 185--186
 \OML/cmm/m/it/10 Y$ 
  []
 
@@ -2867,7 +3398,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.153 .
+l.187 .
        content-box-red[**Expectation**]
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -3007,110 +3538,95 @@ Missing character: There is no b in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no > in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 153--159
+Overfull \hbox (20.0pt too wide) in paragraph at lines 187--193
 []
  []
 
 
-Overfull \hbox (23.79979pt too wide) in paragraph at lines 153--159
+Overfull \hbox (23.79979pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 a \OT1/cmr/m/n/10 +
  []
 
 
-Overfull \hbox (26.69438pt too wide) in paragraph at lines 153--159
+Overfull \hbox (26.69438pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 bX\OT1/cmr/m/n/10 ] =
  []
 
 
-Overfull \hbox (13.06369pt too wide) in paragraph at lines 153--159
+Overfull \hbox (13.06369pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 a \OT1/cmr/m/n/10 +
  []
 
 
-Overfull \hbox (26.87497pt too wide) in paragraph at lines 153--159
+Overfull \hbox (26.87497pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 bE\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ]$
  []
 
 
-Overfull \hbox (32.86922pt too wide) in paragraph at lines 153--159
+Overfull \hbox (32.86922pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 aX \OT1/cmr/m/n/10 +
  []
 
 
-Overfull \hbox (25.65274pt too wide) in paragraph at lines 153--159
+Overfull \hbox (25.65274pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 bY\OT1/cmr/m/n/10 ] =
  []
 
 
-Overfull \hbox (35.647pt too wide) in paragraph at lines 153--159
+Overfull \hbox (35.647pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 aE\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ] +
  []
 
 
-Overfull \hbox (25.83333pt too wide) in paragraph at lines 153--159
+Overfull \hbox (25.83333pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 bE\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 Y\OT1/cmr/m/n/10 ]$
  []
 
 
-Overfull \hbox (18.62154pt too wide) in paragraph at lines 153--159
+Overfull \hbox (18.62154pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 g\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 )$
  []
 
 
-Overfull \hbox (23.35423pt too wide) in paragraph at lines 153--159
+Overfull \hbox (23.35423pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 f\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x \OT1/cmr/m/n/10 +
  []
 
 
-Overfull \hbox (19.70601pt too wide) in paragraph at lines 153--159
+Overfull \hbox (19.70601pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 y\OT1/cmr/m/n/10 ) =
  []
 
 
-Overfull \hbox (27.24313pt too wide) in paragraph at lines 153--159
+Overfull \hbox (27.24313pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 f\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ) +
  []
 
 
-Overfull \hbox (19.01166pt too wide) in paragraph at lines 153--159
+Overfull \hbox (19.01166pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 f\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 )$
  []
 
 
-Overfull \hbox (33.50461pt too wide) in paragraph at lines 153--159
+Overfull \hbox (33.50461pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 g\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 cx\OT1/cmr/m/n/10 ) =
  []
 
 
-Overfull \hbox (22.9491pt too wide) in paragraph at lines 153--159
+Overfull \hbox (22.9491pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 cg\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 )$
  []
 
 
-Overfull \hbox (5.71527pt too wide) in paragraph at lines 153--159
+Overfull \hbox (5.71527pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 x$
  []
 
 
-Overfull \hbox (4.32756pt too wide) in paragraph at lines 153--159
+Overfull \hbox (4.32756pt too wide) in paragraph at lines 187--193
 \OML/cmm/m/it/10 c$
  []
 
-
-! LaTeX Error: The font size command \normalsize is not defined:
-               there is probably something wrong with the class file.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.159 
-      
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-[1{/opt/local/var/db/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 
 ! LaTeX Error: Missing \begin{document}.
 
@@ -3118,7 +3634,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.160 .
+l.194 .
        content-box-red[**Variance**]
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -3155,7 +3671,7 @@ Missing character: There is no * in font nullfont!
 Missing character: There is no ] in font nullfont!
 Missing character: There is no + in font nullfont!
 ! Undefined control sequence.
-l.161 + $Var[X]=E[X^2] - E[X]^2 \quad (\text
+l.195 + $Var[X]=E[X^2] - E[X]^2 \quad (\text
                                             {Simply, another definition of }...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3168,74 +3684,74 @@ Missing character: There is no + in font nullfont!
 Missing character: There is no + in font nullfont!
 Missing character: There is no + in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 160--165
+Overfull \hbox (20.0pt too wide) in paragraph at lines 194--199
 []
  []
 
 
-Overfull \hbox (43.31133pt too wide) in paragraph at lines 160--165
+Overfull \hbox (43.31133pt too wide) in paragraph at lines 194--199
 \OML/cmm/m/it/10 Var\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ] =
  []
 
 
-Overfull \hbox (34.84724pt too wide) in paragraph at lines 160--165
+Overfull \hbox (34.84724pt too wide) in paragraph at lines 194--199
 \OML/cmm/m/it/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X[]\OT1/cmr/m/n/10 ] \OMS/c
 msy/m/n/10 ^^@
  []
 
 
-Overfull \hbox (192.97067pt too wide) in paragraph at lines 160--165
+Overfull \hbox (192.97067pt too wide) in paragraph at lines 194--199
 \OML/cmm/m/it/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ][] ([]\OM
 L/cmm/m/it/10 Var\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ]$
  []
 
 
-Overfull \hbox (48.59721pt too wide) in paragraph at lines 160--165
+Overfull \hbox (48.59721pt too wide) in paragraph at lines 194--199
 \OML/cmm/m/it/10 Var\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 aX\OT1/cmr/m/n/10 ] =
  []
 
 
-Overfull \hbox (42.52783pt too wide) in paragraph at lines 160--165
+Overfull \hbox (42.52783pt too wide) in paragraph at lines 194--199
 \OML/cmm/m/it/10 a[]Var\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ]$
  []
 
 
-Overfull \hbox (33.97229pt too wide) in paragraph at lines 160--165
+Overfull \hbox (33.97229pt too wide) in paragraph at lines 194--199
 \OML/cmm/m/it/10 Var\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 a \OT1/cmr/m/n/10 +
  []
 
 
-Overfull \hbox (26.69438pt too wide) in paragraph at lines 160--165
+Overfull \hbox (26.69438pt too wide) in paragraph at lines 194--199
 \OML/cmm/m/it/10 bX\OT1/cmr/m/n/10 ] =
  []
 
 
-Overfull \hbox (41.5336pt too wide) in paragraph at lines 160--165
+Overfull \hbox (41.5336pt too wide) in paragraph at lines 194--199
 \OML/cmm/m/it/10 b[]Var\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ]$
  []
 
 
-Overfull \hbox (43.04172pt too wide) in paragraph at lines 160--165
+Overfull \hbox (43.04172pt too wide) in paragraph at lines 194--199
 \OML/cmm/m/it/10 Var\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 aX \OT1/cmr/m/n/10 +
  []
 
 
-Overfull \hbox (25.65274pt too wide) in paragraph at lines 160--165
+Overfull \hbox (25.65274pt too wide) in paragraph at lines 194--199
 \OML/cmm/m/it/10 bY\OT1/cmr/m/n/10 ] =
  []
 
 
-Overfull \hbox (50.30563pt too wide) in paragraph at lines 160--165
+Overfull \hbox (50.30563pt too wide) in paragraph at lines 194--199
 \OML/cmm/m/it/10 a[]Var\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ] +
  []
 
 
-Overfull \hbox (48.26976pt too wide) in paragraph at lines 160--165
+Overfull \hbox (48.26976pt too wide) in paragraph at lines 194--199
 \OML/cmm/m/it/10 b[]Var\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 Y\OT1/cmr/m/n/10 ] +
  []
 
 
-Overfull \hbox (61.25716pt too wide) in paragraph at lines 160--165
+Overfull \hbox (61.25716pt too wide) in paragraph at lines 194--199
 \OT1/cmr/m/n/10 2\OML/cmm/m/it/10 abCov\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X; Y\O
 T1/cmr/m/n/10 )$ 
  []
@@ -3247,7 +3763,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.167 -
+l.201 -
        --
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -3289,7 +3805,7 @@ Missing character: There is no * in font nullfont!
 Missing character: There is no ] in font nullfont!
 Missing character: There is no + in font nullfont!
 ! Undefined control sequence.
-l.169 + $Cov[X, Y]=E[XY]-E[X]E[Y] \quad (\text
+l.203 + $Cov[X, Y]=E[XY]-E[X]E[Y] \quad (\text
                                               {Simply, another definition of...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3301,50 +3817,50 @@ Missing character: There is no ) in font nullfont!
 Missing character: There is no + in font nullfont!
 Missing character: There is no + in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 167--172
+Overfull \hbox (20.0pt too wide) in paragraph at lines 201--206
 []
  []
 
 
-Overfull \hbox (55.01288pt too wide) in paragraph at lines 167--172
+Overfull \hbox (55.01288pt too wide) in paragraph at lines 201--206
 \OML/cmm/m/it/10 Cov\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X; Y\OT1/cmr/m/n/10 ] =
  []
 
 
-Overfull \hbox (38.3889pt too wide) in paragraph at lines 167--172
+Overfull \hbox (38.3889pt too wide) in paragraph at lines 201--206
 \OML/cmm/m/it/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 XY\OT1/cmr/m/n/10 ] \OMS/cm
 sy/m/n/10 ^^@
  []
 
 
-Overfull \hbox (221.72777pt too wide) in paragraph at lines 167--172
+Overfull \hbox (221.72777pt too wide) in paragraph at lines 201--206
 \OML/cmm/m/it/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ]\OML/cmm/
 m/it/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 Y\OT1/cmr/m/n/10 ] ([]\OML/cmm/m/it/
 10 Cov\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X; Y\OT1/cmr/m/n/10 ]$
  []
 
 
-Overfull \hbox (60.29877pt too wide) in paragraph at lines 167--172
+Overfull \hbox (60.29877pt too wide) in paragraph at lines 201--206
 \OML/cmm/m/it/10 Cov\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 aX; Y\OT1/cmr/m/n/10 ] =
  []
 
 
-Overfull \hbox (49.74326pt too wide) in paragraph at lines 167--172
+Overfull \hbox (49.74326pt too wide) in paragraph at lines 201--206
 \OML/cmm/m/it/10 aCov\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X; Y\OT1/cmr/m/n/10 ]$
  []
 
 
-Overfull \hbox (46.71548pt too wide) in paragraph at lines 167--172
+Overfull \hbox (46.71548pt too wide) in paragraph at lines 201--206
 \OML/cmm/m/it/10 Cov\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X; a \OT1/cmr/m/n/10 +
  []
 
 
-Overfull \hbox (25.65274pt too wide) in paragraph at lines 167--172
+Overfull \hbox (25.65274pt too wide) in paragraph at lines 201--206
 \OML/cmm/m/it/10 bY\OT1/cmr/m/n/10 ] =
  []
 
 
-Overfull \hbox (27.76295pt too wide) in paragraph at lines 167--172
+Overfull \hbox (27.76295pt too wide) in paragraph at lines 201--206
 \OML/cmm/m/it/10 bCov\OT1/cmr/m/n/10 []$ 
  []
 
@@ -3355,7 +3871,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.173 -
+l.207 -
        --
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -3364,7 +3880,7 @@ Missing character: There is no - in font nullfont!
 Missing character: There is no - in font nullfont!
 Missing character: There is no - in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 173--174
+Overfull \hbox (20.0pt too wide) in paragraph at lines 207--208
 [] 
  []
 
@@ -3375,7 +3891,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.176 c
+l.210 c
        lass: inverse, center, middle
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -3421,12 +3937,12 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no e in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 176--178
+Overfull \hbox (20.0pt too wide) in paragraph at lines 210--212
 []
  []
 
 ! You can't use `macro parameter character #' in vertical mode.
-l.180 #
+l.214 #
         Exercise
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -3440,7 +3956,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.180 # E
+l.214 # E
          xercise
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -3454,7 +3970,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no e in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 180--181
+Overfull \hbox (20.0pt too wide) in paragraph at lines 214--215
 [] 
  []
 
@@ -3465,7 +3981,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.182 <
+l.216 <
        html><div style='float:left'></div><hr color='#EB811B' size=1px width...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -3517,7 +4033,7 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no = in font nullfont!
 Missing character: There is no ' in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.182 ...div style='float:left'></div><hr color='#
+l.216 ...div style='float:left'></div><hr color='#
                                                   EB811B' size=1px width=796...
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -3559,7 +4075,7 @@ Missing character: There is no m in font nullfont!
 Missing character: There is no l in font nullfont!
 Missing character: There is no > in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 182--183
+Overfull \hbox (20.0pt too wide) in paragraph at lines 216--217
 []
  []
 
@@ -3570,7 +4086,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.184 -
+l.218 -
        --
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -3579,7 +4095,7 @@ Missing character: There is no - in font nullfont!
 Missing character: There is no - in font nullfont!
 Missing character: There is no - in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 184--185
+Overfull \hbox (20.0pt too wide) in paragraph at lines 218--219
 [] 
  []
 
@@ -3593,9 +4109,9 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 184--185
 Here is how much of TeX's memory you used:
  24 strings out of 480228
  928 string characters out of 5895606
- 297367 words of memory out of 5000000
+ 298877 words of memory out of 5000000
  18075 multiletter control sequences out of 15000+600000
  469259 words of font info for 28 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 25i,5n,25p,251b,113s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 23i,5n,23p,251b,117s stack positions out of 10000i,1000n,20000p,200000b,200000s
 !  ==> Fatal error occurred, no output PDF file produced!
