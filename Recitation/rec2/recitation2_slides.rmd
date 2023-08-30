@@ -29,59 +29,161 @@ class: middle
 library(data.table)
 library(ggplot2)
 library(dplyr)
+library(gganimate)
 
 httpgd::hgd()
 httpgd::hgd_browse()
 ```
 
 
-```{r}
-figure_theme <- 
-  theme_bw() +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme(
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank()
-  )
-
-
-```
-
 # Outline
 
-1. [Review some concepts related to random variables](#intro)
-  * CDF, PDF, PMF
-  * Mean and variance, covariance
-3. [Exercise](#Exercise)
+Review some concepts related to random variables
+
+[1. CDF, PDF, PMF](#dist)
+
+[2. Mean, variance and covariance](#mean)
+
+[3. Jensen's inequality](#Jensen)
 
 ---
+name: dist
 # CDF, PDF, PMF, Quantile function
 .content-box-red[**CDF**]
-+ Definition: The CDF of a random variable X is $F(x) = Pr[X \leq x]$
-+ **Verbally**: CDF $F(x)$ specifies the probability of the event that random variable $X$ is less than $x$. 
++ Definition: <span style="color:red">The CDF of a random variable X is $F(x) = Pr[X \leq x]$</span>
++ **Verbally**: CDF $F(x)$ tells us the probability of the event that random variable $X$ is less than a value $x$. 
 
+.left5[
 ```{r, echo=F}
-# visualizing CDF for discrete and continuous case. 
-# Define sequence of x-values
-x <- seq(-4, 4, .01)
-# #calculate normal CDF probabilities
-# cdf <- pnorm(x)
-# pdf <- rnorm(x)
-# #plot normal CDF
-# plot(x, cdf, type="l")
-# plot(x, pdf, type="l")
+# Define sequence of x-values  
+x <-  seq(-4, 4, .01)
+# CDF plot for a continuous variable
+cdf_x <- pnorm(x)
+# plot normal CDF
+plot(
+  x, cdf_x, type="l",
+  xlab = "X",
+  ylab = "Probability",
+  main = "Continuous distribution function"
+)
 ```
+]
+.right5[
+```{r, echo=F}
+# https://stackoverflow.com/questions/66266703/draw-discrete-cdf-in-r
+x <- -1:5
+prob <- ppois(q = x, lambda = 3)
+n <- length(x)
+
+plot(x = NA, y = NA, pch = NA, 
+     xlim = c(-1, max(x)), 
+     ylim = c(0, 1),
+     xlab = "X",
+     ylab = "Probability",
+     main = "Discrete distribution function"
+)
+points(x = x[-1], y = prob[-1], pch=19)
+points(x = x[-1], y = prob[-n], pch=1)
+for(i in 2:(n-1))
+  points(x=x[i+0:1], y=prob[c(i,i)], type="l")
+points(x=c(-2,x[2]), y=prob[c(1,1)], type="l")
+points(x=c(x[n],6), y=prob[c(n,n)], type="l")
+```
+]
+
 ---
 .content-box-red[**Probability mass function (Discrete random variables)**]
-+ Definition: $\pi(x) = Pr[X = x]$
++ Definition: $\color{red}{\pi(x) = Pr[X = x]}$
++ **Verbally**: The probability that $X$ equals the value $x$
+
+<br>
 
 .content-box-red[**Probability density function (Continuous random variables)**] 
-+ Definition: $f(x) = \frac{d}{dx}F(x)$
++ Definition:  $\color{red}{f(x) = \frac{d}{dx}F(x)} \quad ( = \displaystyle \lim_{x\to\infty} \frac{F(x+h)-F(x)}{h})$
++ **Verbally**: Density function is a 
 
+
+<br>
+
+.content-box-red[**Theorem 2.3: Properties of a PDF**] 
+
+A function f(x) is a density function **if and only if** 
+
+$$\begin{cases}
+f(x) \ge 0 \text{ for all } x \\
+\int_{x=-\infty}^\infty x\,dx = 1
+\end{cases}$$
 
 ---
 # Properties of PDF (and PMF)
 
+
+```{r}
+httpgd::hgd()
+httpgd::hgd_browse()
+
+
+x <-  seq(-4, 4, .01)
+# CDF plot for a continuous variable
+y <- pnorm(x)
+
+plot_data <-
+  data.table(
+    x=x,
+    y=y,
+    )
+
+
+ls_res <- list()
+ls_cut <- seq(-3.5,4,by=0.5) 
+# ls_cut <- c(-3,4) 
+for(i in 1:length(ls_cut)){
+  ls_res[[i]] <- 
+    plot_data[x <= ls_cut[i], ] %>%
+    .[, time := i]
+}
+
+res_all <- rbindlist(ls_res)
+
+
+ggplot(res_all)+
+  geom_line(data=plot_data, aes(x=x, y=y))+
+  geom_ribbon(
+    aes(ymax = y, ymin = 0, x = x),
+    fill = 'red', alpha = 0.4
+    ) +
+  transition_time(time)+
+  theme_bw()
+
+
+
+```
+
+
+```{r}
+# https://tex.stackexchange.com/questions/515670/probability-density-function-and-cumulative-distribution-function-for-normal-dis
+N <- 300
+
+data <-
+  data.table(
+    x = 6 * (runif(N) - 0.5)
+  ) %>%
+  .[, x_me := x + 1 * rnorm(N)] %>%
+  .[x_me < -3, x_me := -3] %>%
+  .[x_me > 3, x_me := 3] %>%
+  .[, y := 3 - x^2 + rnorm(N)] %>%
+  .[, .(y, x, x_me)] %>%
+  melt(id.var = "y") %>%
+  .[, time := ifelse(variable == "x", 1, 2)]
+
+library(gganimate)
+
+ggplot(data) +
+  geom_point(aes(y = y, x = value), size = 0.6) +
+  # geom_smooth(aes(y = y, x = value), method = "lm", formula = y ~ x + I(x^2)) +
+  transition_time(time) +
+  theme_bw()
+```
 
 
 ---
@@ -127,6 +229,7 @@ ggplot(data = plot_data) +
 + .content-box-green[Visualization]
 
 ```{r, echo=F, out.width = "50%"}
+# /*===== Data generation =====*/
 ls_res <- list()
 ls_var <- c(1,4,9)
 
@@ -139,11 +242,12 @@ for (i in seq(1:length(ls_var))){
 
 res_total <- rbindlist(ls_res)
 
+# /*===== Visualization =====*/
 ggplot(data = res_total) +
-  geom_line(aes(x = x, y = y, color=interaction(var)))+
-  labs(y="Density", title=expression("Density of X ~ N(6," ~ sigma^2 ~ ") with various " ~ sigma^2)) +
-  guides(color=guide_legend(title= expression(sigma^2 ~ "=")))+
-  theme_bw()+
+  geom_line(aes(x = x, y = y, color = interaction(var)))+
+  labs(y = "Density", title = expression("Density of X ~ N(6," ~ sigma^2 ~ ") with various " ~ sigma^2)) +
+  guides(color = guide_legend(title= expression(sigma^2 ~ "=")))+
+  theme_bw() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
@@ -163,34 +267,36 @@ $$
 + .content-box-green[Visualization]
 
 ```{r, echo=F, fig.dim = c(12, 3)}
-list_a <- c(-0.8, -0.5, 0, 0.5, 0.8)
+# /*===== Data generation =====*/
+ls_a <- c(-0.8, -0.5, 0, 0.5, 0.8)
 n = 1000
-ls_res <- list()
+ls_result <- list()
 
-for (i in seq(1:length(list_a))){
-  set.seed(123)
-  a <- list_a[i]
-  x <- rnorm(n, 3, sd=2)
-  z <- rnorm(n, 3, sd=2)
+set.seed(123)
+x <- rnorm(n, 3, sd=2)
+z <- rnorm(n, 3, sd=2)
+
+for (i in seq(1:length(ls_a))){  
+  a <- ls_a[i]
   y <- a*x + abs(1-abs(a))*z
-  ls_res[[i]] <- data.table(a = a, x = x, y = y)
+  ls_result[[i]] <- data.table(a = a, x = x, y = y)
 }
 
-res_total <- 
-  rbindlist(ls_res) %>%
-  .[,order := .GRP,by=a] %>%
+results <- 
+  rbindlist(ls_result) %>%
   .[,type := paste0("Cov(X,Y)=",round(cov(x,y), digits = 1)), by=a]
 
-ggplot(data = res_total)+
-  geom_point(aes(x = x, y = y), size=0.5)+
-  facet_wrap(~ factor(type, unique(res_total$type)), scale="free", nrow = 1)+
-  labs(x="X", y="Y", title="Plots of random variables (X,Y) with different sizes of covariances")+
+# /*===== Visualization =====*/
+ggplot(data = results)+
+  geom_point(aes(x = x, y = y), size = 0.5)+
+  facet_wrap(~ factor(type, unique(results$type)), scale = "free", nrow = 1)+
+  labs(x = "X", y = "Y", title = "Plots of random variables (X,Y) with different sizes of covariances")+
   theme_bw()+
   theme(
-    axis.text.x=element_blank(),
-    axis.ticks.x=element_blank(),
-    axis.text.y=element_blank(),
-    axis.ticks.y=element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
     plot.title = element_text(hjust = 0.5)
   )
 ```
@@ -206,7 +312,7 @@ class: middle
 
 .content-box-red[**Expectation**] 
 
-Expectation is a linear operator.
+<span style="color:blue">Expectation is a linear operator.</span>
 
 That is, for any constants $a$ and $b$ and any random variables $X$ and $Y$:
 
@@ -226,7 +332,7 @@ class: middle
 
 .content-box-red[**Variance**]
 
-Variance is not a linear operator except for special case. 
+<span style="color:blue">Variance is not a linear operator except for special case.</span>
 
 For any constants $a$ and $b$ and any random variables $X$ and $Y$:
 
@@ -248,7 +354,7 @@ For any constants $a$ and $b$ and any random variables $X$ and $Y$:
 ---
 class: middle
 
-.content-box-red[**Covariance**]
+.content-box-red[**Visualization**]
 
 For any constants $a$ and $b$ and any random variables $X$ and $Y$:
 
@@ -283,7 +389,7 @@ E[g(X)] \leq g(E[X]) \quad &\text{if } g(x) \text{ is a concave function}
 \end{align*}$$
 
 ---
-.content-box-green[**Implication**]
+.content-box-green[**Visualization**]
 
 .panelset[ 
 
@@ -293,7 +399,7 @@ E[g(X)] \leq g(E[X]) \quad &\text{if } g(x) \text{ is a concave function}
 set.seed(356)
 x <- runif(1000, 0, 10)
 
-# /*===== Convex case: g(x)=x^2 =====*/
+# /*===== Convex case: g(X)=X^2 =====*/
 y <- x^2
 
 figure_ex1 <-
@@ -327,7 +433,7 @@ $$\color{lightgreen}{g(E[X])} \leq \color{blue}{E[g(X)]}$$
 .panel[.panel-name[Example 2: g(x) is concave]
 .left5[
 ```{r, echo=T, out.width = "50%"}
-# /*===== Convex case: g(x)=x^(1/2) =====*/
+# /*===== Convex case: g(X)=X^(1/2) =====*/
 y <- x^(1/2)
 
 figure_ex2 <-
