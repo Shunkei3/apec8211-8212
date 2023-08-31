@@ -1,0 +1,239 @@
+# Prepare results
+
+
+```{r}
+library(data.table)
+library(ggplot2)
+library(dplyr)
+library(gganimate)
+library(ggtext)
+library(gifski)
+library(gganimate)
+```
+
+
+```{r, cache=F, echo=F}
+# https://github.com/thomasp85/gganimate/wiki/Animation-Composition
+# Placing Animations side-by-side with magick: https://tex.stackexchange.com/questions/515670/probability-density-function-and-cumulative-distribution-function-for-normal-dis
+# How to Combine Animated Plots in R: https://towardsdatascience.com/how-to-combine-animated-plots-in-r-734c6c952315
+
+# httpgd::hgd()
+# httpgd::hgd_browse()
+
+# /*===== Generate data =====*/
+x <-  seq(-4, 4, 0.05)
+y <- pnorm(x)
+y_d <- dnorm(x)
+
+
+plot_data <-data.table(x=x, y=y,y_d=y_d)
+
+
+ls_res <- list()
+ls_cut <- seq(-4,4,by=0.05) 
+# ls_cut <- c(-3,4) 
+for(i in 1:length(ls_cut)){
+  ls_res[[i]] <- 
+    plot_data[x <= ls_cut[i], ] %>%
+    .[, time := ls_cut[i]]
+}
+
+
+res_all <- 
+  rbindlist(ls_res) %>%
+  .[,c_arrow_x := max(x), by=time] %>%
+  .[,c_arrow_y := .SD[x==c_arrow_x,y], by=time] %>%
+  .[,c_P_pos_x := ifelse(time<0, 0.3, -0.3)] %>%
+  .[,d_arrow_x := 
+    case_when(
+      time < 0 ~ (-4+time)/2 + 0.5, 
+      time >= 0 ~ (-4+time)/2 + 1, 
+    )]
+  # .[,d_arrow_y := 
+  #   case_when(
+  #     time <= -3 ~ 0,
+  #     time > -3 & time <= -2 ~ 0.005,
+  #     time > -2 & time <= -1 ~ 0.01,
+  #     time > -1 & time <= -0 ~ 0.013,
+  #     time > -2 & time <= -0 ~ 0.015,
+  #     time >= 0 ~ 0.02
+  #   )]
+
+
+
+
+# /*===========================================*/
+#'=  Demonstration =
+# /*===========================================*/
+
+# === Cumulative === #
+# temp <- res_all[time==3]
+# ggplot(data=temp)+
+#   # --- base --- #
+#   geom_line(data=plot_data, aes(x=x, y=y))+
+#   geom_hline(aes(yintercept=0), color="darkgrey")+
+#   geom_segment(
+#     aes(x = 0, y = 0, xend = 0, yend = 1.05),
+#     arrow = arrow(length = unit(0.01, "npc")),
+#     color="darkgrey"
+#     )+
+#   # --- height --- #
+#   geom_segment(
+#     aes(x = c_arrow_x, y = 0, 
+#         xend = c_arrow_x, yend = c_arrow_y),
+#     arrow = arrow(length = unit(0.01, "npc"), ends = "both"), color="red"
+#     )+
+#   # --- horizontal line --- #
+#   geom_segment(
+#     aes(x = 0, y = c_arrow_y,
+#         xend = c_arrow_x, yend = c_arrow_y),
+#     linetype="dashed"
+#     )+
+#   # --- text: P --- #
+#   geom_text(aes(x=c_P_pos_x, y=c_arrow_y, label="P"),size=4, color="red")+
+#   theme_bw() 
+
+# === Density === #
+# temp <- res_all[time==4]
+
+# ggplot(data=temp)+
+#   # --- base --- #
+#   geom_line(data=plot_data, aes(x=x, y=y_d))+
+#   geom_hline(aes(yintercept=0), color="darkgrey")+
+#   geom_segment(
+#     aes(x = 0, y = 0, xend = 0, yend = 0.45),
+#     arrow = arrow(length = unit(0.01, "npc")),
+#     color="darkgrey"
+#     )+
+#   # --- fill color on the area--- #
+#   geom_ribbon(
+#     aes(ymax = y_d, ymin = 0, x = x),
+#     fill = 'red', alpha = 0.4
+#   ) +
+#   # --- text: P --- #
+#   geom_text(aes(x=0, y=-0.05, label="Area=P"),size=4, color="red")+
+#   # --- arrow --- #
+#   geom_segment(
+#     aes(x = 0, y = -0.04,
+#         xend = d_arrow_x, yend = d_arrow_y),
+#     arrow = arrow(length = unit(0.01, "npc"))
+#     )+
+#   theme_bw()
+
+
+
+# /*===========================================*/
+#'=  Animation =
+# /*===========================================*/
+
+# === Cumulative (Animation)=== #
+cdf_annimate <- 
+  ggplot(data=res_all)+
+  # --- base --- #
+  geom_line(data=plot_data, aes(x=x, y=y))+
+  geom_hline(aes(yintercept=0), color="darkgrey")+
+  geom_segment(
+    aes(x = 0, y = 0, xend = 0, yend = 1.05),
+    arrow = arrow(length = unit(0.01, "npc")),
+    color="darkgrey"
+    )+
+  # --- Vertical line --- #
+  geom_vline(
+    aes(xintercept = c_arrow_x), linetype = "dashed", size = 0.5
+    )+
+  # --- vertical red arrow --- #
+  geom_segment(
+    aes(x = c_arrow_x, y = 0, 
+        xend = c_arrow_x, yend = c_arrow_y),
+    arrow = arrow(length = unit(0.02, "npc"), ends = "both"), color="red", size = 2
+    )+
+  # --- horizontal line --- #
+  geom_segment(
+    aes(x = 0, y = c_arrow_y,
+        xend = c_arrow_x, yend = c_arrow_y),
+    linetype="dashed", size = 0.5
+    # arrow = arrow(length = unit(0.01, "npc"))
+    )+
+  # --- text: P --- #
+  geom_text(aes(x=c_P_pos_x, y=c_arrow_y, label="P"),size=6, color="red")+
+  transition_time(time)+
+  theme_bw() +
+  labs(title="CDF", x="X", y="Probability") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+
+# === Density (Animation)=== #
+pdf_annimate <- 
+  ggplot(data=res_all)+
+  # --- base --- #
+  geom_line(data=plot_data, aes(x=x, y=y_d))+
+  geom_hline(aes(yintercept=0), color="darkgrey")+
+  geom_segment(
+    aes(x = 0, y = 0, xend = 0, yend = 0.45),
+    arrow = arrow(length = unit(0.01, "npc")),
+    color="darkgrey"
+    )+
+  # --- fill color on the area--- #
+  geom_ribbon(
+    aes(ymax = y_d, ymin = 0, x = x),
+    fill = 'red', alpha = 0.4
+  ) +
+  # --- Vertical line --- #
+  geom_vline(
+    aes(xintercept = c_arrow_x), linetype = "dashed", size = 0.5
+    )+
+  # geom_segment(
+  #   aes(x = x, y = 0, xend = x, yend = 0.4),
+  #   linetype = "dashed"
+  #   ) +
+  # --- text: P --- #
+  geom_text(aes(x=0, y=-0.05, label="P (Red area)"),size=6, color="red")+
+  # --- arrow --- #
+  geom_segment(
+    aes(x = 0, y = -0.04,
+        xend = d_arrow_x, yend = 0.001),
+    arrow = arrow(length = unit(0.02, "npc"))
+    )+
+  transition_time(time)+
+  theme_bw()+
+  labs(title="PDF", x="X", y="Density") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+
+
+```{r, dpi=36, cache=F, echo=F, out.width = "80%"}
+cdf_gif <- 
+  animate(
+    cdf_annimate,
+     width = 400, height = 420, duration = 15
+     )
+
+pdf_gif <- 
+  animate(
+    pdf_annimate, 
+    width = 400, height = 420, duration = 15
+    )
+
+library(magick)
+cdf_mgif <- image_read(cdf_gif)
+pdf_mgif <- image_read(pdf_gif)
+
+
+new_gif <- 
+  image_append(
+    c(cdf_mgif[1], pdf_mgif[1]),
+    stack = FALSE
+  )
+
+for(i in 2:100){
+  combined <- 
+    image_append(
+      c(cdf_mgif[i], pdf_mgif[i]), 
+      stack = FALSE
+    )
+  new_gif <- c(new_gif, combined)
+}
+new_gif
+```
