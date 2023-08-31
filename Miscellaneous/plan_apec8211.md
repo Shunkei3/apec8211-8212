@@ -4,7 +4,7 @@
 + Assuming I have a lab session on 10/20, I have 7 recitation
 
 ---
-## Week 1
+## Week 1 (done)
 ### Class (9/6):
 + Basic probability theory, discrete random variables
 	* PSE: 1.1-1.9, 1.14, 2.1-2.5, 2.6, 2.7, 3.2
@@ -17,7 +17,7 @@
 
 ---
 
-## Week 2 
+## Week 2 (done)
 ### Class (9/11,13):
 + Continuous random variables
 	* PSE: 2.8-2.11, 2.12, 2.13, 2.15, 2.16-2.18, 2.20-2.22

@@ -1,13 +1,36 @@
 # 3rd Recitation
-## Cover:
-### Multivariate distribution
-+ PSE: 4.1-4.12, 4.18, 4.26
-+ E: 2.1-2.3
+## Scope:
++ Conditional expectations
+	* E: 2.3, 2.5-2.10
+	* PSE: *4.14-4.16*
 
-### Conditional expectation
-+ E: 2.3, 2.5-2.10
-+ PSE: 4.14-4.16
++ Projection, regression, and identification
+	* E: 2.11-2.17, *2.18-2.19*, 2.25, 2.28, 2.30
 
+
+
+## Topics:
+
+### Probability and Statistics
+
++ Conditional distribution and conditional expectation
+	* PSE 4.14:
+		- the conditional expectation is the central tendency of a conditional distribution
+	* What is conditional distribution?
+		- visualization with 
+			+ 2D
+			+ 3D
+	* This connects to CEF theorem!!!
+		- CEF -> Linear porjection 
+
++ Law of iterated expectation: 
+	* E[X] = E[E[X|Y]]
+	* Monte Calro Simulation?
+		- like assignment 2
+		- to confirm law of iterated expectation
+	* Proof: Independence -> Mean independence -> Correlation
+	* Covariance and correlation
+		
 
 
 

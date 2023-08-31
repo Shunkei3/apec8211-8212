@@ -1,0 +1,55 @@
+---
+title: "APEC8211: Recitation 3"
+author: 
+  - "Shunkei Kakimoto" 
+header-includes:
+   - \usepackage{mathtools}
+   - \usepackage{color}
+   - \usepackage{amsmath}
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    css: xaringan-themer.css 
+    lib_dir: libs
+    nature: 
+      highlightStyle: github
+      highlightLines: true
+---
+class: middle
+
+```{r, child = 'setup.rmd', cache = FALSE}
+```
+
+```{r, include = F, cache = FALSE}
+# here::i_am("GitControlled/Recitation/1_Introduction/recitation1_slides.rmd")
+```
+
+
+```{r, include = F, cache = FALSE}
+library(data.table)
+library(ggplot2)
+library(dplyr)
+library(gganimate)
+library(ggtext)
+library(gifski)
+library(gganimate)
+```
+
+```{r, include = F, eval=F, cache = FALSE}
+httpgd::hgd()
+httpgd::hgd_browse()
+```
+
+# Outline
+
+Review some concepts related to random variables
+
+[1. CDF, PDF, PMF](#dist)
+
+[2. Mean, variance and covariance](#mean)
+
+[3. Jensen's inequality](#Jensen)
+
+---
+name: dist
+# CDF, PDF, PMF, Quantile function
