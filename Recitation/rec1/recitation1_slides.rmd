@@ -221,7 +221,7 @@ knitr::include_graphics("pictures/step4.png")
   ]
 ]
 
-+ When you knit your `.Rmd` file, you may get an error message. If you are asked to install "tinytex" package, follow that instruction (e.g. Run `install.packages("tinytex")`)
++ When you knit your `.Rmd` file, you may get an error message. If you are asked to install `tinytex` package, follow that instruction (e.g. Run `install.packages("tinytex")`)
 
 ---
 class: middle
@@ -234,5 +234,4 @@ See the document "Demonstration.pdf".
 .content-box-green[**Exercise**]
 + Let's write some math equations using LaTeX math notations on your `.Rmd` file and see it's correctly appeared on a PDF document. 
 
----
-# What is Econometrics?
+
