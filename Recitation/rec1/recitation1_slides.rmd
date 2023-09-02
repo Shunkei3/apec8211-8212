@@ -93,6 +93,7 @@ theme_update(
 1. [Introduction](#intro)
 2. [Assignment Procedure](#assignment)
 3. [R markdown to create a PDF file](#Rmarkdown)
+4. [Gradescope](#gradescope)
 
 ---
 
