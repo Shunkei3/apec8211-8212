@@ -290,11 +290,11 @@ library(data.table)
 library(ggplot2)
 
 # === Data === #
-#built-in dataset in R
+# iris is a built-in dataset in R
 data(iris) 
 # Convert the data into data.table
 setDT(iris)
-# Filter for the species "setosa" 
+# Filter for the species "virginica" 
 virginica <- iris[Species == "virginica",]
 ```
 
@@ -302,8 +302,11 @@ virginica <- iris[Species == "virginica",]
 # === Visualization === #
 ggplot(virginica, aes(x=Sepal.Length, y=Petal.Length))+
   geom_point()+
+  # --- Add a regression line --- #
   geom_smooth(method = lm, se = FALSE)+
+  # --- Add a title --- #
   labs(title = "Relationship between Sepal.Length and Petal.Length")+
+  # --- Center the title --- #
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
