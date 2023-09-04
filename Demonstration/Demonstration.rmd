@@ -1,6 +1,5 @@
 ---
 title: \vspace{-2cm} Latex math notations and Example R codes with PDF output
-author: "Shunkei Kakimoto"
 output:
   pdf_document:
     number_sections: no
@@ -13,8 +12,6 @@ header-includes:
    - \usepackage{bm}
 geometry: margin=2cm
 ---
-
-
 ```{r setup, include=FALSE}
 library(knitr)
 
@@ -27,9 +24,8 @@ knitr::opts_chunk$set(
   tidy = FALSE
 )
 ```
-
- 
 # Section 1: Building blocks
+I added some math natations to a table of \LaTeX \ building blocks listed on p6 of "Assignment procedures".
 
 \newsavebox{\pmat}
 \savebox{\pmat}{$\displaystyle\begin{pmatrix}
@@ -108,7 +104,7 @@ knitr::opts_chunk$set(
 \begin{BVerbatim}
 \succ, \succsim
 \end{BVerbatim}
-& Preference relations in micro\\
+& Preference relations in micro.\\
 \hline
 \xrightarrow{p}, \xrightarrow{d}&
 \begin{BVerbatim}
@@ -120,7 +116,7 @@ knitr::opts_chunk$set(
 \begin{BVerbatim}
 \ge, \leq, >, <
 \end{BVerbatim}
-& Inequality \\
+& Inequality, \\
 \hline
 X_i, \sigma_{ij} & \begin{BVerbatim}
 X_i, \sigma_{ij} 
@@ -136,6 +132,11 @@ X_i, \sigma_{ij}
 \prod_{i=1}^n X_i 
 \end{BVerbatim}
 & Products.\\
+\hline
+\lim_{x\to\infty} f(x) & \begin{BVerbatim}
+\lim_{x\to\infty} f(x)
+\end{BVerbatim}
+& Limits.\\
 \hline
 \int_{x=-\infty}^\infty x\,dx  & \begin{BVerbatim}
 \int_{x=-\infty}^\infty x\,dx
@@ -170,7 +171,12 @@ X_i, \sigma_{ij}
 \end{tabular}
 <!-- \enlargethispage{0.25in} -->
 
-\newpage
+
+\begin{tabular}{|>{$\displaystyle}l<{$}|l|>{\footnotesize}>{\raggedright\arraybackslash}p{3in}|}
+
+\end{tabular}
+
+
 
 # Section 2: Example math equations
 ## Example 1: Aligning equations with expression after equal sign
@@ -226,14 +232,14 @@ becomes:
 ## Example 3: Including comments within equations
 Syntax:
 ```{r, eval=F}
-\begin{align*}
+\begin{equation*}
   Z_n =
     \begin{cases}
       -n & \text{with probability $1/n$} \\
       0 &  \text{with probability $1-2/n$} \\
       n &  \text{with probability $1/n$} \\
     \end{cases}       
-\end{align*}
+\end{equation*}
 ```
 becomes:
 \begin{equation*}
@@ -247,36 +253,32 @@ becomes:
 
 Sintax:
 ```{r, eval=F}
-\begin{align*}
+\begin{equation*}
 \overline{X}_n = 
   \frac{1}{n}\sum{i=1}^{n}X_i \xrightarrow{p} E[X] 
   \quad \text{ as } n \rightarrow \infty
-\end{align*}
+\end{equation*}
 ```
 becomes:
-\begin{align*}
+\begin{equation*}
 \overline{X}_n = \frac{1}{n}\sum_{i=1}^{n}X_i \xrightarrow{p} E[X] \quad \text{ as } n \rightarrow \infty
-\end{align*}
+\end{equation*}
 
 \
 
 ## Example 4: Maximization problem
 Syntax:
 ```{r, eval=F}
-\begin{equation*}
-\begin{aligned}
+\begin{align*}
 \max_{x_1, x_2} \quad & u(x_1, x_2) = \frac{1}{2}log x_1 + \frac{1}{2} log x_2 \\
 \textrm{s.t.} \quad & w=p_1 x_1 + p_2 x_2 \\
-\end{aligned}
-\end{equation*}
+\end{align*}
 ```
 becomes:
-\begin{equation*}
-\begin{aligned}
+\begin{align*}
 \max_{x_1, x_2} \quad & u(x_1, x_2) = \frac{1}{2}log x_1 + \frac{1}{2} log x_2 \\
 \textrm{s.t.} \quad & w=p_1 x_1 + p_2 x_2 \\
-\end{aligned}
-\end{equation*}
+\end{align*}
 
 \newpage 
 
@@ -305,6 +307,15 @@ ggplot(virginica, aes(x=Sepal.Length, y=Petal.Length))+
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
+NOTE: you can adjust the size of figures by the chunk option `out.width` (or `fig.width`, `fig.height` and so on). For example: 
+````markdown
+`r ''````{r, out.width = '80%'}
+
+```
+````
+
+
+\newpage 
 
 # Section 4: Insert a picture to a document
 Below is an example R chunk code to insert a picture. 
