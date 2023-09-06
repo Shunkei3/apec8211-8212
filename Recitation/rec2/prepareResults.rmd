@@ -1,6 +1,3 @@
-# Prepare results
-
-
 ```{r}
 library(data.table)
 library(ggplot2)

@@ -23,6 +23,7 @@
 	* This connects to CEF theorem!!!
 		- CEF -> Linear porjection 
 
+
 + Law of iterated expectation: 
 	* E[X] = E[E[X|Y]]
 	* Monte Calro Simulation?
@@ -31,6 +32,28 @@
 	* Proof: Independence -> Mean independence -> Correlation
 	* Covariance and correlation
 		
+
+
+
+### Homework:
++ 2nd homework: 
+	* Monte Calro Simulation 
+		- to check LIE
+
+
+## Idea
++ Independent 
+	* statistical independent
+	* mean independent ()
+	* uncorrelation
+
++ CEF theorem: It's important to understand that 
+	* Low of iterated expectations: 
+		- understand CEF and its properties 
+	* 
+
++ A little bit of Monte Carlo Simulation
+
 
 
 

@@ -26,13 +26,20 @@
 	* PSE: 4.1-4.12, 4.18, 4.26
 	* E: 2.1-2.3
 	
-### Recitation (9/15)
-+ Some concepts about random variables
-+ Jensen's inequality
-+ 
+### Recitation (9/15) (HW1 is assigned)
++ Some concepts about random variables: (25mins)
+	* CEF, PDF, and PMF
+	* Exercise problems
+
++ Basic concepts of mean, variance and covariance: (25 mins)
+	* You can briefly introduce: Var[X]=E[X^2] - E[X]^2
+	* Exercise problems
+
+
+
 ---
 
-## Week 3  (9/18,20)
+## Week 3  (9/18,20) (HW2 is assigned)
 ### Class:
 + Conditional expectations
 	* E: 2.3, 2.5-2.10
@@ -43,11 +50,20 @@
 
 
 ### Recitation (9/22)
++ Multivariate distribution:
+	* Mean, variance, covariance as operators
+	* Exercise problems (proof)
 + Covariance and correlation 
++ (appendix) Independence, mean independence, and uncorrelation
++ A bit of Monte Carlo simulation
+
+
+
+
 
 ---
 
-## Week 4  (9/25,27)
+## Week 4  (9/25,27) (HW3 is assigned)
 ### Class:
 + Projection, regression, and identification
 	* E: 2.11-2.17, 2.18-2.19, 2.25, 2.28, 2.30
