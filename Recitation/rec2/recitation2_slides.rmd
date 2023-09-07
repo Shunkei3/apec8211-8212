@@ -184,7 +184,7 @@ Let $X \sim U[0,1]$. Find the PDF of random variable $Y=X^2$.
 class: inverse, center, middle
 name: mean
 
-# Mean and Variance and their properties
+# Mean and Variance and Jensen's inequality
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
 ---
@@ -330,7 +330,7 @@ So,
 $$E[X^2] - (E[X])^2 \ge 0$$
 <p style="text-align: center;">or</p>
 $$(E[X])^2 \leq E[X^2]$$
-Define $g(x)=x^2$. The it is written as
+Define $g(x)=x^2$. Then it is written as
 $$g(E[X]) \leq E[g(X)]$$
 
 Generally, 

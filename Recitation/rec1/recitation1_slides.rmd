@@ -126,18 +126,6 @@ knitr::include_graphics("pictures/pictures.png")
 .pull-right[Source: Google Maps]
 ]
 
----
-class: middle
-
-.content-box-green[**About me**]
-+ My area of interest: Environmental Economics, Groundwater Management, the impact of climate change or weather shocks on agricultural production
-
-```{r  echo = F, out.width = "80%"}
-knitr::include_graphics("pictures/water.png")
-```
-<!-- <font size="2"> -->
-Source: [Braun and Schlenker (2023)](https://www.nber.org/papers/w30966#:~:text=Cooling%2Dby%2Dirrigation%20propagates%20downwind,that%20are%20of%20equal%20magnitude); [Kustu et al.(2010)](https://www.sciencedirect.com/science/article/abs/pii/S0022169410004130)
-<!-- </font> -->
 
 ---
 class: inverse, center, middle
@@ -147,8 +135,8 @@ name: assignment
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
 
 ---
-# General note
-Please read the document "Assignments in APEC 8211 and 8212".
+
+<span style="color:red">Please read the document "Assignments in APEC 8211 and 8212".</span>
 
 .content-box-green[**Assignment Submission**]
 + Submit your assignment as <span style="color:blue">one single PDF file including R codes and R outputs</span>
@@ -157,12 +145,12 @@ Please read the document "Assignments in APEC 8211 and 8212".
   * LaTeX, R markdown (I will demonstrate how to do it later)
 
 ---
-# General note
-Please read the document "Assignments in APEC 8211 and 8212".
+
+<span style="color:red">Please read the document "Assignments in APEC 8211 and 8212".</span>
 
 .content-box-green[**Assignment Submission**]
 + Submit your assignment as <span style="color:blue">one single PDF file including R codes and R outputs</span>
-+ Submission ocation: Gradescope
++ Submission location: Gradescope
 + To create a PDF document: 
   * LaTeX, R markdown (I will demonstrate how to do it later), or combination of the two
   
@@ -222,6 +210,12 @@ knitr::include_graphics("pictures/step4.png")
 ]
 
 + When you knit your `.Rmd` file, you may get an error message. If you are asked to install `tinytex` package, follow that instruction (e.g. Run `install.packages("tinytex")`)
+---
+class: middle
+
+For further infromation about R markdown see the document "Using-R-Markdown.pdf". 
+
+
 
 ---
 class: middle
@@ -231,7 +225,48 @@ See the document "Demonstration.pdf".
 + Section 2: Example math equations
 
 <br>
+
 .content-box-green[**Exercise**]
-+ Let's write some math equations using LaTeX math notations on your `.Rmd` file and see it's correctly appeared on a PDF document. 
++ Let's write some math equations using LaTeX math notations on your `.Rmd` (or `.rmd`) file and see it's correctly appeared on a PDF document. 
+
+---
+
+# Gradescope submission
+Assignment is submitted on Gradescope. The below is the procedures. 
+
+.panelset[ 
+
+.panel[.panel-name[1.Click assignment name]
+```{r, out.width = "60%"}
+knitr::include_graphics("pictures/gstep1.png")
+```
+  ]
+
+.panel[.panel-name[2.Click "Submit PDF"]
+```{r, out.width = "50%"}
+knitr::include_graphics("pictures/gstep2.png")
+```
+  ]
+
+.panel[.panel-name[3.Select PDF and submit]
+```{r, out.width = "50%"}
+knitr::include_graphics("pictures/gstep3.png")
+```
+  ]
+
+.panel[.panel-name[4.Note question locations]
+Select questions and pages to indicate where your responses are located. 
+```{r, out.width = "45%"}
+knitr::include_graphics("pictures/gstep4.png")
+```
+  ]
+
+.panel[.panel-name[5.Submit assignment]
+After noting all answer locations, submit your assignment.
+```{r, out.width = "45%"}
+knitr::include_graphics("pictures/gstep5.png")
+```
+  ]
+]
 
 
