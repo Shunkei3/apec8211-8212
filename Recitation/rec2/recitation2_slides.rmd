@@ -424,9 +424,9 @@ $$\color{blue}{E[g(X)]} \leq \color{darkgreen}{g(E[X])}$$
 <!-- class: my-one-page-font -->
 
 # Solution to Exercise 2
-We want to derive the PDF of $Y=X^2$. Since $0 \leq X \leq 1$, $0 \leq Y \leq 1$. Let $G(y)$ be the CDF of Y and $g(y)$ be the PDF of Y. By definition of PDF, $g(y)=\frac{d}{dy}G(y)$ . So, once you get $G(y)$, you can derive $g(y)$. 
+We want to derive the PDF of $Y$ which is defined by $Y=X^2$. Since $0 \leq X \leq 1$, $0 \leq Y \leq 1$. Recall the definition of PDF. Let $G(y)$ be the CDF of Y and $g(y)$ be the PDF of Y. Then, $g(y)=\frac{d}{dy}G(y)$ by the definition of PDF. So, once you get $G(y)$, you can derive $g(y)$. So, let's consider the CDF of $Y$.
 
-By definition of CDF, 
+By the definition of CDF, 
 $$G(y) = Pr(Y \leq y).$$
 Since $Y=X^2$, 
 $$\begin{align*}
