@@ -166,9 +166,6 @@ class: middle
 
 + Also, see [R mark down Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) 
 
-+ If you are interested in learning more about R programming, I recommend that you take APEC 8221 (001) Programming for Econometrics (taught by Ali and Joe, 7 week course, 2 credits). 
-  * You can still register!
-
 
 ---
 class: middle
@@ -242,6 +239,14 @@ mean_temp
 
   ]
 ]
+
+
+
+---
+# About R coding
+
++ If you are interested in learning more about R programming, I recommend that you take APEC 8221 (001) Programming for Econometrics (taught by Ali and Joe, 7 week course, 2 credits). 
+  * You can still register!
 
 ---
 
