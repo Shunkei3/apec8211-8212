@@ -160,15 +160,19 @@ knitr::include_graphics("pictures/step4.png")
 ---
 class: middle
 
-+ For further infromation about R markdown, see the document "Using-R-Markdown.pdf" uploded on Canvas and see [this](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) 
+## For further information about R markdown
 
-+ If you are interested in learning more about R programming, I recommend that you take APEC 8221 (001) Programming for Econometrics (taught by Ali and Joe). 
++ See the document "Using-R-Markdown.pdf" uploded on Canvas and 
+
++ Also, see [R mark down Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) 
+
++ If you are interested in learning more about R programming, I recommend that you take APEC 8221 (001) Programming for Econometrics (taught by Ali and Joe, 7 week course, 2 credits). 
   * You can still register!
 
 
 ---
 class: middle
-# LaTeX Math Notations
+# Writing math equations with LaTeX Math Notations
 See the document "Demonstration.pdf" on Canvas.
 + Section 1: Building blocks
 + Section 2: Example math equations
@@ -197,7 +201,7 @@ data(airquality)
 ```{r, echo=T}
 # --- Subset data from June --- #
 may_dt <- airquality[airquality$Month==6,]
-# see first 5 rows
+# Let's see the first five rows
 head(may_dt)
 ```
 
