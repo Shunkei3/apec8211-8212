@@ -93,13 +93,14 @@ name: assignment
 .content-box-green[**Assignment Submission**]
 + Submit your assignment as <span style="color:blue">one single PDF file including R codes and R outputs</span>
 + To create a PDF document: 
-  * LaTeX, R markdown (I will demonstrate how to do it later), or combination of the two
+  * LaTeX, R markdown (I will demonstrate how to do it later)
 + Submission location: Gradescope
 
 .content-box-green[**Folder Organization**]
 + Every file needed for a given assignment—data, R codes, etc.—should be in the same directory (folder).
 
 + Example:
+
 ```{r, out.width = "80%"}
 knitr::include_graphics("pictures/folder_structure.png")
 ```
