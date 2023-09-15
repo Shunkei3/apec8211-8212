@@ -17,7 +17,7 @@ output:
 ---
 class: middle
 
-```{r, child = 'setup.rmd', cache = FALSE}
+```{r, child = '../setup.rmd', cache = FALSE}
 ```
 
 ```{r, include = F, cache = FALSE}
@@ -30,7 +30,6 @@ library(data.table)
 library(ggplot2)
 library(dplyr)
 library(gganimate)
-library(ggtext)
 library(gifski)
 library(gganimate)
 ```
@@ -277,11 +276,60 @@ plot_var_X
 
 ---
 
-.content-box-red[**Basic: Covariance**]
+.content-box-red[**Covariance**]
 
 **Definition**
 $$
-\color{red}{Cov(X, Y) = E[(X-E[X])((Y-E[Y]))]}
+\color{red}{Cov(X, Y) = E[(X-E[X])((Y-E[Y]))]} = E[XY] - E[X][Y]
+$$
+
+**Verbally**: Covariance measure the joint variability of two random variables. 
+
++ .content-box-green[Visualization]
+
+```{r, dpi=36,, echo=F, fig.dim = c(12, 3)}
+# /*===== Data generation =====*/
+ls_a <- c(-0.8, -0.5, 0, 0.5, 0.8)
+n = 1000
+ls_result <- list()
+
+set.seed(123)
+x <- rnorm(n, 3, sd=2)
+z <- rnorm(n, 3, sd=2)
+
+for (i in seq(1:length(ls_a))){  
+  a <- ls_a[i]
+  y <- a*x + abs(1-abs(a))*z
+  ls_result[[i]] <- data.table(a = a, x = x, y = y)
+}
+
+results <- 
+  rbindlist(ls_result) %>%
+  .[,type := paste0("Cov(X,Y)=",round(cov(x,y), digits = 1)), by=a]
+
+# /*===== Visualization =====*/
+ggplot(data = results)+
+  geom_point(aes(x = x, y = y), size = 0.5)+
+  facet_wrap(~ factor(type, unique(results$type)), scale = "free", nrow = 1)+
+  labs(x = "X", y = "Y", title = "Plots of random variables (X,Y) with different sizes of covariances")+
+  theme_bw()+
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    plot.title = element_text(hjust = 0.5)
+  )
+```
+
+
+---
+
+.content-box-red[**Covariance**]
+
+**Definition**
+$$
+\color{red}{Cov(X, Y) = E[(X-E[X])((Y-E[Y]))]} = E[XY] - E[X][Y]
 $$
 
 **Verbally**: Covariance measure the joint variability of two random variables. 
@@ -331,11 +379,12 @@ $$
 $$
 
 ---
-## Play around with data
+## Play around with data (optional)
 .content-box-green[**Goal**]
-+ Know some basic R functions 
++ Know some basic R functions (e.g., mean, variance, etc.)
 + See covariance is influenced by the change in scale but correlation is not. 
 
+.small-code[
 ```{r, echo=T, eval=F}
 # === Data === #
 data(airquality)
@@ -374,11 +423,12 @@ cor(airquality$Wind, airquality$Temp)
 # What happens if you change the unit of wind from mph to kmph (1mph=1.6kmph)
 cor(airquality$Wind*1.6, airquality$Temp)
 ```
+]
 
 ---
 
 
-## E[ ], Var[ ], and Cov[ ] as operators
+## E[ ], Var[ ] as operators
 
 .content-box-red[**Expectation: E[ ]**]
 
@@ -387,7 +437,30 @@ cor(airquality$Wind*1.6, airquality$Temp)
 For any constants $a$ and $b$, 
 
 $$E[a+bX] = a + bE[X]$$
+$$E[aX+bY] = aE[X] + bE[Y]$$
 
+
+
+
+But, if $g(\cdot)$ function is nonlinear function, then $E[g(X_1, X_2, ... X_k)] \neq g(E[\cdot])$ unless 
+
++ Example) $E[X_1]$
+
+
+
+
+
+---
+
+## E[ ], Var[ ] as operators
+
+.content-box-red[**Expectation: E[ ]**]
+
+<span style="color:red"> $E[ \,]$ is a linear operator (Linearity of expectation)</span>
+
+For any constants $a$ and $b$, 
+
+$$E[a+bX] = a + bE[X]$$
 
 .content-box-red[**Variance: Var[ ]**]
 
@@ -410,22 +483,24 @@ Var[a+bX]
 
 
 ---
+# Exercise 4
 
-.content-box-green[**Exercise 3: Lecture note 3, p14**] 
+.content-box-green[**Lecture note 2, p14**] 
 
 Prove these for continuous $(X,Y)$ with finite variances.
 
-1. If $E[X]=0$ or $E[Y]=0$, $Cov(X,Y)=E[XY]$
+(a). If $E[X]=0$ or $E[Y]=0$, $Cov(X,Y)=E[XY]$.
 
-2. If $X \perp\!\!\!\perp Y$, corr(X,Y)=0
+(b). If $X \perp\!\!\!\perp Y$, $corr(X,Y)=0$.
 
-3. $Var[X+Y] = Var[X] + Var[Y] + 2Cov(X,Y)$
+(c). If $E[X] = E[Y] = 0$, $Var[X+Y] = Var[X] + Var[Y] + 2Cov(X,Y)$ (Note: Also true if the expectations are non-zero).
 
-4. If $X$ and $Y$ are correlated, $Var[X+Y] = Var[X] + Var[Y]$
+(d). If $X$ and $Y$ are uncorrelated, $Var[X+Y] = Var[X] + Var[Y]$.
 
 ---
+# Exercise 3
 
-.content-box-green[**Exercise 3: Final Exam: 2021: Problem 3**] 
+.content-box-green[**Final Exam: 2021: Problem 3**] 
 
 The chi-squared distribution with $k$ degrees of freedom, denoted $\chi^2(k)$, is the distribution of $\sum_{i=1}^k Z^2_{i}$ and the $Z_i$ are independent $(Z_i \perp\!\!\!\perp Z_j)$. *You do not need to work with the CDF or density of a $\chi^2$ distribution to answer this question!*.
 
@@ -449,36 +524,176 @@ name: intro
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
 
 ---
+class: middle
+.content-box-red[**Monte Carlo Simulation**]
++ A way to test econometric theories or statistical procedures in realistic setting via simulation. 
 
-# Example: Binomial distribution
+---
 
+class: middle
 
-```{r, echo=F, eval=F}
-p <- 1/2
+.content-box-green[**Example: Binomial distribution (PSE 3.4)**]
 
-# flip coins five times
-# what is the expected numner of heads
-# theoretically, it is E[X]=np=5*1/2=2.5
+The binomial disrandom variables equals the outcome of $n$ independent Bernoulli trials. If you flip a coin $n$ times, the number of heads has a binomial distribution. 
 
+<br>
+
+Theoretically, the binomial random variable has a binomial distribution with 
+$$\begin{align*}
+E[X] &= np \\
+Var[X] &= np(1-p)
+\end{align*}$$
+
+<br>
+
+Can we confim this with Monte Calro simulation?
+
+---
+class: middle
+
+class: middle
+
+.content-box-green[**Example: Binomial distribution (PSE 3.4)**]
+
+Suppose that we flip a coin $n=9$ times, and count the number of heads (i.e. $X$). The coin is not fair, $p=Pr[heads]=\frac{1}{3}$.
+
+Theoretically, 
+
++ $E[X]=np = 9 \times \frac{1}{3} = 3$
++ $Var[X]=np(1-p) = 9 \times \frac{1}{3} (1 - \frac{1}{3}) = 2$
+
+---
+class: middle
+
+## Monte Carlo Simulaton: Steps
+1. specify the data generaing process
+2. generate data based on the data generating process
+3. get an outcome you are insterested in based on the generated data
+4. repeat step 2 and 3 many many times 
+
+5. compare your estimates with the true parameter
+
+---
+
+Theoretically, $E[X]= 3$ and $Var[X] = 2$. 
+
+.medium-code[
+```{r, echo=T, eval=T}
+set.seed(1234)
+
+# --- Step1: Speficify the data generating process --- #
+p <- 1/3 
+n <- 9 # the number of trials
+
+# --- Step2: generate data  --- #
+seq_x <- sample(c(1,0), size=9, prob = c(p, 1-p), replace=TRUE)
+
+seq_x
+# --- Step3: get an outcome you are insterested in --- #
+sum(seq_x)
+```
+]
+
+---
+
+# Step 4: For loop
+
+```{r,  out.width = "80%"}
+# --- Step4: repeat step 2 and 3 many many times  --- #
 B <- 1000 # the number of iterations
-n <- 5 # the number of trials
 
+# create a storage that stores outcomes
 storage <- numeric(B)
 
-for(i in 1:n){
-  x <- sample(c(0,1), size=5, replace=TRUE)
-  storage[[i]] <- sum(x)
+for(i in 1:B){
+  seq_x <- sample(c(1,0), size=9, prob = c(p, 1-p), replace=TRUE)
+  storage[i] <- sum(seq_x)
 }
 
-hist(storage)
-
 mean(storage)
+
+hist(storage)
 ```
 
 
 
+```{r, echo=F, eval=F}
+# r: 3
+# w: 3
+# b: 6
+library(data.table)# w: 3
+
+n <- 1000
+d = 0.1
+B = 100
 
 
+set.seed(1234)
+
+
+res <- numeric(B)
+
+
+for(j in 1:B){
+  data <- 
+  data.table(
+    id = 1:n ,
+    drug = sample(c("Yes","No"), size=n, prob = c(d, 1-d), replace=TRUE),
+    response = rep("na", n)
+    )
+
+  for(i in 1:n){
+  x <- sample(c("r", "w", "b"), size=1, prob = c(3/12, 3/12, 6/12))
+  # x="b"
+  if(x=="r"){
+    data[id==i, response:= "Yes"]
+  }
+  if(x=="w"){
+    data[id==i, response:= "No"]
+  }
+  if(x=="b"){
+    data[id==i, response:= ifelse(drug=="Yes", "Yes", "No")]
+  }
+  }
+  pr_yes_hat <- nrow(data[response=="Yes"])/n
+
+  res[[j]] <- 2*(pr_yes_hat - 1/4)
+
+}
+
+
+mean(res)
+
+n=10000
+
+data <- 
+  data.table(
+    id = 1:n ,
+    drug = sample(c("Yes","No"), size=n, prob = c(d, 1-d), replace=TRUE),
+    response = rep("na", n)
+    )
+
+nrow(data[drug=="Yes",])/n
+
+
+  for(i in 1:n){
+  x <- sample(c("r", "w", "b"), size=1, prob = c(3/12, 3/12, 6/12))
+  # x="b"
+  if(x=="r"){
+    data[id==i, response:= "Yes"]
+  }
+  if(x=="w"){
+    data[id==i, response:= "No"]
+  }
+  if(x=="b"){
+    data[id==i, response:= ifelse(drug=="Yes", "Yes", "No")]
+  }
+  }
+
+  pr_yes_hat <- nrow(data[response=="Yes",])/n
+
+  2*(pr_yes_hat - 1/4)
+```
 
 
 
@@ -532,6 +747,7 @@ E[g(X)] \leq g(E[X]) \quad &\text{if } g(x) \text{ is a concave function}
 
 Suppose that $g(x)=x^2$.
 
+.small-code[
 ```{r, echo=T}
 set.seed(356)
 
@@ -559,6 +775,7 @@ figure_ex1 <-
   theme_bw()
 ```
   ]
+  ]
 .right5[
 ```{r, echo=F, out.width = "100%"}
 figure_ex1
@@ -573,6 +790,7 @@ $$\color{darkgreen}{g(E[X])} \leq \color{blue}{E[g(X)]}$$
 
 Suppose that $g(x)=\sqrt{x}$.
 
+.small-code[
 ```{r, echo=T, out.width = "50%"}
 # /*===== Convex case: g(X)=X^(1/2) =====*/
 y <- x^(1/2)
@@ -595,6 +813,7 @@ figure_ex2 <-
   theme_bw()
 ```
   ]
+  ]
 .right5[
 ```{r, echo=F, out.width = "100%"}
 figure_ex2
@@ -606,41 +825,9 @@ $$\color{blue}{E[g(X)]} \leq \color{darkgreen}{g(E[X])}$$
 
 
 ---
-<!-- https://stackoverflow.com/questions/53481699/customize-font-size-for-all-the-slides-in-xaringan -->
-<!-- class: my-one-page-font -->
 
-# Solution to Exercise 2 (slide 1/2)
 
-.content-box-green[**Idea:**]
 
-We want to derive the PDF of $Y$ which is defined by $Y=X^2$. Since $0 \leq X \leq 1$, $0 \leq Y \leq 1$. Recall the definition of PDF. Let $G(y)$ be the CDF of Y and $g(y)$ be the PDF of Y. Then, $g(y)=\frac{d}{dy}G(y)$ by the definition of PDF. That is, once you get $G(y)$, you can derive $g(y)$. So, let's start with the CDF of $Y$. 
-
-.content-box-green[**Solution:**]
-
-By the definition of CDF, 
-$$G(y) = Pr(Y \leq y).$$
-Substituting $Y=X^2$, 
-$$\begin{align*}
-G(y) 
-&= Pr(X^2 \leq y)\\
-&= Pr(0 \leq X \leq \sqrt{y})
-\end{align*}$$
-(The last equality is the combination of the fact that $X^2 \leq y \iff -\sqrt{y} \leq X \leq \sqrt{y}$ and the condition $X \ge 0$.)
-
----
-
-# Solution to Exercise 2 (slide 1/2)
-
-Since we know that $X$ is uniformly distributed ($\(X \sim U[0,1]\)$), the PDF of $X$ is $1$ for $0 \leq X \leq 1$. Also, note that the range $[0, \sqrt{y}]$ is contained in the range of the PDF of $X$.
-
-$$
-G(y) = Pr(0 \leq X \leq \sqrt{y}) = \int_{0}^{\sqrt{y}} 1 dx = \sqrt{y}.
-$$
-
-Thus, PDF of $Y$ is 
-$$\begin{align*}
-g(y) = \frac{d}{dy}G(y) = \frac{1}{2\sqrt{y}} \quad (0 \leq y \leq 1)
-\end{align*}$$
 
 
 ---

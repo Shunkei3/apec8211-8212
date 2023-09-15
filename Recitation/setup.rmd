@@ -119,9 +119,12 @@ theme_update(
 ```{css css-setup, echo = F}
 
 .small-code .remark-code{
-  font-size: 40%
+  font-size: 60%
 }
 
+.medium-code .remark-code{
+  font-size: 80%
+}
 
 .xlarge { 
      font-size: 150%
