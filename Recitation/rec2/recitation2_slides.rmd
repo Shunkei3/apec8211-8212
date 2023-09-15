@@ -46,13 +46,16 @@ Review some concepts related to random variables
 
 <!-- # main  -->
 [1. CDF, PDF, PMF (Quick review)](#dist) 
-  + [Exercise problems](#ex1)
+  + [Exercise problem 1](#ex1)
+  + [Exercise problem 2 (optional)](#ex2)
 
 <!-- # To explain Jensen's inequality -->
-[2. Mean and variance (Quick review)](#mean)
-  + [Exercise problems](#ex2)
+[2. Mean and variance and covariance(Quick review)](#mean)
+  + [Exercise problem 3](#ex3)
+  + [Exercise problems 4 (optional)](#ex4)
 
-[3. Jensen's inequality (Quick review)](#jensen)
+[3. Introduction of Monte Calro Simulation](#monte)
+[Supplement: Jensen's inequality (Quick review)](#jensen)
 
 ---
 class: inverse, center, middle
@@ -66,7 +69,7 @@ name: dist
 .content-box-red[**Distribution function**]
 + Cumulative distribution function (CDF)
 + Definition: <span style="color:red">The CDF of a random variable $X$ is $F(x) = Pr[X \leq x]$</span>
-+ **Verbally**: CDF $F(x)$ tells us the probability of the event that random variable $X$ is less than a value $x$. 
++ **Verbally**: CDF $F(x)$ tells us the probability of the event that random variable $X$ is <span style="color:red">less</span> than a value $x$. 
 
 .left5[
 ```{r, echo=F}
@@ -117,7 +120,7 @@ points(x=c(x[n],6), y=prob[c(n,n)], type="l")
 
 .content-box-red[**Probability density function (Continuous random variables)**] 
 + **Definition**:  $\color{red}{f(x) = \frac{d}{dx}F(x)} \quad ( = \displaystyle \lim_{h\to\infty} \frac{F(x+h)-F(x)}{h})$
-+ **Verbally**: Density function is a very small change in the CDF (or the probability of the random variable falling within a particular range of values according to [wikipedia](https://en.wikipedia.org/wiki/Probability_density_function)). 
++ **Verbally**: Density function is defined as a very small change in the CDF (or the probability of the random variable falling within a particular range of values according to [wikipedia](https://en.wikipedia.org/wiki/Probability_density_function)). 
 
 ---
 <!-- PDF and PMF (2) -->
@@ -143,6 +146,7 @@ f(x) \ge 0 \text{ for all } x \\
 \int_{-\infty}^\infty f(x)\,dx = 1
 \end{cases}$$
 
++ You can use this condition to check whether a function is valid density function is or not!
 <!-- if you are asked to show that a function f(x) is a valid density function, check whether f(x) satisfies these properties or not. -->
 
 
@@ -166,7 +170,7 @@ name: ex1
 
 Define $\Phi(z)$ as the CDF of a standard normal random variable and $\phi(z)$ as its density function. 
 
-(a) Write $Pr(Z \leq b)$ usinzg $\Phi()$.
+(a) Write $Pr(Z \leq b)$ using $\Phi()$.
 
 (b) Write $Pr(Z \leq b)$ as an integral. 
 
@@ -184,27 +188,20 @@ Let $X \sim U[0,1]$. Find the PDF of random variable $Y=X^2$.
 class: inverse, center, middle
 name: mean
 
-# Mean and Variance and Jensen's inequality
+# Mean and Variance and Covariance
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
 ---
-<!-- mean and variance 1 -->
+
+.content-box-red[**Mean and Variance**]
+
 **Definition** 2.18, 2.19: 
+
 + The mean of $X$ is<span style='color:red'> $E[X]$</span>
-+ The variance of $X$ is <span style='color:red'> $Var[X]=E[(X-E[X])^2]$</span>
++ The variance of $X$ is <span style='color:red'> $Var[X]=E[(X-E[X])^2]$</span> $= E[X^2] - (E[X])^2$
 
----
-<!-- mean and variance 2 -->
-**Definition** 2.18, 2.19: 
-+ The mean of $X$ is<span style='color:red'> $E[X]$</span>
-+ The variance of $X$ is <span style='color:red'> $Var[X]=E[(X-E[X])^2]$</span>
 
-.content-box-green[Visualization]
-
-.panelset[ 
-
-.panel[.panel-name[Code 1: Mean]
-```{r,echo=T, cache=T}
+```{r,echo=F, cache=T}
 # /*===========================================*/
 #'=  Mean of X =
 # /*===========================================*/
@@ -223,18 +220,16 @@ plot_data <- data.table(x = x, y = y)
 plot_mean_X <- 
   ggplot(data = plot_data) +
     geom_line(aes(x = x, y = y), color = "black")+
-    labs(y="Density", title="Density of X ~ N(6,1)") +
     geom_vline(xintercept=x_center, color="red") +
+    labs(y="Density", title="Density of X ~ N(6,1)") +
     annotate("text", x = 7, y = 0.01,
       label = "Mean E[X]=6",
       size = 3, color="red") +
     theme_bw()+
     theme(plot.title = element_text(hjust = 0.5))
 ```
-  ]
 
-.panel[.panel-name[Code 2: Variance]
-```{r, echo=T, cache=T}
+```{r, echo=F, cache=T}
 # /*===========================================*/
 #'= Variance =
 # /*===========================================*/
@@ -266,9 +261,7 @@ plot_var_X <-
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
-  ]
 
-.panel[.panel-name[Graphs]
 
 .left5[
 ```{r, dpi=36, echo=F, out.width = "100%", cache=T}
@@ -281,13 +274,113 @@ plot_mean_X
 plot_var_X
 ```
   ]
-  ]
-]
 
 ---
-## E[] and Var[] as operators
 
-.content-box-red[**Expectation**]
+.content-box-red[**Basic: Covariance**]
+
+**Definition**
+$$
+\color{red}{Cov(X, Y) = E[(X-E[X])((Y-E[Y]))]}
+$$
+
+**Verbally**: Covariance measure the joint variability of two random variables. 
+
++ .content-box-green[Visualization]
+
+```{r, dpi=36,, echo=F, fig.dim = c(12, 3)}
+# /*===== Data generation =====*/
+ls_a <- c(-0.8, -0.5, 0, 0.5, 0.8)
+n = 1000
+ls_result <- list()
+
+set.seed(123)
+x <- rnorm(n, 3, sd=2)
+z <- rnorm(n, 3, sd=2)
+
+for (i in seq(1:length(ls_a))){  
+  a <- ls_a[i]
+  y <- a*x + abs(1-abs(a))*z
+  ls_result[[i]] <- data.table(a = a, x = x, y = y)
+}
+
+results <- 
+  rbindlist(ls_result) %>%
+  .[,type := paste0("Cov(X,Y)=",round(cov(x,y), digits = 1)), by=a]
+
+# /*===== Visualization =====*/
+ggplot(data = results)+
+  geom_point(aes(x = x, y = y), size = 0.5)+
+  facet_wrap(~ factor(type, unique(results$type)), scale = "free", nrow = 1)+
+  labs(x = "X", y = "Y", title = "Plots of random variables (X,Y) with different sizes of covariances")+
+  theme_bw()+
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    plot.title = element_text(hjust = 0.5)
+  )
+```
+
+.content-box-red[**Correlation**]
+
+**Definition**
+$$
+\color{red}{Corr(X, Y) = \frac{Cov(X,Y)}{\sqrt{Var[X] Var[Y]}}}
+$$
+
+---
+## Play around with data
+.content-box-green[**Goal**]
++ Know some basic R functions 
++ See covariance is influenced by the change in scale but correlation is not. 
+
+```{r, echo=T, eval=F}
+# === Data === #
+data(airquality)
+# ?airquality
+
+#/*--------------------------------*/
+#' ## Basic functions of R
+#/*--------------------------------*/
+# --- histogram of Temperature (Temp) --- #
+hist(airquality$Temp)
+# frequency table can be obtained by running table(airquality$Temp)
+
+# --- Mean of Temp (degrees F)--- #
+mean(airquality$Temp)
+
+# --- Variance of Temp --- #
+var(airquality$Temp)
+# sd(airquality$Temp) for standard deviation
+# --- summary statistics of Temp --- #
+summary(airquality$Temp)
+
+#/*------------------------------------------*/
+#' ## Relationship between Wind and Temp
+#/*------------------------------------------*/
+plot(airquality$Wind, airquality$Temp)
+
+# === Covariance === #
+cov(airquality$Wind, airquality$Temp)
+
+# What happens if you change the unit of wind from mph to kmph (1mph=1.6kmph)
+cov(airquality$Wind*1.6, airquality$Temp)
+
+# === Correlation === #
+cor(airquality$Wind, airquality$Temp)
+
+# What happens if you change the unit of wind from mph to kmph (1mph=1.6kmph)
+cor(airquality$Wind*1.6, airquality$Temp)
+```
+
+---
+
+
+## E[ ], Var[ ], and Cov[ ] as operators
+
+.content-box-red[**Expectation: E[ ]**]
 
 <span style="color:red"> $E[ \,]$ is a linear operator (Linearity of expectation)</span>
 
@@ -295,38 +388,128 @@ For any constants $a$ and $b$,
 
 $$E[a+bX] = a + bE[X]$$
 
----
-## E[ ] and Var[ ] as operators
 
-.content-box-red[**Expectation: E[]**]
+.content-box-red[**Variance: Var[ ]**]
 
-<span style="color:red"> $E[ \, ]$ is a linear operator (i.e. Linearity of expectation)</span>
+$Var[ \,]$ is <span style="color:red">not</span> a linear operator
 
-For any constants $a$ and $b$, 
+$$
+Var[a+bX] = b^2E[X]
+$$
 
-$$E[a+bX] = a + bE[X]$$
-
-.content-box-red[**Variance: Var[]**]
+because 
 $$\begin{align*}
-\text{(1) } &Var[X] = E[X^2] - (E[X])^2 \\
-\text{(2) } &Var[a+bX] = b^2E[X]
+Var[a+bX]
+  &= E[(a+bX - E[a+bX])^2] \\ 
+  &= E[(a+bX - a-bE[X])^2] \\ 
+  &= E[(b(X - E[X]))^2] \\ 
+  &= E[b^2(X - E[X])^2] \\ 
+  &= b^2 (X - E[X])^2 \\ 
+  &= b^2 Var[X]
 \end{align*}$$
 
-.content-box-green[**Question**]
-
-Prove (1) and (2) using linearity of expectation. 
 
 ---
 
+.content-box-green[**Exercise 3: Lecture note 3, p14**] 
+
+Prove these for continuous $(X,Y)$ with finite variances.
+
+1. If $E[X]=0$ or $E[Y]=0$, $Cov(X,Y)=E[XY]$
+
+2. If $X \perp\!\!\!\perp Y$, corr(X,Y)=0
+
+3. $Var[X+Y] = Var[X] + Var[Y] + 2Cov(X,Y)$
+
+4. If $X$ and $Y$ are correlated, $Var[X+Y] = Var[X] + Var[Y]$
+
+---
+
+.content-box-green[**Exercise 3: Final Exam: 2021: Problem 3**] 
+
+The chi-squared distribution with $k$ degrees of freedom, denoted $\chi^2(k)$, is the distribution of $\sum_{i=1}^k Z^2_{i}$ and the $Z_i$ are independent $(Z_i \perp\!\!\!\perp Z_j)$. *You do not need to work with the CDF or density of a $\chi^2$ distribution to answer this question!*.
+
+<br>
+
+(a) Show that if $X$ is distributed $\chi^2(k)$ then $E[X]=k$.
+
+<br>
+
+(b) More work with expectation Let $K=Z^2_{1} + Z^2_{2}$, where $Z_j \sim N(0,1)$. Then $K \sim \chi^2(2)$. Another fact is that if $Z \sim N(0,1)$, then $E[Z^4]=3$. Use that fact to show that $Var[K]=4$. [Hint: $E[Z_j^4]$ is closely related to $Var[Z_j^2]$.]
+
+
+---
+
+class: inverse, center, middle
+name: intro
+
+
+# Monte Calro Simulation
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+
+# Example: Binomial distribution
+
+
+```{r, echo=F, eval=F}
+p <- 1/2
+
+# flip coins five times
+# what is the expected numner of heads
+# theoretically, it is E[X]=np=5*1/2=2.5
+
+B <- 1000 # the number of iterations
+n <- 5 # the number of trials
+
+storage <- numeric(B)
+
+for(i in 1:n){
+  x <- sample(c(0,1), size=5, replace=TRUE)
+  storage[[i]] <- sum(x)
+}
+
+hist(storage)
+
+mean(storage)
+```
+
+
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
 name: jensen
 
 # Jensen's inequality
 
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+---
+
+
+## Motivation
+
+Linearity of expectation cannot be used when the function inside $E[\,]$ is a nonlinear function.
+
+.content-box-green[**Example:**] 
++ If $g(X)$ is a linear function (e.g., $g(x)=ax+b$)
+  * $E[g(X)]=g(E[X]])$
++ If $g(X)$ is a nonlinear function (e.g., $g(x)=x^2$)
+  * $E[g(X)] \neq g(E[X])$
+
+---
+
 (This is not the proof)
 
-In the previous slide, we saw $Var[X]=E[(X-E[X])^2]=E[X^2] - (E[X])^2$. So, $Var[X] \ge 0$ (by the way, $Var[X]=0$ if and only if $X$ is degenerate). 
+In the previous slide, we saw $Var[X]=E[(X-E[X])^2]=E[X^2] - (E[X])^2$. Because, $Var[X] \ge 0$ (by the way, $Var[X]=0$ if and only if $X$ is degenerate). 
 
-So, 
+
 $$E[X^2] - (E[X])^2 \ge 0$$
 <p style="text-align: center;">or</p>
 $$(E[X])^2 \leq E[X^2]$$
@@ -347,10 +530,12 @@ E[g(X)] \leq g(E[X]) \quad &\text{if } g(x) \text{ is a concave function}
 .panel[.panel-name[Example 1 : g(x) is convex]
 .left5[
 
-Suppose that $g(x)=X^2$.
+Suppose that $g(x)=x^2$.
 
 ```{r, echo=T}
 set.seed(356)
+
+# Create a sequence of X from a uniformal distribution
 x <- runif(1000, 0, 10)
 
 # /*===== Convex case: g(X)=X^2 =====*/
@@ -363,11 +548,11 @@ figure_ex1 <-
   geom_vline(xintercept = mean(x), color = "red", linetype = "dashed")+
   annotate("text", x = mean(x)+1, y = 0.01,
     label = paste0("E[X]=", round(mean(x), 1)), size = 3, color = "red") +
-  # --- E[g(X)] --- #
+  # --- Add horizontal line for --- #
   geom_hline(yintercept = mean(y), color="blue", linetype = "dashed")+
   annotate("text", x = 1, y = mean(y)+5,
     label = paste0("E[g(X)]=", round(mean(y), 1)), size = 3, color = "blue") +
-  # --- g(E[X]) --- #
+  # --- Add horizontal line for g(E[X]) --- #
   geom_hline(yintercept = mean(x)^2, color="darkgreen", linetype = "dashed")+
   annotate("text", x = 1, y = mean(x)^2-5,
     label = paste0("g(E(X))=", round(mean(x)^2, 1)), size = 3, color = "darkgreen") +
@@ -419,31 +604,69 @@ $$\color{blue}{E[g(X)]} \leq \color{darkgreen}{g(E[X])}$$
 ]
 ]
 
+
 ---
 <!-- https://stackoverflow.com/questions/53481699/customize-font-size-for-all-the-slides-in-xaringan -->
 <!-- class: my-one-page-font -->
 
-# Solution to Exercise 2
-We want to derive the PDF of $Y$ which is defined by $Y=X^2$. Since $0 \leq X \leq 1$, $0 \leq Y \leq 1$. Recall the definition of PDF. Let $G(y)$ be the CDF of Y and $g(y)$ be the PDF of Y. Then, $g(y)=\frac{d}{dy}G(y)$ by the definition of PDF. So, once you get $G(y)$, you can derive $g(y)$. So, let's consider the CDF of $Y$.
+# Solution to Exercise 2 (slide 1/2)
+
+.content-box-green[**Idea:**]
+
+We want to derive the PDF of $Y$ which is defined by $Y=X^2$. Since $0 \leq X \leq 1$, $0 \leq Y \leq 1$. Recall the definition of PDF. Let $G(y)$ be the CDF of Y and $g(y)$ be the PDF of Y. Then, $g(y)=\frac{d}{dy}G(y)$ by the definition of PDF. That is, once you get $G(y)$, you can derive $g(y)$. So, let's start with the CDF of $Y$. 
+
+.content-box-green[**Solution:**]
 
 By the definition of CDF, 
 $$G(y) = Pr(Y \leq y).$$
-Since $Y=X^2$, 
+Substituting $Y=X^2$, 
 $$\begin{align*}
 G(y) 
 &= Pr(X^2 \leq y)\\
-&= Pr(0 \leq X \leq \sqrt{y}) \quad (\because X \ge 0).\\
+&= Pr(0 \leq X \leq \sqrt{y})
 \end{align*}$$
-We know that $X \sim U[0,1]$. So, 
+(The last equality is the combination of the fact that $X^2 \leq y \iff -\sqrt{y} \leq X \leq \sqrt{y}$ and the condition $X \ge 0$.)
+
+---
+
+# Solution to Exercise 2 (slide 1/2)
+
+Since we know that $X$ is uniformly distributed ($\(X \sim U[0,1]\)$), the PDF of $X$ is $1$ for $0 \leq X \leq 1$. Also, note that the range $[0, \sqrt{y}]$ is contained in the range of the PDF of $X$.
+
 $$
-G(y) = \int_{0}^{\sqrt{y}} 1 dx = \sqrt{y}.
+G(y) = Pr(0 \leq X \leq \sqrt{y}) = \int_{0}^{\sqrt{y}} 1 dx = \sqrt{y}.
 $$
-Thus, 
+
+Thus, PDF of $Y$ is 
 $$\begin{align*}
 g(y) = \frac{d}{dy}G(y) = \frac{1}{2\sqrt{y}} \quad (0 \leq y \leq 1)
 \end{align*}$$
 
+
 ---
+Question:
+
+
+The problem sets in the assignment covers the materials from the previous week. 
+
+
+**Question: Should I cover the material we learned from this week,  the previous week or the mix of the two?**
+
+<br>
+
+**option (1): lab covers the material from this week**
+
+.content-box-green[**pro:**] The material in the lab is the review of the class on this week and it will be helpful for the next assignment. 
+
+.content-box-red[**con:**] You may not have time to review the textbook or class-notes, so the lab would be boring. 
+
+<br>
+
+**option (2): lab covers the material from the previous week**
+  
+.content-box-green[**pro:**] You have enough time to review the textbook and class-note, so it is more likely to understand the lab
+
+.content-box-red[**con:**]
 
 
 

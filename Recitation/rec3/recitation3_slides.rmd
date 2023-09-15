@@ -41,9 +41,9 @@ httpgd::hgd_browse()
 ```
 
 # Outline
-+ 
-+ CEF theorem
-+ 
++ Conditional probability
++ CEF: theorem
++ LIE: 
  
 
 ---

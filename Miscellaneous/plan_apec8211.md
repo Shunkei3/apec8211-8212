@@ -25,7 +25,16 @@
 + Multivariate distributions
 	* PSE: 4.1-4.12, 4.18, 4.26
 	* E: 2.1-2.3
-	
+
+
+
++ 1st: Lecture note: 1
++ 2nd: Lecture note: 2-3
+
++ Problem set: 1-32, 
+
+
+
 ### Recitation (9/15) (HW1 is assigned)
 + Some concepts about random variables: (25mins)
 	* CEF, PDF, and PMF
@@ -58,6 +67,7 @@
 + A bit of Monte Carlo simulation
 
 
++ see lecture-note 1-p39
 
 
 
