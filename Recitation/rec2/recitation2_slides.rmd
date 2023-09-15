@@ -44,17 +44,20 @@ httpgd::hgd_browse()
 Review some concepts related to random variables
 
 <!-- # main  -->
-1. CDF, PDF, PMF [(review)](#dist) 
-  + Exercise problem 1 [(here)](#ex1)
-  + Exercise problem 2 (optional) [(here)](#ex2)
+1 CDF, PDF, PMF [(review)](#dist) 
+
++ Exercise problem 1 [(here)](#ex1)
++ Exercise problem 2 (optional) [(here)](#ex2)
 
 <!-- # To explain Jensen's inequality -->
-2. Mean and variance and covariance [(review)](#mean)
-  + Exercise problem 3 [(here)](#ex3)
-  + Exercise problems 4 (optional) [(here)](#ex4)
+2 Mean and variance and covariance [(review)](#mean)
 
-3. Introduction of Monte Calro Simulation [(here)](#monte)
-4. Jensen's inequality (Optional) [(here)](#jensen)
++ Exercise problem 3 [(here)](#ex3)
++ Exercise problems 4 (optional) [(here)](#ex4)
+
+3 Introduction of Monte Calro Simulation [(here)](#monte)
+
+4 Jensen's inequality (optional) [(here)](#jensen)
 
 
 ---
@@ -68,7 +71,7 @@ name: dist
 ---
 .content-box-red[**Distribution function**]
 + Cumulative distribution function (CDF)
-+ **Definition:** <span style="color:red">The CDF of a random variable $X$ is $F(x) = Pr[X \leq x]$</span>
++ **Definition:** The CDF of a random variable $X$ is <span style="color:red">$F(x) = Pr[X \leq x]$</span>
 + **Verbally**: CDF $F(x)$ tells us the probability of the event that random variable $X$ is <span style="color:red">less</span> than a value $x$. 
 
 .left5[
@@ -109,31 +112,49 @@ points(x=c(x[n],6), y=prob[c(n,n)], type="l")
 ```
 ]
 
+
 ---
+class: middle
+
+.content-box-green[**Question:**]
++ What is the definition of joint distribution function of $(X, Y)$?
+  
+<span style="color:red">$$F(x,y) = Pr[\text{?}]$$</span>
+
+---
+class: middle
+
+.content-box-green[**Question:**]
++ What is the definition of joint distribution function of $(X, Y)$?
+
+<span style="color:red">$$F(x,y) = Pr[X \leq x, Y \leq y]$$</span>
+
+---
+
 <!-- PDF and PMF (1) -->
 
 .content-box-red[**Probability mass function (Discrete random variables)**]
 + **Definition**: $\color{red}{\pi(x) = Pr[X = x]}$
-+ **Verbally**: The probability that $X$ equals the value $x$
++ **Verbally**: The probability of the event that $X$ takes a specific value $x$.
 
 <br>
 
 .content-box-red[**Probability density function (Continuous random variables)**] 
 + **Definition**:  $\color{red}{f(x) = \frac{d}{dx}F(x)} \quad ( = \displaystyle \lim_{h\to\infty} \frac{F(x+h)-F(x)}{h})$
-+ **Verbally**: Density function is defined as a very small change in the CDF (or the probability of the random variable falling within a particular range of values according to [wikipedia](https://en.wikipedia.org/wiki/Probability_density_function)). 
++ **Verbally**: Density function is defined as a very small change in the CDF. 
 
 ---
 <!-- PDF and PMF (2) -->
 
 .content-box-red[**Probability mass function (Discrete random variables)**]
 + **Definition**: $\color{red}{\pi(x) = Pr[X = x]}$
-+ **Verbally**: The probability that $X$ equals the value $x$
++ **Verbally**: The probability of the event that $X$ takes a specific value $x$.
 
 <br>
 
 .content-box-red[**Probability density function (Continuous random variables)**] 
 + **Definition**:  $\color{red}{f(x) = \frac{d}{dx}F(x)} \quad ( = \displaystyle \lim_{h\to\infty} \frac{F(x+h)-F(x)}{h})$
-+ **Verbally**: Density function is a very small change in the CDF (or the probability of the random variable falling within a particular range of values according to [wikipedia](https://en.wikipedia.org/wiki/Probability_density_function)). 
++ **Verbally**: Density function is defined as a very small change in the CDF. 
 
 
 <br>
@@ -146,9 +167,34 @@ f(x) \ge 0 \text{ for all } x \\
 \int_{-\infty}^\infty f(x)\,dx = 1
 \end{cases}$$
 
-+ You can use this condition to check whether a function is valid density function is or not!
++ You can use this condition to check whether a function $f(x)$ is valid density function or not!
 <!-- if you are asked to show that a function f(x) is a valid density function, check whether f(x) satisfies these properties or not. -->
 
+---
+class: middle
+
+.content-box-green[**Question:**]
+
++ Join probability mass function:
+
+<span style="color:red"> $$\pi[x,y] = \text{?}$$</span>
+
++ Given a continuous joint distribution function $F(x,y)$, how its joint density is defined?
+
+<span style="color:red">$$f(x,y) = \text{?}$$</span>
+
+---
+class: middle
+
+.content-box-green[**Question:**]
+
++ Join probability mass function:
+
+<span style="color:red"> $$\pi[x,y] = Pr[X=x, Y=y]$$</span>
+
++ Given a continuous joint distribution function $F(x,y)$, how its joint density is defined?
+
+<span style="color:red">$$f(x,y) = \frac{\partial^2}{\partial x \partial y} F(x,y)$$</span>
 
 ---
 class: middle
@@ -163,6 +209,7 @@ class: middle
 ```
 
 ---
+class: middle
 name: ex1
 
 # Exercise 1
@@ -179,6 +226,7 @@ Define $\Phi(z)$ as the CDF of a standard normal random variable and $\phi(z)$ a
 (d) Write $Pr(a \leq Z \leq b)$ as an integral.
 
 ---
+class: middle
 # Exercise 2
 .content-box-green[**PSE Exercise 2.1**] 
 
@@ -399,10 +447,10 @@ data(airquality)
 hist(airquality$Temp)
 # frequency table can be obtained by running table(airquality$Temp)
 
-# --- Mean of Temp (degrees F)--- #
+# --- Mean of Temperature (degrees F)--- #
 mean(airquality$Temp)
 
-# --- Variance of Temp --- #
+# --- Variance of Temperature --- #
 var(airquality$Temp)
 # sd(airquality$Temp) for standard deviation
 # --- summary statistics of Temp --- #
@@ -411,7 +459,7 @@ summary(airquality$Temp)
 
 ```{r, echo=T, eval=F}
 #/*------------------------------------------*/
-#' ## Relationship between Wind and Temp
+#' ## Relationship between Wind speed and Temperature
 #/*------------------------------------------*/
 # === Covariance === #
 cov(airquality$Wind, airquality$Temp)
@@ -790,7 +838,9 @@ class: middle
 
 .content-box-red[**Implication**]
 
-If the underlying data-generating process is nonlinear (e.g., the impact of precipitation on crop yield), aggregation (field-year level to county-level data) might mask the true relationship. 
++ In Microeconomics, Jensen's inequality is used to describe risk averter. For risk averter (the utility function $u(x)$ is concave), the utility from obtaining some expected return for certainty ($E[G(X)]$) is higher that than the utility from gambling ($G(E[X])$).
+
++ Another implication is that if the underlying data-generating process is nonlinear (e.g., the impact of precipitation on crop yield), aggregation process (field-year level to county-level data) might mask the true nonlinear relationship. 
 
 
 
