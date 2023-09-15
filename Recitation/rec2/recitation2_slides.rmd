@@ -188,7 +188,7 @@ class: middle
 
 .content-box-green[**Question:**]
 
-+ Join probability mass function:
++ Joint probability mass function:
 
 <span style="color:red"> $$\pi[x,y] = Pr[X=x, Y=y]$$</span>
 
