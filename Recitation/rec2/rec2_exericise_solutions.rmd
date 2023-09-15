@@ -135,6 +135,15 @@ Var[X+Y] = Var[X] + Var[Y] + 2Cov(X,Y) = Var[X] + Var[Y]
 
 # Solution to Exercise 4
 
+### Part (a)
+
+\begin{align*}
+E[X]
+  &= E[\sum_{i=1}^{k} Z_i^2] \\
+  &= \sum_{i=1}^{k} E[Z_i^2] \quad (\because Z_i \perp\!\!\!\perp Z_j for \all)\\
+\end{align*}
 
 
+
+### Part (b)
 

@@ -587,7 +587,7 @@ name: ex4
 
 .content-box-green[**Final Exam: 2021: Problem 3**] 
 
-The chi-squared distribution with $k$ degrees of freedom, denoted $\chi^2(k)$, is the distribution of $\sum_{i=1}^k Z^2_{i}$ and the $Z_i$ are independent $(Z_i \perp\!\!\!\perp Z_j)$. *You do not need to work with the CDF or density of a $\chi^2$ distribution to answer this question!*.
+The chi-squared distribution with $k$ degrees of freedom, denoted $\chi^2(k)$, is the distribution of $\sum_{i=1}^k Z^2_{i}$ where $Z_i \sim N(0,1)$ and the $Z_i$ are independent $(Z_i \perp\!\!\!\perp Z_j)$. *You do not need to work with the CDF or density of a $\chi^2$ distribution to answer this question!*.
 
 <br>
 
