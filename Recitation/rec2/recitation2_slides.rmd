@@ -44,17 +44,18 @@ httpgd::hgd_browse()
 Review some concepts related to random variables
 
 <!-- # main  -->
-[1. CDF, PDF, PMF (Quick review)](#dist) 
-  + [Exercise problem 1](#ex1)
-  + [Exercise problem 2 (optional)](#ex2)
+1. CDF, PDF, PMF [(review)](#dist) 
+  + Exercise problem 1 [(here)](#ex1)
+  + Exercise problem 2 (optional) [(here)](#ex2)
 
 <!-- # To explain Jensen's inequality -->
-[2. Mean and variance and covariance(Quick review)](#mean)
-  + [Exercise problem 3](#ex3)
-  + [Exercise problems 4 (optional)](#ex4)
+2. Mean and variance and covariance [(review)](#mean)
+  + Exercise problem 3 [(here)](#ex3)
+  + Exercise problems 4 (optional) [(here)](#ex4)
 
-[3. Introduction of Monte Calro Simulation](#monte)
-[Supplement: Jensen's inequality (Quick review)](#jensen)
+3. Introduction of Monte Calro Simulation [(here)](#monte)
+4. Jensen's inequality (Optional) [(here)](#jensen)
+
 
 ---
 class: inverse, center, middle
@@ -67,7 +68,7 @@ name: dist
 ---
 .content-box-red[**Distribution function**]
 + Cumulative distribution function (CDF)
-+ Definition: <span style="color:red">The CDF of a random variable $X$ is $F(x) = Pr[X \leq x]$</span>
++ **Definition:** <span style="color:red">The CDF of a random variable $X$ is $F(x) = Pr[X \leq x]$</span>
 + **Verbally**: CDF $F(x)$ tells us the probability of the event that random variable $X$ is <span style="color:red">less</span> than a value $x$. 
 
 .left5[
@@ -327,7 +328,7 @@ ggplot(data = results)+
 
 .content-box-red[**Covariance**]
 
-**Definition**
+**Definition:**
 $$
 \color{red}{Cov(X, Y) = E[(X-E[X])((Y-E[Y]))]} = E[XY] - E[X][Y]
 $$
@@ -373,7 +374,7 @@ ggplot(data = results)+
 
 .content-box-red[**Correlation**]
 
-**Definition**
+**Definition:**
 $$
 \color{red}{Corr(X, Y) = \frac{Cov(X,Y)}{\sqrt{Var[X] Var[Y]}}}
 $$
@@ -381,15 +382,16 @@ $$
 ---
 ## Play around with data (optional)
 .content-box-green[**Goal**]
-+ Know some basic R functions (e.g., mean, variance, etc.)
++ Understand some basic R functions (e.g., mean, variance, etc.)
 + See covariance is influenced by the change in scale but correlation is not. 
 
 .small-code[
 ```{r, echo=T, eval=F}
 # === Data === #
 data(airquality)
-# ?airquality
+```
 
+```{r, echo=T, eval=F}
 #/*--------------------------------*/
 #' ## Basic functions of R
 #/*--------------------------------*/
@@ -405,12 +407,12 @@ var(airquality$Temp)
 # sd(airquality$Temp) for standard deviation
 # --- summary statistics of Temp --- #
 summary(airquality$Temp)
+```
 
+```{r, echo=T, eval=F}
 #/*------------------------------------------*/
 #' ## Relationship between Wind and Temp
 #/*------------------------------------------*/
-plot(airquality$Wind, airquality$Temp)
-
 # === Covariance === #
 cov(airquality$Wind, airquality$Temp)
 
@@ -427,40 +429,71 @@ cor(airquality$Wind*1.6, airquality$Temp)
 
 ---
 
-
 ## E[ ], Var[ ] as operators
 
 .content-box-red[**Expectation: E[ ]**]
 
-<span style="color:red"> $E[ \,]$ is a linear operator (Linearity of expectation)</span>
+<span style="color:red"> 1. $E[ \,]$ is a linear operator (Linearity of expectation)</span>
 
 For any constants $a$ and $b$, 
 
 $$E[a+bX] = a + bE[X]$$
 $$E[aX+bY] = aE[X] + bE[Y]$$
 
+.content-box-green[**Question**]
 
-
-
-But, if $g(\cdot)$ function is nonlinear function, then $E[g(X_1, X_2, ... X_k)] \neq g(E[\cdot])$ unless 
-
-+ Example) $E[X_1]$
-
-
-
-
-
++ $E[X+Y^2] = E[X]+E[Y^2]$?
++ $E[XY] = E[X]E[Y]$?
 ---
 
 ## E[ ], Var[ ] as operators
 
 .content-box-red[**Expectation: E[ ]**]
 
-<span style="color:red"> $E[ \,]$ is a linear operator (Linearity of expectation)</span>
+<span style="color:red"> 1. $E[ \,]$ is a linear operator (Linearity of expectation)</span>
 
 For any constants $a$ and $b$, 
 
 $$E[a+bX] = a + bE[X]$$
+$$E[aX+bY] = aE[X] + bE[Y]$$
+
+.content-box-green[**Question**]
+
++ $E[X+Y^2] = E[X]+E[Y^2]$? 
+  * Yes.
++ $E[XY] = E[X]E[Y]$?
+  * No. This holds if and only if $X$ and $Y$ are independent. (Proof?)
+  
+---
+
+## E[ ], Var[ ] as operators
+
+.content-box-red[**Expectation: E[ ]**]
+
+<span style="color:red"> 1. $E[ \,]$ is a linear operator (Linearity of expectation)</span>
+
+For any constants $a$ and $b$, 
+
+$$E[a+bX] = a + bE[X]$$
+$$E[aX+bY] = aE[X] + bE[Y]$$
+
+.content-box-green[**Question**]
+
++ $E[X+Y^2] = E[X]+E[Y^2]$? 
+  * Yes.
++ $E[XY] = E[X]E[Y]$?
+  * No. This holds if and only if $X$ and $Y$ are independent. (Proof?)
+  
+<span style="color:red"> 2. Law of iterated expectation</span>
+
+$$
+E[E[Y|X]] = E[Y]
+$$
+
+---
+
+
+## E[ ], Var[ ] as operators
 
 .content-box-red[**Variance: Var[ ]**]
 
@@ -473,8 +506,8 @@ $$
 because 
 $$\begin{align*}
 Var[a+bX]
-  &= E[(a+bX - E[a+bX])^2] \\ 
-  &= E[(a+bX - a-bE[X])^2] \\ 
+  &= E[(a+bX - E[a+bX])^2] \quad &(\text{definition of variance})\\ 
+  &= E[(a+bX - a-bE[X])^2] \quad &(\text{linearity of expectation})\\ 
   &= E[(b(X - E[X]))^2] \\ 
   &= E[b^2(X - E[X])^2] \\ 
   &= b^2 (X - E[X])^2 \\ 
@@ -483,7 +516,9 @@ Var[a+bX]
 
 
 ---
-# Exercise 4
+name: ex3
+
+# Exercise 3
 
 .content-box-green[**Lecture note 2, p14**] 
 
@@ -498,7 +533,9 @@ Prove these for continuous $(X,Y)$ with finite variances.
 (d). If $X$ and $Y$ are uncorrelated, $Var[X+Y] = Var[X] + Var[Y]$.
 
 ---
-# Exercise 3
+name: ex4
+
+# Exercise 4
 
 .content-box-green[**Final Exam: 2021: Problem 3**] 
 
@@ -519,7 +556,7 @@ class: inverse, center, middle
 name: intro
 
 
-# Monte Calro Simulation
+# Monte Calro Simulation: Brief introduction
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
 
@@ -538,7 +575,7 @@ The binomial disrandom variables equals the outcome of $n$ independent Bernoulli
 
 <br>
 
-Theoretically, the binomial random variable has a binomial distribution with 
+Theoretically, the binomial random variable has a binomial distribution: 
 $$\begin{align*}
 E[X] &= np \\
 Var[X] &= np(1-p)
@@ -546,10 +583,7 @@ Var[X] &= np(1-p)
 
 <br>
 
-Can we confim this with Monte Calro simulation?
-
 ---
-class: middle
 
 class: middle
 
@@ -557,152 +591,80 @@ class: middle
 
 Suppose that we flip a coin $n=9$ times, and count the number of heads (i.e. $X$). The coin is not fair, $p=Pr[heads]=\frac{1}{3}$.
 
-Theoretically, 
+According to the theory,
 
 + $E[X]=np = 9 \times \frac{1}{3} = 3$
 + $Var[X]=np(1-p) = 9 \times \frac{1}{3} (1 - \frac{1}{3}) = 2$
 
+Can we confirm this with Monte Calro simulation?
+
 ---
 class: middle
 
-## Monte Carlo Simulaton: Steps
-1. specify the data generaing process
-2. generate data based on the data generating process
-3. get an outcome you are insterested in based on the generated data
-4. repeat step 2 and 3 many many times 
+## Monte Carlo Simulation: Steps
++ step 1: specify the data generating process
++ step 2: Repeat:
+  * step 2.1: generate data based on the data generating process
+  * step 2.2: get an outcome you are interested in based on the 
+generated data 
++ step 3: compare your estimates with the true parameter
 
-5. compare your estimates with the true parameter
+<br>
+
+In our case, the outcome is the number of heads ($X$), we use it to "estimate" true parameters <span style="color:blue">$E[X]=3$</span> and <span style="color:blue">$Var[X]=2$</span>. 
 
 ---
 
-Theoretically, $E[X]= 3$ and $Var[X] = 2$. 
+## For explanation: A single iteration
 
 .medium-code[
 ```{r, echo=T, eval=T}
 set.seed(1234)
 
 # --- Step1: Speficify the data generating process --- #
-p <- 1/3 
+p <- 1/3 # the probability of getting heads
 n <- 9 # the number of trials
 
-# --- Step2: generate data  --- #
-seq_x <- sample(c(1,0), size=9, prob = c(p, 1-p), replace=TRUE)
+# --- Step 2.1: generate data  --- #
+seq_x <- sample(c(1,0), size=n, prob=c(p, 1-p), replace=TRUE)
 
 seq_x
-# --- Step3: get an outcome you are insterested in --- #
-sum(seq_x)
+# --- Step 2.2: get an outcome you are interested in --- #
+sum(seq_x) # the number of heads
 ```
 ]
 
 ---
 
-# Step 4: For loop
+## Repeat the calculation many many times
 
-```{r,  out.width = "80%"}
-# --- Step4: repeat step 2 and 3 many many times  --- #
+
+```{r,  echo=T, eval=T}
 B <- 1000 # the number of iterations
 
 # create a storage that stores outcomes
 storage <- numeric(B)
 
+# --- step 2: Run the simulation --- #
 for(i in 1:B){
   seq_x <- sample(c(1,0), size=9, prob = c(p, 1-p), replace=TRUE)
   storage[i] <- sum(seq_x)
 }
 
+# --- Step 4: compare the results with   --- #
+# Mean
 mean(storage)
 
-hist(storage)
+# Variance
+var(storage)
 ```
-
-
-
-```{r, echo=F, eval=F}
-# r: 3
-# w: 3
-# b: 6
-library(data.table)# w: 3
-
-n <- 1000
-d = 0.1
-B = 100
-
-
-set.seed(1234)
-
-
-res <- numeric(B)
-
-
-for(j in 1:B){
-  data <- 
-  data.table(
-    id = 1:n ,
-    drug = sample(c("Yes","No"), size=n, prob = c(d, 1-d), replace=TRUE),
-    response = rep("na", n)
-    )
-
-  for(i in 1:n){
-  x <- sample(c("r", "w", "b"), size=1, prob = c(3/12, 3/12, 6/12))
-  # x="b"
-  if(x=="r"){
-    data[id==i, response:= "Yes"]
-  }
-  if(x=="w"){
-    data[id==i, response:= "No"]
-  }
-  if(x=="b"){
-    data[id==i, response:= ifelse(drug=="Yes", "Yes", "No")]
-  }
-  }
-  pr_yes_hat <- nrow(data[response=="Yes"])/n
-
-  res[[j]] <- 2*(pr_yes_hat - 1/4)
-
-}
-
-
-mean(res)
-
-n=10000
-
-data <- 
-  data.table(
-    id = 1:n ,
-    drug = sample(c("Yes","No"), size=n, prob = c(d, 1-d), replace=TRUE),
-    response = rep("na", n)
-    )
-
-nrow(data[drug=="Yes",])/n
-
-
-  for(i in 1:n){
-  x <- sample(c("r", "w", "b"), size=1, prob = c(3/12, 3/12, 6/12))
-  # x="b"
-  if(x=="r"){
-    data[id==i, response:= "Yes"]
-  }
-  if(x=="w"){
-    data[id==i, response:= "No"]
-  }
-  if(x=="b"){
-    data[id==i, response:= ifelse(drug=="Yes", "Yes", "No")]
-  }
-  }
-
-  pr_yes_hat <- nrow(data[response=="Yes",])/n
-
-  2*(pr_yes_hat - 1/4)
-```
-
-
 
 
 ---
 class: inverse, center, middle
 name: jensen
 
-# Jensen's inequality
+# Jensen's inequality (optional)
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
 ---
@@ -720,10 +682,7 @@ Linearity of expectation cannot be used when the function inside $E[\,]$ is a no
 
 ---
 
-(This is not the proof)
-
-In the previous slide, we saw $Var[X]=E[(X-E[X])^2]=E[X^2] - (E[X])^2$. Because, $Var[X] \ge 0$ (by the way, $Var[X]=0$ if and only if $X$ is degenerate). 
-
+In the previous slide, we saw $Var[X]=E[(X-E[X])^2]=E[X^2] - (E[X])^2$. Because $Var[X] \ge 0$,
 
 $$E[X^2] - (E[X])^2 \ge 0$$
 <p style="text-align: center;">or</p>
@@ -736,6 +695,8 @@ $$\begin{align*}
 g(E[X]) \leq E[g(X)] \quad &\text{if } g(x) \text{ is a convex function} \\
 E[g(X)] \leq g(E[X]) \quad &\text{if } g(x) \text{ is a concave function}
 \end{align*}$$
+
++ So, the first step to use Jensen's inequality is to check whether $g(x)$ is concave or convex function.
 
 ---
 .content-box-green[**Visualization**]
@@ -825,35 +786,15 @@ $$\color{blue}{E[g(X)]} \leq \color{darkgreen}{g(E[X])}$$
 
 
 ---
+class: middle
+
+.content-box-red[**Implication**]
+
+If the underlying data-generating process is nonlinear (e.g., the impact of precipitation on crop yield), aggregation (field-year level to county-level data) might mask the true relationship. 
 
 
 
 
-
----
-Question:
-
-
-The problem sets in the assignment covers the materials from the previous week. 
-
-
-**Question: Should I cover the material we learned from this week,  the previous week or the mix of the two?**
-
-<br>
-
-**option (1): lab covers the material from this week**
-
-.content-box-green[**pro:**] The material in the lab is the review of the class on this week and it will be helpful for the next assignment. 
-
-.content-box-red[**con:**] You may not have time to review the textbook or class-notes, so the lab would be boring. 
-
-<br>
-
-**option (2): lab covers the material from the previous week**
-  
-.content-box-green[**pro:**] You have enough time to review the textbook and class-note, so it is more likely to understand the lab
-
-.content-box-red[**con:**]
 
 
 

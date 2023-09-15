@@ -119,7 +119,7 @@ theme_update(
 ```{css css-setup, echo = F}
 
 .small-code .remark-code{
-  font-size: 60%
+  font-size: 50%
 }
 
 .medium-code .remark-code{
