@@ -71,7 +71,7 @@ name: dist
 ---
 .content-box-red[**Distribution function**]
 + Cumulative distribution function (CDF)
-+ **Definition:** The CDF of a random variable $X$ is <span style="color:red">$F(x) = Pr[X \leq x]$</span>
++ **Definition:** The CDF of a random variable $X$ is $\color{red}{F(x) = Pr[X \leq x]}$
 + **Verbally**: CDF $F(x)$ tells us the probability of the event that random variable $X$ is <span style="color:red">less</span> than a value $x$. 
 
 .left5[
@@ -175,7 +175,7 @@ class: middle
 
 .content-box-green[**Question:**]
 
-+ Join probability mass function:
++ Joint probability mass function:
 
 <span style="color:red"> $$\pi[x,y] = \text{?}$$</span>
 
@@ -327,9 +327,9 @@ plot_var_X
 
 .content-box-red[**Covariance**]
 
-**Definition**
+**Definition**:
 $$
-\color{red}{Cov(X, Y) = E[(X-E[X])((Y-E[Y]))]} = E[XY] - E[X][Y]
+\color{red}{Cov(X, Y) = E[(X-E[X])(Y-E[Y])]} = E[XY] - E[X][Y]
 $$
 
 **Verbally**: Covariance measure the joint variability of two random variables. 
@@ -378,7 +378,7 @@ ggplot(data = results)+
 
 **Definition:**
 $$
-\color{red}{Cov(X, Y) = E[(X-E[X])((Y-E[Y]))]} = E[XY] - E[X][Y]
+\color{red}{Cov(X, Y) = E[(X-E[X])(Y-E[Y])]} = E[XY] - E[X][Y]
 $$
 
 **Verbally**: Covariance measure the joint variability of two random variables. 
@@ -558,7 +558,7 @@ Var[a+bX]
   &= E[(a+bX - a-bE[X])^2] \quad &(\text{linearity of expectation})\\ 
   &= E[(b(X - E[X]))^2] \\ 
   &= E[b^2(X - E[X])^2] \\ 
-  &= b^2 (X - E[X])^2 \\ 
+  &= b^2 E[(X - E[X])^2] \\ 
   &= b^2 Var[X]
 \end{align*}$$
 
@@ -659,7 +659,7 @@ generated data
 
 <br>
 
-In our case, the outcome is the number of heads ($X$), we use it to "estimate" true parameters <span style="color:blue">$E[X]=3$</span> and <span style="color:blue">$Var[X]=2$</span>. 
+In our case, the outcome is the number of heads $X$, we use it to "estimate" true parameters: $\color{blue}{E[X]=3}$</span> and $\color{blue}{Var[X]=2}$. 
 
 ---
 
@@ -838,7 +838,7 @@ class: middle
 
 .content-box-red[**Implication**]
 
-+ In Microeconomics, Jensen's inequality is used to describe risk averter. For risk averter (the utility function $u(x)$ is concave), the utility from obtaining some expected return for certainty ($E[G(X)]$) is higher that than the utility from gambling ($G(E[X])$).
++ In Microeconomics, Jensen's inequality is used to describe risk averter. For risk averter (the utility function $u(x)$ is concave), the utility from obtaining some expected return for certainty ( $E[G(X)]$ ) is higher that than the utility from gambling ( $G(E[X])$ ).
 
 + Another implication is that if the underlying data-generating process is nonlinear (e.g., the impact of precipitation on crop yield), aggregation process (field-year level to county-level data) might mask the true nonlinear relationship. 
 
