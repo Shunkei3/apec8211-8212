@@ -84,9 +84,9 @@ g(y) = \frac{d}{dy}G(y) = \frac{1}{2\sqrt{y}} \quad (0 \leq y \leq 1)
 Cov(X,Y) 
   &= E[(X-E[X])(Y-E[Y])] \\
   &= E\Bigr[XY-XE[Y]-E[X]Y + E[X]E[Y] \Bigr] \\
-  &= E[XY]-E[X]E[Y]-E[X]E[Y] + E[X]E[Y] \quad  &(\because \text{linearity of expectation}) \\
+  &= E[XY]-E[X]E[Y]-E[X]E[Y] + E[X]E[Y] \quad  &(\text{linearity of expectation}) \\
   &= E[XY]-E[X]E[Y] \\
-  &= E[XY] \quad &(\because E[X]=0 \text{ or } E[Y]=0)
+  &= E[XY] \quad &(E[X]=0 \text{ or } E[Y]=0)
 \end{align*}
 
 Also, note that $Cov(X,Y)=E[XY]-E[X]E[Y]$. 
@@ -112,19 +112,19 @@ By definition,
 \begin{align*}
 Var[X+Y] 
   &= E\Bigl[\Bigl( X+Y - E[X+Y] \Bigl)^2 \Bigl] \\
-  &= E\Bigl[\Bigl( X+Y - E[X] - E[Y] \Bigl)^2 \Bigl]   &(\because \text{linearity of expectation}) \\
+  &= E\Bigl[\Bigl( X+Y - E[X] - E[Y] \Bigl)^2 \Bigl]   &(\text{linearity of expectation}) \\
   &= E\Bigl[\Bigl(X - E[X]) + (Y - E[Y]) \Bigl)^2 \Bigl] \\
   &= E\Bigl[(X - E[X])^2 + (Y - E[Y])^2 + 2(X - E[X])(Y - E[Y])\Bigl] \\
-  &= E[(X - E[X])^2] + E[(Y - E[Y])^2] + 2E[(X - E[X])(Y - E[Y])] &(\because \text{linearity of expectation}) \\
+  &= E[(X - E[X])^2] + E[(Y - E[Y])^2] + 2E[(X - E[X])(Y - E[Y])] &(\text{linearity of expectation}) \\
   &= Var[X] + Var[Y] + 2Cov(X,Y)
 \end{align*}
 
 
-### Part (4)
+### Part (d)
 
 If $X$ and $Y$ are uncorrelated, $corr(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var[X] Var[Y]}}=0 \iff cov(X,Y)=0$. 
 
-Therefore, using the result of Part (3), 
+Therefore, using the result of Part (e), 
 \begin{align*}
 Var[X+Y] = Var[X] + Var[Y] + 2Cov(X,Y) = Var[X] + Var[Y]
 \end{align*}
@@ -136,14 +136,31 @@ Var[X+Y] = Var[X] + Var[Y] + 2Cov(X,Y) = Var[X] + Var[Y]
 # Solution to Exercise 4
 
 ### Part (a)
+\begin{align*}
+E[X] 
+  &= E \Bigr[\sum_{i=1}^{k} Z_i^2 \Bigr] \\
+  &= \sum_{i=1}^{k} E[Z_i^2] \quad &(Z_i \text{ are independent}) \\
+  &= \sum_{i=1}^{k} (Var[Z_i] + (E[Z_i])^2) &(Var[Z_i] = E[Z_i^2] - (E[Z_i])^2) \\
+\end{align*}
+
+We know that $E[Z_i]=0$ and $Var[Z_i]=1$ because $Z_i \sim N(0,1)$.  Therefore, 
 
 \begin{align*}
-E[X]
-  &= E[\sum_{i=1}^{k} Z_i^2] \\
-  &= \sum_{i=1}^{k} E[Z_i^2] \quad (\because Z_i \perp\!\!\!\perp Z_j for \all)\\
+E[X] = \sum_{i=1}^{k} (1 + 0^2) = \sum_{i=1}^{k} 1 = k
 \end{align*}
 
 
-
 ### Part (b)
+\begin{align*}
+Var[K]
+  &= Var[Z_1^2 + Z_2^2] \\
+  &= Var[Z_1^2] + Var[Z_2^2]  \quad (Z_1 \text{ and } Z_2 \text{ are independent})\\
+\end{align*}
+
+Because $Var[Z_i^2] = E[Z_i^4] - (E[Z_i^2])^2$. Using the facts that $E[Z_i^2]=1$ and $E[Z_i^4]=3$, $Var[Z_i^2]=3-1=2$.
+
+Therefore, 
+\begin{align*}
+Var[K] = Var[Z_1^2] + Var[Z_2^2] = 2 + 2 =4
+\end{align*}
 
