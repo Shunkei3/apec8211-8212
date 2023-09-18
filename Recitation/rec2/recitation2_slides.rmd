@@ -39,6 +39,14 @@ httpgd::hgd()
 httpgd::hgd_browse()
 ```
 
+
+
+.content-box-green[**A Useful tip:**]
+
+hitting letter "o" key will give you a panel view of the slides
+
+---
+
 # Outline
 
 Review some concepts related to random variables
