@@ -11,6 +11,17 @@
 
 ## Topics:
 
+### Potential:
++ Variance vector notation:
+
+
+
+### Assignment3:
++ 
+
+
+
+
 ### Probability and Statistics
 
 + Conditional distribution and conditional expectation
