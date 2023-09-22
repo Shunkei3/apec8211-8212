@@ -86,30 +86,38 @@ name: intro
 ???
 + Okay, we have 30 minutes left. I would like to talk about Independence, Mean independence, and Uncorrelatedness (orthogonality).
 
-+ You know, as Joe told in the class, econometrics cares the error term, and Independence, Mean independence, and Uncorrelatedness are used as a statement of the relationship between the error term and the regressor. 
++ You know, as Joe told in the class, econometrics cares the error term, right?
++ These concepts are used as a statement of the relationship between the error term and the regressor. 
+
++ But dependending on which condition holds, the interpretation of the coefficient estimates vary. 
+
++ For example, if CIA hold, then the regression coefficient estimates has a causal interpretation.
+
++ and, as you will see in the later in this course, unbiasedness of OLS estimator relys on mean independence assumption, and consistency relies on orthogonality. 
 
 ---
 class: middle
 
+.content-box-green[**Example**]A simple linear CEF model
 
-Example: A simple linear CEF model
-\begin{align*}
+$$
 Y = \beta_0 + \beta_1 X + e
-\end{align*}
+$$
 
 
 .content-box-green[**Question:**]
-
-**What is the logical implication among $X \perp \!\!\! \perp e$, $E[e|X]=0$, and $E[Xe]=0$?**
++ **What is the differences among $X \perp \!\!\! \perp e$, $E[e|X]=0$, and $E[Xe]=0$?**
++ **What is the logical implication among them?**
 
 \begin{equation*}
 X \perp \!\!\! \perp e \; \mathrel{\mathop{\rightleftarrows}^{\mathrm{?}}_{\mathrm{?}}} \; E[e|X]=0 \; \mathrel{\mathop{\rightleftarrows}^{\mathrm{?}}_{\mathrm{?}}} \; E[Xe]=0
 \end{equation*}
 
-??? 
-+ Specifically, the question here is about the distinction among independence, mean independence, and uncorrelatedness, and their logical implication.  
 
-+ Here, Arrow means mathematical logic symbol. For example, if proposition A implies proposition B, then we can write $A \leftarrow B$.
+???
++ Here, we specifically focus on the question about the distinction among independence, mean independence, and uncorrelatedness, and their logical implication.  
+
++ Here, Arrow means mathematical logic symbol. For example, if proposition A implies proposition B, then we can write $A \rightarrow B$.
 
 + Are we clear what we gonna do?
 
@@ -118,7 +126,7 @@ class: middle
 
 # Before starting
 
-Example: A simple linear CEF
+Example: A simple linear projection model
 
 \begin{align*}
 Y = \beta_0 + \beta_1 X + e
@@ -129,9 +137,10 @@ Y = \beta_0 + \beta_1 X + e
 + <span style="color:blue"> $E[e]=0$ as long as an intercept is included in the model.</span>
 
 ???
-+ Before we start, I want to mention one thing. 
-+ That is, the expectation of the regression error is $0$ as long as an intercept is included in the model. 
-+ This is not an assumption at all, this is a sort of a natural result.  
++ Before we start, I want to confime one thing with you. 
++ That is, the expectation of the regression error is always $0$ as long as an intercept is included in the model. 
++ This is not an assumption at all but this is a sort a natural result of linear projection error. 
+
 + <span style="color:blue">This property is explained in the Hansen's book, but he does not explain why. </span>
 
 ---
@@ -154,7 +163,7 @@ Y
 
 where, $\color{blue}{\gamma_0=\beta_0 + \alpha}$ and $\color{red}{e=u-\alpha}$.
 
-Now, $E[u]=E[u-\alpha]=E[u]-\alpha=\alpha-\alpha=0$.
+Now, $E[e]=E[u-\alpha]=E[u]-\alpha=\alpha-\alpha=0$.
 
 ???
 + Here is an explanation. Suppose that the expectation of error term $u$ is not equal to zero. 
@@ -163,6 +172,7 @@ Now, $E[u]=E[u-\alpha]=E[u]-\alpha=\alpha-\alpha=0$.
 + $alpha$ is a constant, so we move $\alpha$ to the front, and in the final line, I define new intercept $\gamma_0$ and new error term $u-a$. 
 
 + Now, calculating the expectation of $u$, it's zero!
++ This is why, expectation of the error is always zero. 
 
 ---
 # Independence, Mean independence, and Uncorrelatedness (orthogonality)
@@ -194,17 +204,18 @@ $X \perp e \iff E[Xe]=0$
 ???
 + Okay, here is the short summary of independence, mean independence and uncorrelatedness about the explnatory variable $X$ and the error $e$. 
 
-+ Independence means statistical independence, right? If $e$ and $X$ are independent, the information about $e$ does not tell anything about the information of the distribution of $X$. 
-+ In other words, all the moment of the distribution of $e$ does not change by $X$, and vice versa. 
++ As you already know, Independence means statistical independence, right? 
++ If $e$ and $X$ are independent, the information about $e$ does not tell anything about the information of the distribution of $X$. 
++ <span style="color:blue">In other words, all the moments of the distribution of $e$ such as mean and variance and so on does not change by $X$, and vice versa.</span>
 
 + Meanwhile, if $e$ is mean independent of $X$, it means the mean of the distribution of $e$ does not depend on the value of $X$. 
 + It could be that higher moments such as variance changes with $e$. 
 
-+ and, the uncorrelatedness or orthogonality of $e$ and $X$, simply means there is no linear dependency between $e$ and $X$. 
++ and, the uncorrelatedness or orthogonality of $e$ and $X$, <span style="color:blue">simply means there is no linear dependency between $e$ and $X$.</span>
 
-+ We can see that independence is the strongest condition because it says that all the moments of the distribution of $e$ are irrelevant to $X$. 
++ We can see that independence is the strongest condition among these three because it says that all the moments of the distribution of $e$ are irrelevant to $X$. 
 
-+ , and the uncorrelatedness is the weakest condition because it indicates a specific condition, which is linear dependency, between $X$ and $e$.
++ , and the uncorrelatedness is the weakest condition because it simply indicates a broad condition that $X$ and $e$ are not lineary dependent.
 
 + <span style="color:blue">Do you guys feel comfortable with why uncorrelatedness between $X$ and $e$ can be descrived like this?</span>
 
@@ -234,11 +245,11 @@ X \perp \!\!\! \perp e \; \mathrel{\mathop{\rightleftarrows}^{\mathrm{\circ}}_{\
 
 
 ???
-+ Generally, this relationship holds. 
-+ That is, independence implies mean independence, and mean independence implies uncorrelatedness.  
++ Generally, this logical implication holds among independence, and mean independence and uncorrelatedness. 
++ That is, independence implies mean independence, and mean independence implies uncorrelatedness.   
 + But, the reverse is not true. 
 
-+ Here is the small exercise problem. Let's prove the statement of this direction. 
++ Here are the simple exercise problems. 
 
 ---
 ## Example: Mean independence does not imply statistical independence
@@ -249,11 +260,17 @@ Case: $E[e|X]= 0$ is true but $X \perp \!\!\! \perp e$ is false
 knitr::include_graphics("figure1.png")
 ```
 
-$e$: teachers' teaching skills
+$e$: unobserved teachers' teaching skills
 
 $D$: participation to a teacher training program
 
 (This is from Lecture Note 3, P63)
+
+???
++ This an example showing mean indpendence does not imply statistical independence.  
++ This figure is from the lecture note. 
++ $e$ is unobserved teaching skill and $D$ is a dummy variable and it indicates the participation to a teacher training program. 
++ <span style="color:blue">mean of $e$ is the same for treatment and control group, but the distribution of $e$ of the treatment group could take this kind of distribution if teachers who are more likely to attend the training program are such that teachers with low skill and teacher with high skill.</span>
 
 ---
 ## Example: uncorrelatedness does not imply Mean independence
@@ -261,10 +278,9 @@ Case: $E[Xe]=0$ is true but $E[e|X] = 0$ is false
 
 
 
+
 ---
 class: middle
-
-## Implication
 
 \begin{equation*}
 X \perp \!\!\! \perp e \; \xrightarrow{\circ} \; E[e|X]=0 \; \xrightarrow{\circ} \; E[Xe]=0
@@ -281,6 +297,8 @@ Therefore,
 $E[Xe]\neq0 \xrightarrow{\circ}$ $X$ and $e$ are dependent
 
 <br>
+
+.content-box-red[**Implication**]: 
 
 <span style="color:blue">To consider whether Selection-on-observables assumption holds, consider the possible correlation between $X$ and $e$.</span>
 
@@ -336,6 +354,8 @@ PrintBibliography(bib)
 class: one-page-font
 
 ## Assignment 2: Question 4-(c)
+
+You can write simulation codes in a different way. 
 
 .panelset[ 
 
