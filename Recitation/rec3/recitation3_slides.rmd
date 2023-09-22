@@ -9,7 +9,7 @@ header-includes:
 output:
   xaringan::moon_reader:
     self_contained: true
-    css: xaringan-themer.css 
+    css: ../xaringan-themer.css 
     lib_dir: libs
     nature: 
       highlightStyle: github
@@ -48,810 +48,104 @@ hitting letter "o" key will give you a panel view of the slides
 ---
 
 # Outline
-
-Review some concepts related to random variables
-
-<!-- # main  -->
-1 CDF, PDF, PMF [(review)](#dist) 
-
-+ Exercise problem 1 [(here)](#ex1)
-+ Exercise problem 2 (optional) [(here)](#ex2)
-
-<!-- # To explain Jensen's inequality -->
-2 Mean and variance and covariance [(review)](#mean)
-
-+ Exercise problem 3 [(here)](#ex3)
-+ Exercise problems 4 (optional) [(here)](#ex4)
-
-3 Introduction of Monte Calro Simulation [(here)](#monte)
-
-4 Jensen's inequality (optional) [(here)](#jensen)
++ independence, mean independence, and uncorrelation
 
 
 ---
-class: inverse, center, middle
-name: dist
 
-# CDF, PDF, and PMF
-
-<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
-
----
-.content-box-red[**Distribution function**]
-+ Cumulative distribution function (CDF)
-+ **Definition:** The CDF of a random variable $X$ is $\color{red}{F(x) = Pr[X \leq x]}$
-+ **Verbally**: CDF $F(x)$ tells us the probability of the event that random variable $X$ is <span style="color:red">less</span> than a value $x$. 
-
-.left5[
-```{r, echo=F}
-# Define sequence of x-values  
-x <-  seq(-4, 4, .01)
-# CDF plot for a continuous variable
-cdf_x <- pnorm(x)
-# plot normal CDF
-plot(
-  x, cdf_x, type="l",
-  xlab = "X",
-  ylab = "Probability",
-  main = "Continuous distribution function"
-)
-```
-]
-.right5[
-```{r, dpi=36, echo=F}
-# https://stackoverflow.com/questions/66266703/draw-discrete-cdf-in-r
-x <- -1:5
-prob <- ppois(q = x, lambda = 3)
-n <- length(x)
-
-plot(x = NA, y = NA, pch = NA, 
-     xlim = c(-1, max(x)), 
-     ylim = c(0, 1),
-     xlab = "X",
-     ylab = "Probability",
-     main = "Discrete distribution function"
-)
-points(x = x[-1], y = prob[-1], pch=19)
-points(x = x[-1], y = prob[-n], pch=1)
-for(i in 2:(n-1))
-  points(x=x[i+0:1], y=prob[c(i,i)], type="l")
-points(x=c(-2,x[2]), y=prob[c(1,1)], type="l")
-points(x=c(x[n],6), y=prob[c(n,n)], type="l")
-```
-]
-
-
----
-class: middle
-
-.content-box-green[**Question:**]
-+ What is the definition of joint distribution function of $(X, Y)$?
-  
-<span style="color:red">$$F(x,y) = Pr[\text{?}]$$</span>
-
----
-class: middle
-
-.content-box-green[**Question:**]
-+ What is the definition of joint distribution function of $(X, Y)$?
-
-<span style="color:red">$$F(x,y) = Pr[X \leq x, Y \leq y]$$</span>
-
----
-
-<!-- PDF and PMF (1) -->
-
-.content-box-red[**Probability mass function (Discrete random variables)**]
-+ **Definition**: $\color{red}{\pi(x) = Pr[X = x]}$
-+ **Verbally**: The probability of the event that $X$ takes a specific value $x$.
-
-<br>
-
-.content-box-red[**Probability density function (Continuous random variables)**] 
-+ **Definition**:  $\color{red}{f(x) = \frac{d}{dx}F(x)} \quad ( = \displaystyle \lim_{h\to\infty} \frac{F(x+h)-F(x)}{h})$
-+ **Verbally**: Density function is defined as a very small change in the CDF. 
-
----
-<!-- PDF and PMF (2) -->
-
-.content-box-red[**Probability mass function (Discrete random variables)**]
-+ **Definition**: $\color{red}{\pi(x) = Pr[X = x]}$
-+ **Verbally**: The probability of the event that $X$ takes a specific value $x$.
-
-<br>
-
-.content-box-red[**Probability density function (Continuous random variables)**] 
-+ **Definition**:  $\color{red}{f(x) = \frac{d}{dx}F(x)} \quad ( = \displaystyle \lim_{h\to\infty} \frac{F(x+h)-F(x)}{h})$
-+ **Verbally**: Density function is defined as a very small change in the CDF. 
-
-
-<br>
-.content-box-red[**Theorem 2.3: Properties of a PDF**] 
-
-A function f(x) is a density function **if and only if** 
-
-$$\begin{cases}
-f(x) \ge 0 \text{ for all } x \\
-\int_{-\infty}^\infty f(x)\,dx = 1
-\end{cases}$$
-
-+ You can use this condition to check whether a function $f(x)$ is valid density function or not!
-<!-- if you are asked to show that a function f(x) is a valid density function, check whether f(x) satisfies these properties or not. -->
-
----
-class: middle
-
-.content-box-green[**Question:**]
-
-+ Joint probability mass function:
-
-<span style="color:red"> $$\pi[x,y] = \text{?}$$</span>
-
-+ Given a continuous joint distribution function $F(x,y)$, how its joint density is defined?
-
-<span style="color:red">$$f(x,y) = \text{?}$$</span>
-
----
-class: middle
-
-.content-box-green[**Question:**]
-
-+ Joint probability mass function:
-
-<span style="color:red"> $$\pi[x,y] = Pr[X=x, Y=y]$$</span>
-
-+ Given a continuous joint distribution function $F(x,y)$, how its joint density is defined?
-
-<span style="color:red">$$f(x,y) = \frac{\partial^2}{\partial x \partial y} F(x,y)$$</span>
-
----
-class: middle
-
-.content-box-green[**Relationship between CDF and PDF**]
-+ **From CDF to PDF**: $f(x) = \frac{d}{dx}F(x)$ </br> (by definition of PDF)
-
-+ **From PDF to CDF**: $F(x) = Pr(X \leq x) = \int_{-\infty}^x f(t) dt$ </br> (as shown below)
-
-
-```{r, child = 'prepareResults.rmd', cache=T}
-```
-
----
-class: middle
-name: ex1
-
-# Exercise 1
-.content-box-green[**Final Exam: 2021: Problem 1**] 
-
-Define $\Phi(z)$ as the CDF of a standard normal random variable and $\phi(z)$ as its density function. 
-
-(a) Write $Pr(Z \leq b)$ using $\Phi()$.
-
-(b) Write $Pr(Z \leq b)$ as an integral. 
-
-(c) Write $Pr(a \leq Z \leq b)$ using $\Phi()$.
-
-(d) Write $Pr(a \leq Z \leq b)$ as an integral.
-
----
-class: middle
-# Exercise 2
-.content-box-green[**PSE Exercise 2.1**] 
-
-Let $X \sim U[0,1]$. Find the PDF of random variable $Y=X^2$. 
-
----
-class: inverse, center, middle
-name: mean
-
-# Mean and Variance and Covariance
-
-<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
----
-
-.content-box-red[**Mean and Variance**]
-
-**Definition** 2.18, 2.19: 
-
-+ The mean of $X$ is<span style='color:red'> $E[X]$</span>
-+ The variance of $X$ is <span style='color:red'> $Var[X]=E[(X-E[X])^2]$</span> $= E[X^2] - (E[X])^2$
-
-
-```{r,echo=F, cache=T}
-# /*===========================================*/
-#'=  Mean of X =
-# /*===========================================*/
-# /*===== Data generation =====*/
-# --- Set the range of X --- #
-x_left <- 2
-x_right <- 10
-x_center <- (x_left + x_right)/2
-
-# --- Creating data --- #
-x <- seq(x_left, x_right, length = 1000)
-y <- dnorm(x, mean = x_center, sd = 1)
-plot_data <- data.table(x = x, y = y)
-
-# /*===== Visualization =====*/
-plot_mean_X <- 
-  ggplot(data = plot_data) +
-    geom_line(aes(x = x, y = y), color = "black")+
-    geom_vline(xintercept=x_center, color="red") +
-    labs(y="Density", title="Density of X ~ N(6,1)") +
-    annotate("text", x = 7, y = 0.01,
-      label = "Mean E[X]=6",
-      size = 3, color="red") +
-    theme_bw()+
-    theme(plot.title = element_text(hjust = 0.5))
-```
-
-```{r, echo=F, cache=T}
-# /*===========================================*/
-#'= Variance =
-# /*===========================================*/
-# /*===== Data generation =====*/
-# --- a list of the values of Var[X] --- #
-ls_var <- c(1,4,9)
-# --- Create an object to save results--- #
-ls_res <- vector(mode='list', length=length(ls_var))
-# --- Range of X --- #
-x_left <- 2
-x_right <- 10
-x_center <- (x_left + x_right)/2
-
-# --- Generate data by the value in ls_var --- #
-for (i in seq(1:length(ls_var))){
-  var <- ls_var[i]
-  x <- seq(x_left, x_right, length = 1000)
-  y <- dnorm(x, mean = x_center, sd = sqrt(var))
-  ls_res[[i]] <- data.table(var = var, x = x, y = y)
-}
-res_total <- rbindlist(ls_res)
-
-# /*===== Visualization =====*/
-plot_var_X <- 
-  ggplot(data = res_total) +
-  geom_line(aes(x = x, y = y, color = interaction(var)))+
-  labs(y = "Density", title = expression("Density of X ~ N(6," ~ sigma^2 ~ ") with various " ~ sigma^2)) +
-  guides(color = guide_legend(title= expression(sigma^2 ~ "=")))+
-  theme_bw() +
-  theme(plot.title = element_text(hjust = 0.5))
-```
-
-
-.left5[
-```{r, dpi=36, echo=F, out.width = "100%", cache=T}
-plot_mean_X
-```
-  ]
-
-.right5[
-```{r, dpi=36, echo=F, out.width = "100%", cache=T}
-plot_var_X
-```
-  ]
-
----
-
-.content-box-red[**Covariance**]
-
-**Definition**:
-$$
-\color{red}{Cov(X, Y) = E[(X-E[X])(Y-E[Y])]} = E[XY] - E[X][Y]
-$$
-
-**Verbally**: Covariance measure the joint variability of two random variables. 
-
-+ .content-box-green[Visualization]
-
-```{r, dpi=36,, echo=F, fig.dim = c(12, 3)}
-# /*===== Data generation =====*/
-ls_a <- c(-0.8, -0.5, 0, 0.5, 0.8)
-n = 1000
-ls_result <- list()
-
-set.seed(123)
-x <- rnorm(n, 3, sd=2)
-z <- rnorm(n, 3, sd=2)
-
-for (i in seq(1:length(ls_a))){  
-  a <- ls_a[i]
-  y <- a*x + abs(1-abs(a))*z
-  ls_result[[i]] <- data.table(a = a, x = x, y = y)
-}
-
-results <- 
-  rbindlist(ls_result) %>%
-  .[,type := paste0("Cov(X,Y)=",round(cov(x,y), digits = 1)), by=a]
-
-# /*===== Visualization =====*/
-ggplot(data = results)+
-  geom_point(aes(x = x, y = y), size = 0.5)+
-  facet_wrap(~ factor(type, unique(results$type)), scale = "free", nrow = 1)+
-  labs(x = "X", y = "Y", title = "Plots of random variables (X,Y) with different sizes of covariances")+
-  theme_bw()+
-  theme(
-    axis.text.x = element_blank(),
-    axis.ticks.x = element_blank(),
-    axis.text.y = element_blank(),
-    axis.ticks.y = element_blank(),
-    plot.title = element_text(hjust = 0.5)
-  )
-```
 
 
 ---
 
-.content-box-red[**Covariance**]
+## Assignment 2: Question 4-(c)
 
-**Definition:**
-$$
-\color{red}{Cov(X, Y) = E[(X-E[X])(Y-E[Y])]} = E[XY] - E[X][Y]
-$$
-
-**Verbally**: Covariance measure the joint variability of two random variables. 
-
-+ .content-box-green[Visualization]
-
-```{r, dpi=36,, echo=F, fig.dim = c(12, 3)}
-# /*===== Data generation =====*/
-ls_a <- c(-0.8, -0.5, 0, 0.5, 0.8)
-n = 1000
-ls_result <- list()
-
-set.seed(123)
-x <- rnorm(n, 3, sd=2)
-z <- rnorm(n, 3, sd=2)
-
-for (i in seq(1:length(ls_a))){  
-  a <- ls_a[i]
-  y <- a*x + abs(1-abs(a))*z
-  ls_result[[i]] <- data.table(a = a, x = x, y = y)
-}
-
-results <- 
-  rbindlist(ls_result) %>%
-  .[,type := paste0("Cov(X,Y)=",round(cov(x,y), digits = 1)), by=a]
-
-# /*===== Visualization =====*/
-ggplot(data = results)+
-  geom_point(aes(x = x, y = y), size = 0.5)+
-  facet_wrap(~ factor(type, unique(results$type)), scale = "free", nrow = 1)+
-  labs(x = "X", y = "Y", title = "Plots of random variables (X,Y) with different sizes of covariances")+
-  theme_bw()+
-  theme(
-    axis.text.x = element_blank(),
-    axis.ticks.x = element_blank(),
-    axis.text.y = element_blank(),
-    axis.ticks.y = element_blank(),
-    plot.title = element_text(hjust = 0.5)
-  )
-```
-
-.content-box-red[**Correlation**]
-
-**Definition:**
-$$
-\color{red}{Corr(X, Y) = \frac{Cov(X,Y)}{\sqrt{Var[X] Var[Y]}}}
-$$
-
----
-## Play around with data (optional)
-.content-box-green[**Goal**]
-+ Understand some basic R functions (e.g., mean, variance, etc.)
-+ See covariance is influenced by the change in scale but correlation is not. 
-
-.small-code[
-```{r, echo=T, eval=F}
-# === Data === #
-data(airquality)
-```
-
-```{r, echo=T, eval=F}
-#/*--------------------------------*/
-#' ## Basic functions of R
-#/*--------------------------------*/
-# --- histogram of Temperature (Temp) --- #
-hist(airquality$Temp)
-# frequency table can be obtained by running table(airquality$Temp)
-
-# --- Mean of Temperature (degrees F)--- #
-mean(airquality$Temp)
-
-# --- Variance of Temperature --- #
-var(airquality$Temp)
-# sd(airquality$Temp) for standard deviation
-# --- summary statistics of Temp --- #
-summary(airquality$Temp)
-```
-
-```{r, echo=T, eval=F}
-#/*------------------------------------------*/
-#' ## Relationship between Wind speed and Temperature
-#/*------------------------------------------*/
-# === Covariance === #
-cov(airquality$Wind, airquality$Temp)
-
-# What happens if you change the unit of wind from mph to kmph (1mph=1.6kmph)
-cov(airquality$Wind*1.6, airquality$Temp)
-
-# === Correlation === #
-cor(airquality$Wind, airquality$Temp)
-
-# What happens if you change the unit of wind from mph to kmph (1mph=1.6kmph)
-cor(airquality$Wind*1.6, airquality$Temp)
-```
-]
-
----
-
-## E[ ], Var[ ] as operators
-
-.content-box-red[**Expectation: E[ ]**]
-
-<span style="color:red"> 1. $E[ \,]$ is a linear operator (Linearity of expectation)</span>
-
-For any constants $a$ and $b$, 
-
-$$E[a+bX] = a + bE[X]$$
-$$E[aX+bY] = aE[X] + bE[Y]$$
-
-.content-box-green[**Question**]
-
-+ $E[X+Y^2] = E[X]+E[Y^2]$?
-+ $E[XY] = E[X]E[Y]$?
----
-
-## E[ ], Var[ ] as operators
-
-.content-box-red[**Expectation: E[ ]**]
-
-<span style="color:red"> 1. $E[ \,]$ is a linear operator (Linearity of expectation)</span>
-
-For any constants $a$ and $b$, 
-
-$$E[a+bX] = a + bE[X]$$
-$$E[aX+bY] = aE[X] + bE[Y]$$
-
-.content-box-green[**Question**]
-
-+ $E[X+Y^2] = E[X]+E[Y^2]$? 
-  * Yes.
-+ $E[XY] = E[X]E[Y]$?
-  * No. This holds if and only if $X$ and $Y$ are independent. (Proof?)
-  
----
-
-## E[ ], Var[ ] as operators
-
-.content-box-red[**Expectation: E[ ]**]
-
-<span style="color:red"> 1. $E[ \,]$ is a linear operator (Linearity of expectation)</span>
-
-For any constants $a$ and $b$, 
-
-$$E[a+bX] = a + bE[X]$$
-$$E[aX+bY] = aE[X] + bE[Y]$$
-
-.content-box-green[**Question**]
-
-+ $E[X+Y^2] = E[X]+E[Y^2]$? 
-  * Yes.
-+ $E[XY] = E[X]E[Y]$?
-  * No. This holds if and only if $X$ and $Y$ are independent. (Proof?)
-  
-<span style="color:red"> 2. Law of iterated expectation</span>
-
-$$
-E[E[Y|X]] = E[Y]
-$$
-
----
-
-
-## E[ ], Var[ ] as operators
-
-.content-box-red[**Variance: Var[ ]**]
-
-$Var[ \,]$ is <span style="color:red">not</span> a linear operator
-
-$$
-Var[a+bX] = b^2E[X]
-$$
-
-because 
-$$\begin{align*}
-Var[a+bX]
-  &= E[(a+bX - E[a+bX])^2] \quad &(\text{definition of variance})\\ 
-  &= E[(a+bX - a-bE[X])^2] \quad &(\text{linearity of expectation})\\ 
-  &= E[(b(X - E[X]))^2] \\ 
-  &= E[b^2(X - E[X])^2] \\ 
-  &= b^2 E[(X - E[X])^2] \\ 
-  &= b^2 Var[X]
-\end{align*}$$
-
-
----
-name: ex3
-
-# Exercise 3
-
-.content-box-green[**Lecture note 2, p14**] 
-
-Prove these for continuous $(X,Y)$ with finite variances.
-
-(a). If $E[X]=0$ or $E[Y]=0$, $Cov(X,Y)=E[XY]$.
-
-(b). If $X \perp\!\!\!\perp Y$, $corr(X,Y)=0$.
-
-(c). If $E[X] = E[Y] = 0$, $Var[X+Y] = Var[X] + Var[Y] + 2Cov(X,Y)$ (Note: Also true if the expectations are non-zero).
-
-(d). If $X$ and $Y$ are uncorrelated, $Var[X+Y] = Var[X] + Var[Y]$.
-
----
-name: ex4
-
-# Exercise 4
-
-.content-box-green[**Final Exam: 2021: Problem 3**] 
-
-The chi-squared distribution with $k$ degrees of freedom, denoted $\chi^2(k)$, is the distribution of $\sum_{i=1}^k Z^2_{i}$ where $Z_i \sim N(0,1)$ and the $Z_i$ are independent $(Z_i \perp\!\!\!\perp Z_j)$. *You do not need to work with the CDF or density of a $\chi^2$ distribution to answer this question!*.
-
-<br>
-
-(a) Show that if $X$ is distributed $\chi^2(k)$ then $E[X]=k$.
-
-<br>
-
-(b) More work with expectation Let $K=Z^2_{1} + Z^2_{2}$, where $Z_j \sim N(0,1)$. Then $K \sim \chi^2(2)$. Another fact is that if $Z \sim N(0,1)$, then $E[Z^4]=3$. Use that fact to show that $Var[K]=4$. [Hint: $E[Z_j^4]$ is closely related to $Var[Z_j^2]$.]
-
-
----
-
-class: inverse, center, middle
-name: intro
-
-
-# Monte Calro Simulation: Brief introduction
-
-<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
-
----
-class: middle
-.content-box-red[**Monte Carlo Simulation**]
-+ A way to test econometric theories or statistical procedures in realistic setting via simulation. 
-
----
-
-class: middle
-
-.content-box-green[**Example: Binomial distribution (PSE 3.4)**]
-
-The binomial disrandom variables equals the outcome of $n$ independent Bernoulli trials. If you flip a coin $n$ times, the number of heads has a binomial distribution. 
-
-<br>
-
-Theoretically, the binomial random variable has a binomial distribution: 
-$$\begin{align*}
-E[X] &= np \\
-Var[X] &= np(1-p)
-\end{align*}$$
-
-<br>
-
----
-
-class: middle
-
-.content-box-green[**Example: Binomial distribution (PSE 3.4)**]
-
-Suppose that we flip a coin $n=9$ times, and count the number of heads (i.e. $X$). The coin is not fair, $p=Pr[heads]=\frac{1}{3}$.
-
-According to the theory,
-
-+ $E[X]=np = 9 \times \frac{1}{3} = 3$
-+ $Var[X]=np(1-p) = 9 \times \frac{1}{3} (1 - \frac{1}{3}) = 2$
-
-Can we confirm this with Monte Calro simulation?
-
----
-class: middle
-
-## Monte Carlo Simulation: Steps
-+ step 1: specify the data generating process
-+ step 2: Repeat:
-  * step 2.1: generate data based on the data generating process
-  * step 2.2: get an outcome you are interested in based on the 
-generated data 
-+ step 3: compare your estimates with the true parameter
-
-<br>
-
-In our case, the outcome is the number of heads $X$, we use it to "estimate" true parameters: $\color{blue}{E[X]=3}$</span> and $\color{blue}{Var[X]=2}$. 
-
----
-
-## For explanation: A single iteration
-
-.medium-code[
-```{r, echo=T, eval=T}
-set.seed(1234)
-
-# --- Step1: Speficify the data generating process --- #
-p <- 1/3 # the probability of getting heads
-n <- 9 # the number of trials
-
-# --- Step 2.1: generate data  --- #
-seq_x <- sample(c(1,0), size=n, prob=c(p, 1-p), replace=TRUE)
-
-seq_x
-# --- Step 2.2: get an outcome you are interested in --- #
-sum(seq_x) # the number of heads
-```
-]
-
----
-
-## Repeat the calculation many many times
-
-
-```{r,  echo=T, eval=T}
-B <- 1000 # the number of iterations
-
-# create a storage that stores outcomes
-storage <- numeric(B)
-
-# --- step 2: Run the simulation --- #
-for(i in 1:B){
-  seq_x <- sample(c(1,0), size=9, prob = c(p, 1-p), replace=TRUE)
-  storage[i] <- sum(seq_x)
-}
-
-# --- Step 4: compare the results with   --- #
-# Mean
-mean(storage)
-
-# Variance
-var(storage)
-```
-
-
----
-class: inverse, center, middle
-name: jensen
-
-# Jensen's inequality (optional)
-
-<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
----
-
-
-## Motivation
-
-Linearity of expectation cannot be used when the function inside $E[\,]$ is a nonlinear function.
-
-.content-box-green[**Example:**] 
-+ If $g(X)$ is a linear function (e.g., $g(x)=ax+b$)
-  * $E[g(X)]=g(E[X]])$
-+ If $g(X)$ is a nonlinear function (e.g., $g(x)=x^2$)
-  * $E[g(X)] \neq g(E[X])$
-
----
-
-In the previous slide, we saw $Var[X]=E[(X-E[X])^2]=E[X^2] - (E[X])^2$. Because $Var[X] \ge 0$,
-
-$$E[X^2] - (E[X])^2 \ge 0$$
-<p style="text-align: center;">or</p>
-$$(E[X])^2 \leq E[X^2]$$
-Define $g(x)=x^2$. Then it is written as
-$$g(E[X]) \leq E[g(X)]$$
-
-Generally, 
-$$\begin{align*}
-g(E[X]) \leq E[g(X)] \quad &\text{if } g(x) \text{ is a convex function} \\
-E[g(X)] \leq g(E[X]) \quad &\text{if } g(x) \text{ is a concave function}
-\end{align*}$$
-
-+ So, the first step to use Jensen's inequality is to check whether $g(x)$ is concave or convex function.
-
----
-.content-box-green[**Visualization**]
+Here, we want to check $E[M]=E[E[M|Q]]=9$. 
 
 .panelset[ 
 
-.panel[.panel-name[Example 1 : g(x) is convex]
-.left5[
+.panel[.panel-name[Data table way (assignment2code.r)]
+.medium-code[
+```{r, echo=T, cache=T}
+set.seed(1234)
 
-Suppose that $g(x)=x^2$.
+library(data.table)
+n <- 1e7  # R notation for 1 x 10^7
 
-.small-code[
-```{r, echo=T}
-set.seed(356)
+mix <- 
+  data.table(
+    X = rchisq(n, 4), 
+    Y = rchisq(n, 8), 
+    Z = rchisq(n, 16),
+    Q = sample(1:3, n, prob=c(0.25, 0.5, 0.25), replace=TRUE)
+  )
 
-# Create a sequence of X from a uniformal distribution
-x <- runif(1000, 0, 10)
+# fcase gives M the value of X if Q==1, Y if Q==2, Z if Q==3
+mix[ , M := fcase(Q==1, X, 
+                  Q==2, Y,
+                  Q==3, Z)]
 
-# /*===== Convex case: g(X)=X^2 =====*/
-y <- x^2
-
-figure_ex1 <-
-  ggplot()+
-  geom_point(aes(x = x, y = y))+
-  # --- E[X] --- #
-  geom_vline(xintercept = mean(x), color = "red", linetype = "dashed")+
-  annotate("text", x = mean(x)+1, y = 0.01,
-    label = paste0("E[X]=", round(mean(x), 1)), size = 3, color = "red") +
-  # --- Add horizontal line for --- #
-  geom_hline(yintercept = mean(y), color="blue", linetype = "dashed")+
-  annotate("text", x = 1, y = mean(y)+5,
-    label = paste0("E[g(X)]=", round(mean(y), 1)), size = 3, color = "blue") +
-  # --- Add horizontal line for g(E[X]) --- #
-  geom_hline(yintercept = mean(x)^2, color="darkgreen", linetype = "dashed")+
-  annotate("text", x = 1, y = mean(x)^2-5,
-    label = paste0("g(E(X))=", round(mean(x)^2, 1)), size = 3, color = "darkgreen") +
-  theme_bw()
+# See the means of all columns (.SD means all columns).
+# lapply()  translates to "Apply the function 'mean' to every column."
+mix[ , lapply(.SD, mean)]
 ```
+    ]
   ]
-  ]
-.right5[
-```{r, echo=F, out.width = "100%"}
-figure_ex1
-```
 
-$$\color{darkgreen}{g(E[X])} \leq \color{blue}{E[g(X)]}$$
+
+.panel[.panel-name[basic R way]
+.medium-code[
+```{r, echo=T, cache=T}
+set.seed(1234)
+
+library(dplyr)
+
+n <- 1e7  # R notation for 1 x 10^7
+
+mix <- data.frame(
+  X = rchisq(n, 4), 
+  Y = rchisq(n, 8), 
+  Z = rchisq(n, 16),
+  Q = sample(1:3, n, prob=c(0.25, 0.5, 0.25), replace=TRUE)
+  )
+
+# sntax: ifelse(condition, x if condition is met, y otherwise)
+mix$M <- 
+  ifelse(mix$Q==1, mix$X,
+    ifelse(mix$Q==2, mix$Y, mix$Z))
+
+colMeans(mix)
+```
+    ]
+  ]
+
+
+.panel[.panel-name[dplyr way]
+Don't use dplyr in the test!
+.medium-code[
+```{r, echo=T, cache=T}
+set.seed(1234)
+
+library(dplyr)
+
+n <- 1e7  # R notation for 1 x 10^7
+
+mix <- data.frame(
+  X = rchisq(n, 4), 
+  Y = rchisq(n, 8), 
+  Z = rchisq(n, 16),
+  Q = sample(1:3, n, prob=c(0.25, 0.5, 0.25), replace=TRUE))
+
+# case_when is the dplyr version of fcase 
+mix <- mutate(mix, M = case_when(Q==1 ~ X, Q==2 ~ Y, Q==3 ~ Z))
+
+# 
+summarise(mix,  across(X:M, mean))
+# this is equivalent to 
+# summarise(mix, X=mean(X), Y=mean(Y), Z=mean(Z), Q=mean(Q), M=mean(M))
+```
+    ]
   ]
 ]
-
-.panel[.panel-name[Example 2: g(x) is concave]
-.left5[
-
-Suppose that $g(x)=\sqrt{x}$.
-
-.small-code[
-```{r, echo=T, out.width = "50%"}
-# /*===== Convex case: g(X)=X^(1/2) =====*/
-y <- x^(1/2)
-
-figure_ex2 <-
-  ggplot()+
-  geom_point(aes(x = x, y = y))+
-  # --- E[X] --- #
-  geom_vline(xintercept = mean(x), color = "red", linetype = "dashed")+
-  annotate("text", x = mean(x)+0.8, y = 0.01,
-    label = paste0("E[X]=", round(mean(x), 1)), size = 3, color = "red") +
-  # --- E[g(X)] --- #
-  geom_hline(yintercept = mean(y), color = "blue", linetype = "dashed")+
-  annotate("text", x = 1, y = mean(y)-0.2,
-    label = paste0("E[g(X)]=", round(mean(y), 2)), size = 3, color = "blue") +
-  # --- g(E[X]) --- #
-  geom_hline(yintercept = mean(x)^(1/2), color = "darkgreen", linetype = "dashed")+
-  annotate("text", x = 1, y = mean(x)^(1/2)+0.2,
-    label = paste0("g(E(X))=", round(mean(x)^(1/2), 2)), size = 3, color = "darkgreen") +
-  theme_bw()
-```
-  ]
-  ]
-.right5[
-```{r, echo=F, out.width = "100%"}
-figure_ex2
-```
-$$\color{blue}{E[g(X)]} \leq \color{darkgreen}{g(E[X])}$$
-  ]
-]
-]
-
-
----
-class: middle
-
-.content-box-red[**Implication**]
-
-+ In Microeconomics, Jensen's inequality is used to describe risk averter. For risk averter (the utility function $u(x)$ is concave), the utility from obtaining some expected return for certainty ( $E[G(X)]$ ) is higher that than the utility from gambling ( $G(E[X])$ ).
-
-+ Another implication is that if the underlying data-generating process is nonlinear (e.g., the impact of precipitation on crop yield), aggregation process (field-year level to county-level data) might mask the true nonlinear relationship. 
-
-
-
 
 
 

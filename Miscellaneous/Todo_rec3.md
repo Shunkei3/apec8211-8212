@@ -13,8 +13,9 @@
 
 ### Potential:
 + Variance vector notation:
+	* Lecture 1-P40
 
-
++ Explanation about the simulation in Assignment 2 Question 4-(c)
 
 ### Assignment3:
 + 
