@@ -39,6 +39,23 @@ httpgd::hgd()
 httpgd::hgd_browse()
 ```
 
+```{r setup, include=FALSE, cache = FALSE}
+options(htmltools.dir.version = FALSE)
+
+# /*===== Reference =====*/
+suppressMessages(library(RefManageR))
+
+BibOptions(
+  check.entries = FALSE,
+  bib.style = "authoryear",
+  style = "markdown",
+  hyperlink = FALSE,
+  dashed = TRUE,
+  max.names = 2,
+  longnamesfirst = FALSE
+)
+bib <- ReadBib("cite.bib")
+```
 
 
 .content-box-green[**A Useful tip:**]
@@ -46,20 +63,250 @@ httpgd::hgd_browse()
 hitting letter "o" key will give you a panel view of the slides
 
 ---
+class: middle
 
 # Outline
-+ independence, mean independence, and uncorrelation
+1. Quize (15 mins)
+2. Independence, Mean independence, and Uncorrelatedness (orthogonality)
++ Small exercise problem
 
+???
++ This is the outline for today. 
++ First thing first, let's do Quize. You have 15 minitues from now. 
 
 ---
 
+class: inverse, center, middle
+name: intro
+
+# Independence, Mean independence, and Uncorrelatedness (orthogonality)
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+???
++ Okay, we have 30 minutes left. I would like to talk about Independence, Mean independence, and Uncorrelatedness (orthogonality).
++ Maybe, you guys already know. 
+
+---
+class: middle
+
+
+Example: A simple linear CEF model
+\begin{align*}
+Y = \beta_0 + \beta_1 X + e
+\end{align*}
+
+
+.content-box-green[**Question:**]
+
+**What is the logical implication among $X \perp \!\!\! \perp e$, $E[e|X]=0$, and $E[Xe]=0$?**
+
+\begin{equation*}
+X \perp \!\!\! \perp e \; \mathrel{\mathop{\rightleftarrows}^{\mathrm{?}}_{\mathrm{?}}} \; E[e|X]=0 \; \mathrel{\mathop{\rightleftarrows}^{\mathrm{?}}_{\mathrm{?}}} \; E[Xe]=0
+\end{equation*}
+
+??? 
++ Specifically, the question here is about the distinction among independence, mean independence, and uncorrelatedness, and their logical implication.  
+
++ Here, Arrow means mathematical logic symbol. For example, if proposition A implies proposition B, then we can write $A \leftarrow B$.
+
++ Are we clear what we gonna do?
+
+---
+class: middle
+
+# Before starting
+
+Example: A simple linear CEF
+
+\begin{align*}
+Y = \beta_0 + \beta_1 X + e
+\end{align*}
+
+.content-box-red[**A property of linear projection error**]
+
++ <span style="color:blue"> $E[e]=0$ as long as an intercept is included in the model.</span>
+
+???
++ Before we start, I want to mention one thing. 
++ That is, the expectation of the regression error is $0$ as long as an intercept is included in the model. 
++ This is not an assumption at all, this is a sort of a natural result.  
++ <span style="color:blue">This property is explained in the Hansen's book, but he does not explain why. </span>
+
+---
+class: middle
+
+.content-box-green[**Demonstration**]
+\begin{align*}
+Y =  \beta_0 + \beta_1 X + u \quad \text{where } E[u]=\alpha \neq 0
+\end{align*}
+
+<br>
+
+Rewriting the model, 
+\begin{align*}
+Y 
+  &= \beta_0 + \beta_1 X + \alpha + (u-\alpha) \\
+  &= \color{blue}{\beta_0 + \alpha} + \beta_1 X + \color{red}{u-\alpha} \\
+  &= \color{blue}{\gamma_0} + \beta_1 X + \color{red}{e} \\
+\end{align*}
+
+where, $\color{blue}{\gamma_0=\beta_0 + \alpha}$ and $\color{red}{e=u-\alpha}$.
+
+Now, $E[u]=E[u-\alpha]=E[u]-\alpha=\alpha-\alpha=0$.
+
+???
++ Here is an explanation. Suppose that the expectation of error term $u$ is not equal to zero. 
+
++ Then, rewriting the model, the original error term $u$ can be decomposed into its expected value $\alpha$ and the other part, which is $u-\alpha$. 
++ $alpha$ is a constant, so we move $\alpha$ to the front, and in the final line, I define new intercept $\gamma_0$ and new error term $u-a$. 
+
++ Now, calculating the expectation of $u$, it's zero!
+
+---
+# Independence, Mean independence, and Uncorrelatedness (orthogonality)
+
+
+.content-box-red[**e and X are statistically independent**]: 
+
+$X \perp \!\!\! \perp e \iff f(D, e) = f(D)f(e)$
+
+**Verbally**: $e$ can tell nothing about $X$, vice versa
+
+<br>
+
+.content-box-red[**e is mean independent of X**]: 
+
+$E[e|X]=E[e]=0$
+
+**Verbally**: Mean of $e$ does not depend on $X$.
+
+<br>
+
+.content-box-red[**e is uncorrelated with X (e and X are orthogonal)**]: 
+
+$X \perp \!\!\! \perp e \iff E[Xe]=0$
+
+**Verbally**: No linear dependency between $e$ and $X$.
+
+
+???
++ Independence means statistical independence, right? If $e$ and $X$ are independent, the information about $e$ does not tell anything about the information of the distribution of $X$. 
+
++ Meanwhile, if $e$ is mean independent of $X$, that means the mean of the distribution of $e$ does not depend on the value of $X$. Whatever the value of $X$ is, the mean of $e$ does not change. 
+
++ and, if $e$ and $X$ are uncorrelated, 
+
++ By the way, is it okay about why $E[Xe]=0$ means uncorrelatedness between $X$ and $e$? Can anyone explain?
+
+---
+class: middle
+
+\begin{equation*}
+X \perp \!\!\! \perp e \; \mathrel{\mathop{\rightleftarrows}^{\mathrm{\circ}}_{\mathrm{\times}}} \; E[e|X]=0 \; \mathrel{\mathop{\rightleftarrows}^{\mathrm{\circ}}_{\mathrm{\times}}} \; E[Xe]=0
+\end{equation*}
+
+
+.content-box-green[**Exercise**]
++ Prove that if $X \perp \!\!\! \perp e$, then $E[e|X]=0$
++ Prove that if $E[e|X]=0$, then $E[Xe]=0$
+
+---
+## Example: Mean independence does not imply statistical independence
+
+Case: $E[e|X] \neq 0$ but $X \perp \!\!\! \perp e$
+
+```{r, out.width = "80%"}
+knitr::include_graphics("figure1.png")
+```
+
+$e$: teachers' teaching skills
+
+$D$: participation to a teacher training program
+
+This is from Lecture Note 3, P63
+
+---
+## Example: uncorrelatedness does not imply Mean independence
+Case: $E[Xe]=0$ but $E[e|X] \neq 0$
+
 
 
 ---
+class: middle
+
+## Implication
+
+\begin{equation*}
+X \perp \!\!\! \perp e \; \xrightarrow{\circ} \; E[e|X]=0 \; \xrightarrow{\circ} \; E[Xe]=0
+\end{equation*}
+
+By contraposition,
+
++ $E[Xe]\neq0 \xrightarrow{\circ} E[e|X]\neq 0$
++ $E[e|X]\neq 0 \xrightarrow{\circ}$ $X$ and $e$ are dependent
+
+
+Therefore, 
+
+$E[Xe]\neq0 \xrightarrow{\circ}$ $X$ and $e$ are dependent
+
+<br>
+
+<span style="color:blue">To consider whether Selection-on-observables assumption holds, consider the possible correlation between $X$ and $e$.</span>
+
+???
++ By contraposition, 
+
+---
+
+class: middle
+
+# Don't get confused!
+
+Some authors use (conditional) uncorrelatedness condition between the focal variable and the error term to explain the selection-observables assumption (CIA) in the context of regression model. 
+
+
+<span style="color:blue">`r Citet(bib, "angrist1999empirical")`</span> P1290:
+
+>"... The key identifying assumption is that the observable characteristics, $X_i$, are the only reason why $\eta_i$ and $S_i$ (equivalently $f_i(S)$ and $S_i$) are correlated, so 
+>
+$E[S_i \eta_i] =0$
+.
+>
+>This is the "Selection on observables" assumption discussed by Barnow et al. (1981), where the regressor of interest is assumed to be determined independently of potential outcomes after accounting for a set of observable characteristics.
+
+Here, $S_i$ is years of schooling and $\eta_i$ is the error. 
+
+A similar explanation can be seen in <span style="color:blue">`r Citet(bib, "angrist2009mostly")`</span> P44.
+
+???
++ Angrist and Krueger (1999): Empirical strategies in Labour Economics
++ Angrist and Piscke (2009): Mostly harmless econometrics
+
++ By the way, these books are great. I recommend that you read these books if you have not read. I know there is no time for you guys for this and next semester, but maybe next summer break. 
+
+---
+But,
+
++ <span style="color:blue">`r Citet(bib, "wooldridge2010econometric")`</span> P908: 
+>"For many purpose, it suffices to assume ignorability in a conditional mean independence sense"
+
+
++ In the panel data setting, <span style="color:blue">`r Citet(bib, "wooldridge2010econometric")`</span>: 
+>For examining consistency of panel data estimators, the zero covariance assumption generally suffices. Further, assumption of the zero covariance assumption is often the easiest way to think about whether strict exogeneity is likely to hold in a particular application."
+
+---
+# Reference
+
+```{r, results='asis', echo=FALSE}
+PrintBibliography(bib)
+```
+
+---
+class: one-page-font
 
 ## Assignment 2: Question 4-(c)
-
-Here, we want to check $E[M]=E[E[M|Q]]=9$. 
 
 .panelset[ 
 
@@ -92,12 +339,10 @@ mix[ , lapply(.SD, mean)]
   ]
 
 
-.panel[.panel-name[basic R way]
+.panel[.panel-name[basic R functions]
 .medium-code[
 ```{r, echo=T, cache=T}
 set.seed(1234)
-
-library(dplyr)
 
 n <- 1e7  # R notation for 1 x 10^7
 

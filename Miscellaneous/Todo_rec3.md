@@ -17,6 +17,13 @@
 
 + Explanation about the simulation in Assignment 2 Question 4-(c)
 
+
++ I have 35 minutes:
+	* 2 exercise problems: 10 minutes
+	* 
+
+
+
 ### Assignment3:
 + 
 

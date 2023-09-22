@@ -143,22 +143,12 @@ theme_update(
 }
 
 
-.my-one-page-font {
-  font-size: 30px;
-}
-
 .remark-slide-number {
   display: none;
 }
 
-
-.my-one-page-font {
+.one-page-font {
   font-size: 14px;
-}
-
-
-.remark-slide-content {
-    font-size: 14px;
 }
 
 .remark-slide-content.hljs-github h1 {
