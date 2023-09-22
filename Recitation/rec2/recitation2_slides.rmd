@@ -46,6 +46,7 @@ httpgd::hgd_browse()
 hitting letter "o" key will give you a panel view of the slides
 
 ---
+class: middle 
 
 # Outline
 
