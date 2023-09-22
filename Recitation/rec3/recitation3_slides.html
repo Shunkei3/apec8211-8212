@@ -4765,7 +4765,8 @@ name: intro
 
 ???
 + Okay, we have 30 minutes left. I would like to talk about Independence, Mean independence, and Uncorrelatedness (orthogonality).
-+ Maybe, you guys already know. 
+
++ You know, as Joe told in the class, econometrics cares the error term, and Independence, Mean independence, and Uncorrelatedness are used as a statement of the relationship between the error term and the regressor. 
 
 ---
 class: middle
@@ -4813,7 +4814,6 @@ Y = \beta_0 + \beta_1 X + e
 + This is not an assumption at all, this is a sort of a natural result.  
 + &lt;span style=&quot;color:blue&quot;&gt;This property is explained in the Hansen&#39;s book, but he does not explain why. &lt;/span&gt;
 
-
 ---
 class: middle
 
@@ -4850,9 +4850,9 @@ Now, `\(E[u]=E[u-\alpha]=E[u]-\alpha=\alpha-\alpha=0\)`.
 
 .content-box-red[**e and X are statistically independent**]: 
 
-`\(X \perp \!\!\! \perp e \iff f(D, e) = f(D)f(e)\)`
+`\(X \perp \!\!\! \perp e \iff f(X, e) = f(X)f(e)\)`
 
-**Verbally**: `\(e\)` can tell nothing about `\(X\)`, vice versa
+**Verbally**: `\(e\)` can tell nothing about `\(X\)`, and vice versa
 
 &lt;br&gt;
 
@@ -4866,19 +4866,39 @@ Now, `\(E[u]=E[u-\alpha]=E[u]-\alpha=\alpha-\alpha=0\)`.
 
 .content-box-red[**e is uncorrelated with X (e and X are orthogonal)**]: 
 
-`\(X \perp \!\!\! \perp e \iff E[Xe]=0\)`
+`\(X \perp e \iff E[Xe]=0\)`
 
 **Verbally**: No linear dependency between `\(e\)` and `\(X\)`.
 
 
 ???
++ Okay, here is the short summary of independence, mean independence and uncorrelatedness about the explnatory variable `\(X\)` and the error `\(e\)`. 
+
 + Independence means statistical independence, right? If `\(e\)` and `\(X\)` are independent, the information about `\(e\)` does not tell anything about the information of the distribution of `\(X\)`. 
++ In other words, all the moment of the distribution of `\(e\)` does not change by `\(X\)`, and vice versa. 
 
-+ Meanwhile, if `\(e\)` is mean independent of `\(X\)`, that means the mean of the distribution of `\(e\)` does not depend on the value of `\(X\)`. Whatever the value of `\(X\)` is, the mean of `\(e\)` does not change. 
++ Meanwhile, if `\(e\)` is mean independent of `\(X\)`, it means the mean of the distribution of `\(e\)` does not depend on the value of `\(X\)`. 
++ It could be that higher moments such as variance changes with `\(e\)`. 
 
-+ and, if `\(e\)` and `\(X\)` are uncorrelated, 
++ and, the uncorrelatedness or orthogonality of `\(e\)` and `\(X\)`, simply means there is no linear dependency between `\(e\)` and `\(X\)`. 
 
-+ By the way, is it okay about why `\(E[Xe]=0\)` means uncorrelatedness between `\(X\)` and `\(e\)`? Can anyone explain?
++ We can see that independence is the strongest condition because it says that all the moments of the distribution of `\(e\)` are irrelevant to `\(X\)`. 
+
++ , and the uncorrelatedness is the weakest condition because it indicates a specific condition, which is linear dependency, between `\(X\)` and `\(e\)`.
+
++ &lt;span style=&quot;color:blue&quot;&gt;Do you guys feel comfortable with why uncorrelatedness between `\(X\)` and `\(e\)` can be descrived like this?&lt;/span&gt;
+
+---
+class: middle
+
+If `\(X \perp e\)`, then `\(Cov(X, e)=0\)`. 
+
+`\begin{align*}
+&amp;\quad Cov(X, e)=0 \\
+\iff&amp;\quad E[Xe] - E[X]E[e]=0 \\
+\iff&amp;\quad E[Xe] =0 \quad (\text{because } E[e]=0)\\
+\end{align*}`
+
 
 ---
 class: middle
@@ -4892,10 +4912,18 @@ X \perp \!\!\! \perp e \; \mathrel{\mathop{\rightleftarrows}^{\mathrm{\circ}}_{\
 + Prove that if `\(X \perp \!\!\! \perp e\)`, then `\(E[e|X]=0\)`
 + Prove that if `\(E[e|X]=0\)`, then `\(E[Xe]=0\)`
 
+
+???
++ Generally, this relationship holds. 
++ That is, independence implies mean independence, and mean independence implies uncorrelatedness.  
++ But, the reverse is not true. 
+
++ Here is the small exercise problem. Let&#39;s prove the statement of this direction. 
+
 ---
 ## Example: Mean independence does not imply statistical independence
 
-Case: `\(E[e|X] \neq 0\)` but `\(X \perp \!\!\! \perp e\)`
+Case: `\(E[e|X]= 0\)` is true but `\(X \perp \!\!\! \perp e\)` is false
 
 &lt;img src=&quot;data:image/png;base64,#figure1.png&quot; width=&quot;80%&quot; style=&quot;display: block; margin: auto;&quot; /&gt;
 
@@ -4903,11 +4931,11 @@ Case: `\(E[e|X] \neq 0\)` but `\(X \perp \!\!\! \perp e\)`
 
 `\(D\)`: participation to a teacher training program
 
-This is from Lecture Note 3, P63
+(This is from Lecture Note 3, P63)
 
 ---
 ## Example: uncorrelatedness does not imply Mean independence
-Case: `\(E[Xe]=0\)` but `\(E[e|X] \neq 0\)`
+Case: `\(E[Xe]=0\)` is true but `\(E[e|X] = 0\)` is false
 
 
 
