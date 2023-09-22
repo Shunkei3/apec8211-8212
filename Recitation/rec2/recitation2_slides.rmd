@@ -518,7 +518,7 @@ $$E[aX+bY] = aE[X] + bE[Y]$$
 + $E[X+Y^2] = E[X]+E[Y^2]$? 
   * Yes.
 + $E[XY] = E[X]E[Y]$?
-  * No. This holds if and only if $X$ and $Y$ are independent. (Proof?)
+  * It depends on the relationship between $X$ and $Y$. This holds if $X$ and $Y$ are uncorrelated. Also, independence of $X$ and $Y$ is the sufficient condition for this. (Proof?)
   
 ---
 
