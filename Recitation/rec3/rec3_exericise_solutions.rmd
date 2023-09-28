@@ -10,157 +10,45 @@ geometry: margin=1in
 ---
 
 
-# Solution to Exercise 1
-By the definition of CDF, $\Phi(z)$ can be written as $\Phi(z) = Pr(Z \leq z)$. 
+## Prove that if $X \perp \!\!\! \perp e$, then $E[e|X]=0$
 
-\textcolor{red}{\textbf{Answers}:}
-
-### Part (a)
-\begin{equation*}
-Pr(Z \leq b) = \Phi(b)
-\end{equation*}
-
-### Part (b)
-\begin{equation*}
-Pr(Z \leq b) = \int_{-\infty}^{b} \phi(z) \,dz
-\end{equation*} 
-
-### Part (c)
-\begin{equation*}
-Pr(a \leq Z \leq b) = Pr(Z \leq b) - Pr(Z \leq a) = \Phi(b) - \Phi(a)
-\end{equation*} 
-
-### Part (c)
-\begin{equation*}
-Pr(a \leq Z \leq b) = \int_{a}^{b} \phi(z) \,dz
-\end{equation*} 
+\textcolor{red}{\textbf{Answer:}}
+Simply, $E[e|X]=E[e]=0$ if $X \perp \!\!\! \perp e$.
 
 \
 
-\
-
-# Solution to Exercise 2
-
-\textcolor{blue}{\textbf{Idea}}
-We want to derive the PDF of $Y$ which is defined by $Y=X^2$. Since $0 \leq X \leq 1$, $0 \leq Y \leq 1$. Recall the definition of PDF. Let $G(y)$ be the CDF of Y and $g(y)$ be the PDF of Y. Then, $g(y)=\frac{d}{dy}G(y)$ by the definition of PDF. That is, once you get $G(y)$, you can derive $g(y)$. So, let's start with the CDF of $Y$. 
-
-\textcolor{red}{\textbf{Answers}:}
-
-By the definition of CDF, 
-$$G(y) = Pr(Y \leq y).$$
-Substituting $Y=X^2$, 
+or 
 \begin{align*}
-G(y) 
-&= Pr(X^2 \leq y)\\
-&= Pr(0 \leq X \leq \sqrt{y})
+E[e|X=x] 
+  &= \int_{-\infty}^{\infty} e \, f(e|X=x) \, de \\
+  &= \int_{-\infty}^{\infty} e \, \frac{f(e,x)}{f_{X}(x)} \, de \\
+  &= \int_{-\infty}^{\infty} e \, \frac{f_e(e) f_X(x)}{f_{X}(x)} \, de & (\text{becuase if $X\perp \!\!\! \perp e$}, f(e,x)=f_{X}(x)f_{e}(e)) \\
+  &= \int_{-\infty}^{\infty} e \, f_e(e) \, de \\
+  &= E[e]
+  &= 0
 \end{align*}
-
-(The last equality is because of the fact that $X^2 \leq y \iff -\sqrt{y} \leq X \leq \sqrt{y}$ and the condition $X \ge 0$.)
-
-
-Since we know that $X$ is uniformly distributed ($X \sim U[0,1]$), the PDF of $X$ is $1$ for $0 \leq X \leq 1$. Also, note that the range $[0, \sqrt{y}]$ is contained in the range of the PDF of $X$. So, 
-
-\begin{align}
-G(y) = Pr(0 \leq X \leq \sqrt{y}) = \int_{0}^{\sqrt{y}} 1 dx = \sqrt{y}.
-\end{align}
-
-
-Thus, PDF of $Y$ is 
-\begin{align*}
-g(y) = \frac{d}{dy}G(y) = \frac{1}{2\sqrt{y}} \quad (0 \leq y \leq 1)
-\end{align*}
-
+This holds for any $x$. So, E[e|X]=0
 
 \
 
-\
+\textcolor{blue}{\textbf{Review:}}\
++ Conditional density function (PSE 4.8 P83-84)\
++ Independence (PSE 4.11, P87) \
++ Conditional expectation (PSE 4.14, P93)
 
-# Solution to Exercise 3
 
-\textcolor{red}{\textbf{Answers}:}
+## Prove that if $E[e|X]=0$, then $E[Xe]=0$
 
-### Part (a)
+\textcolor{red}{\textbf{Answer:}}
 \begin{align*}
-Cov(X,Y) 
-  &= E[(X-E[X])(Y-E[Y])] \\
-  &= E\Bigr[XY-XE[Y]-E[X]Y + E[X]E[Y] \Bigr] \\
-  &= E[XY]-E[X]E[Y]-E[X]E[Y] + E[X]E[Y] \quad  &(\text{linearity of expectation}) \\
-  &= E[XY]-E[X]E[Y] \\
-  &= E[XY] \quad &(E[X]=0 \text{ or } E[Y]=0)
-\end{align*}
-
-Also, note that $Cov(X,Y)=E[XY]-E[X]E[Y]$. 
-
-### Part (b)
-By definition, 
-\begin{align*}
-corr(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var[X] Var[Y]}}
-\end{align*}
-
-If $X \perp\!\!\!\perp Y$, then, $Cov(X,Y) = E[XY]-E[X]E[Y] = E[X]E[Y] - E[X]E[Y] =0$. (Note that if $X \perp\!\!\!\perp Y$,  $E[XY]=E[X]E[Y]$). 
-
-Therefore, if $X \perp\!\!\!\perp Y$, 
-\begin{align*}
-corr(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var[X] Var[Y]}} = 0
+E[Xe] 
+  &= E[E[Xe|X]] &(\text{LIE}) \\
+  &= E[XE[e|X]] &(\text{Conditioning theorem}) \\
+  &= E[X \cdot 0] &(\text{because } E[e|X]=0) \\
+  &= 0
 \end{align*}
 
 
-### Part (c)
-Here, I show $Var[X+Y]=Var[X] + Var[Y] + 2Cov(X,Y)$ without assuming $E[X] = E[Y] = 0$. 
-
-By definition, 
-\begin{align*}
-Var[X+Y] 
-  &= E\Bigl[\Bigl( X+Y - E[X+Y] \Bigl)^2 \Bigl] \\
-  &= E\Bigl[\Bigl( X+Y - E[X] - E[Y] \Bigl)^2 \Bigl]   &(\text{linearity of expectation}) \\
-  &= E\Bigl[\Bigl(X - E[X]) + (Y - E[Y]) \Bigl)^2 \Bigl] \\
-  &= E\Bigl[(X - E[X])^2 + (Y - E[Y])^2 + 2(X - E[X])(Y - E[Y])\Bigl] \\
-  &= E[(X - E[X])^2] + E[(Y - E[Y])^2] + 2E[(X - E[X])(Y - E[Y])] &(\text{linearity of expectation}) \\
-  &= Var[X] + Var[Y] + 2Cov(X,Y)
-\end{align*}
-
-
-### Part (d)
-
-If $X$ and $Y$ are uncorrelated, $corr(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var[X] Var[Y]}}=0 \iff cov(X,Y)=0$. 
-
-Therefore, using the result of Part (e), 
-\begin{align*}
-Var[X+Y] = Var[X] + Var[Y] + 2Cov(X,Y) = Var[X] + Var[Y]
-\end{align*}
-
-
-
-\
-
-# Solution to Exercise 4
-
-### Part (a)
-\begin{align*}
-E[X] 
-  &= E \Bigr[\sum_{i=1}^{k} Z_i^2 \Bigr] \\
-  &= \sum_{i=1}^{k} E[Z_i^2] \quad &(Z_i \text{ are independent}) \\
-  &= \sum_{i=1}^{k} (Var[Z_i] + (E[Z_i])^2) &(Var[Z_i] = E[Z_i^2] - (E[Z_i])^2) \\
-\end{align*}
-
-We know that $E[Z_i]=0$ and $Var[Z_i]=1$ because $Z_i \sim N(0,1)$.  Therefore, 
-
-\begin{align*}
-E[X] = \sum_{i=1}^{k} (1 + 0^2) = \sum_{i=1}^{k} 1 = k
-\end{align*}
-
-
-### Part (b)
-\begin{align*}
-Var[K]
-  &= Var[Z_1^2 + Z_2^2] \\
-  &= Var[Z_1^2] + Var[Z_2^2]  \quad (Z_1 \text{ and } Z_2 \text{ are independent})\\
-\end{align*}
-
-Because $Var[Z_i^2] = E[Z_i^4] - (E[Z_i^2])^2$. Using the facts that $E[Z_i^2]=1$ and $E[Z_i^4]=3$, $Var[Z_i^2]=3-1=2$.
-
-Therefore, 
-\begin{align*}
-Var[K] = Var[Z_1^2] + Var[Z_2^2] = 2 + 2 =4
-\end{align*}
-
+\textcolor{blue}{\textbf{Review:}}\
++ Conditioning theorem: Theorem 2.3 (E P23)\
++ Law of iterated expectations (PSE P95)
