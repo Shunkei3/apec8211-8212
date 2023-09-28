@@ -68,7 +68,7 @@ class: middle
 # Outline
 1. Quize (15 mins)
 2. Independence, Mean independence, and Uncorrelatedness (orthogonality)
-+ Small exercise problem
++ Small exercise problems [[here](#exercise)]
 
 ???
 + This is the outline for today. 
@@ -220,6 +220,7 @@ $X \perp e \iff E[Xe]=0$
 + <span style="color:blue">Do you guys feel comfortable with why uncorrelatedness between $X$ and $e$ can be descrived like this?</span>
 
 ---
+name: exercises
 class: middle
 
 If $X \perp e$, then $Cov(X, e)=0$. 
@@ -354,7 +355,6 @@ PrintBibliography(bib)
 class: one-page-font
 
 ## Assignment 2: Question 4-(c)
-
 You can write simulation codes in a different way. 
 
 .panelset[ 

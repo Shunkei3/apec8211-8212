@@ -4220,9 +4220,7 @@ border-bottom: 1px solid #ddd;
 th, td {
 padding: 5px;
 }
-.remark-slide table:not(.table-unshaded) thead,
-.remark-slide table:not(.table-unshaded) tfoot,
-.remark-slide table:not(.table-unshaded) tr:nth-child(even) {
+.remark-slide thead, .remark-slide tfoot, .remark-slide tr:nth-child(even) {
 background: #CCEDEA;
 }
 table.dataTable tbody {
@@ -4750,7 +4748,7 @@ class: middle
 # Outline
 1. Quize (15 mins)
 2. Independence, Mean independence, and Uncorrelatedness (orthogonality)
-+ Small exercise problem
++ Small exercise problems [[here](#exercise)]
 
 ???
 + This is the outline for today. 
@@ -4902,6 +4900,7 @@ Now, `\(E[e]=E[u-\alpha]=E[u]-\alpha=\alpha-\alpha=0\)`.
 + &lt;span style=&quot;color:blue&quot;&gt;Do you guys feel comfortable with why uncorrelatedness between `\(X\)` and `\(e\)` can be descrived like this?&lt;/span&gt;
 
 ---
+name: exercises
 class: middle
 
 If `\(X \perp e\)`, then `\(Cov(X, e)=0\)`. 
@@ -5040,7 +5039,6 @@ panel data_. MIT press.
 class: one-page-font
 
 ## Assignment 2: Question 4-(c)
-
 You can write simulation codes in a different way. 
 
 .panelset[ 
@@ -5257,9 +5255,9 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
 })(document);</script>
 <script>(function(data, token) {
   // data is an object of the form { path: base64 data }; we need to move base64
-  // data back to HTML nodes (e.g., into the 'src' attribute of <img>, <audio>, <video>, <source>)
+  // data back to HTML nodes (e.g., into the 'src' attribute of <img>)
   var i, s, d, el, els;
-  els = document.querySelectorAll(['img', 'audio', 'video', 'source'].map(x => x + '[src^="' + token + '"]').join(','));
+  els = document.querySelectorAll('img[src^="' + token + '"]');
   for (i = 0; i < els.length; i++) {
     el = els[i]; s = el.src.replace(token, ''); d = data[s];
     if (d) el.src = d;
