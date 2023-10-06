@@ -128,15 +128,6 @@ knitr::include_graphics("sampring.png")
 + We will learn lots about inference (e.g., asymptotic theory, resampling methods)in APEC8212!
 
 ---
-
-class: inverse, center, middle
-name: intro
-
-# Sampling distribution
-
-<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
-
----
 class: inverse, center, middle
 name: intro
 
@@ -395,12 +386,12 @@ $$\hat{\theta}_n \xrightarrow{p} \theta \quad \text{as } n \rightarrow \infty$$
 
 ---
 # Exercise
-+ <span style="color:red">Generally, unbiasedness does not imply consistency, and vice versa.</span> 
-+ Let's think about estimators for the population mean. 
+<span style="color:red">Generally, unbiasedness does not imply consistency, and vice versa.</span> 
 
 <br>
+Let's think about a couple of unbiased estimators for the population mean. 
 
-Suppose that we have a i.i.d sample $\{X_i\}_{i=1}^{n}$ which are taken from the population with mean $E[X]=\mu$ and $Var[X] = \sigma^2$ 
++ Suppose that we have a i.i.d sample $\{X_i\}_{i=1}^{n}$ which are taken from the population with mean $E[X]=\mu$ and $Var[X] = \sigma^2$ 
 
 Candidates:
 
@@ -410,25 +401,23 @@ Candidates:
 
 .content-box-green[**Question**]
 + Show that $X_1$ is an unbiased estimator for the population mean $\mu$ 
-+ Is $X_1$ is a consistent estimator for he population mean $\mu$?
++ Is $X_1$ a consistent estimator for the population mean $\mu$?
 
 ---
 
-# Let's check this with the Monte Carlo simulations
+# Monte Carlo simulations
 
 .medium-code[
 .panelset[ 
 .panel[.panel-name[Let's try it!]
 
-Let's write codes. 
+Let's write codes to see the sampling distribution of $\overline{X}_n$ and $X_1$. 
 
-**Goal**: Simulate the sampling distribution of $\overline{X}_n$ and $X_1$. 
-
-.content-box-green[**Procedure**]
+.content-box-green[**Steps**]
 
 (1) Generate n=1000 random numbers (e.g, `rnorm(n, mean = 2, sd = 1)`, `rchisq(n, df = 4)`)
 
-(2) Calculate a sample mean. 
+(2) Obtain $\overline{X}_n$ and $X_1$ . 
 
 (3)Save the result. 
 
@@ -522,7 +511,6 @@ vis_sampling <-
     geom_histogram(aes(x=x_bar, fill = "x_bar"), bins = 50, alpha = 0.5)+
     geom_histogram(aes(x=x_single, fill = "x_single"), bins = 50, alpha = 0.5)+
     facet_wrap(~ sample_size, ncol=2)+
-    xlim(5, 15) +
     theme_bw()+
     # modify fill color
     scale_color_manual(values = c("x_bar"="red", "x_single"="blue"))+
@@ -531,7 +519,7 @@ vis_sampling <-
 ```
   ]
 .panel[.panel-name[Result 2]
-```{r, echo=F, out.width = "80%"}
+```{r, echo=F, out.width = "70%"}
 # === Visualization === #
 vis_sampling
 ```
