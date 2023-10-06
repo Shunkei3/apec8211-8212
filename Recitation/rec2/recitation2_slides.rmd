@@ -841,6 +841,9 @@ $$\color{blue}{E[g(X)]} \leq \color{darkgreen}{g(E[X])}$$
 ]
 ]
 
+---
+
+
 
 ---
 class: middle

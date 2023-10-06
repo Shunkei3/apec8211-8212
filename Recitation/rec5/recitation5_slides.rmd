@@ -1,5 +1,5 @@
 ---
-title: "APEC8211: Recitation 3"
+title: "APEC8211: Recitation 5"
 author: 
   - "Shunkei Kakimoto" 
 header-includes:
@@ -24,21 +24,6 @@ class: middle
 # here::i_am("GitControlled/Recitation/1_Introduction/recitation1_slides.rmd")
 ```
 
-
-```{r, include = F, cache = FALSE}
-library(data.table)
-library(ggplot2)
-library(dplyr)
-library(gganimate)
-library(gifski)
-library(gganimate)
-```
-
-```{r, include = F, eval=F, cache = FALSE}
-httpgd::hgd()
-httpgd::hgd_browse()
-```
-
 ```{r setup, include=FALSE, cache = FALSE}
 options(htmltools.dir.version = FALSE)
 
@@ -57,6 +42,25 @@ BibOptions(
 bib <- ReadBib("cite.bib")
 ```
 
+```{r, include = F, cache = FALSE}
+library(data.table)
+library(ggplot2)
+library(dplyr)
+library(gganimate)
+library(gifski)
+library(gganimate)
+# library(learnr)
+```
+
+```{r, include = F, eval=F, cache = FALSE}
+httpgd::hgd()
+httpgd::hgd_browse()
+```
+
+```{r xaringan-tachyons, echo=FALSE}
+xaringanExtra::use_tachyons()
+```
+
 
 .content-box-green[**A Useful tip:**]
 
@@ -66,9 +70,10 @@ hitting letter "o" key will give you a panel view of the slides
 class: middle
 
 # Outline
-1. Quize (15 mins)
-2. Independence, Mean independence, and Uncorrelatedness (orthogonality)
-+ Small exercise problems [[here](#exercise)]
+1. Quick overview of the big picture
+2. Sampling distribution
+2. Variance 
+
 
 ???
 + This is the outline for today. 
@@ -79,370 +84,517 @@ class: middle
 class: inverse, center, middle
 name: intro
 
-# Independence, Mean independence, and Uncorrelatedness (orthogonality)
+# Sampling distribution
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
 
-???
-+ Okay, we have 30 minutes left. I would like to talk about Independence, Mean independence, and Uncorrelatedness (orthogonality).
-
-+ You know, as Joe told in the class, econometrics cares the error term, right?
-+ These concepts are used as a statement of the relationship between the error term and the regressor. 
-
-+ But dependending on which condition holds, the interpretation of the coefficient estimates vary. 
-
-+ For example, if CIA hold, then the regression coefficient estimates has a causal interpretation.
-
-+ and, as you will see in the later in this course, unbiasedness of OLS estimator relys on mean independence assumption, and consistency relies on orthogonality. 
-
 ---
 class: middle
 
-.content-box-green[**Example**]A simple linear CEF model
+## Overview
+<p style="text-align: center;">.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt5[<span style="color:blue">CEF</span>: $Y=E[Y|X]+\varepsilon$]
+</p>
 
-$$
-Y = \beta_0 + \beta_1 X + e
-$$
+<p style="text-align: center;">&darr;</p>
 
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+Aproximate CEF with <span style="color:blue">*linear projection model*</span> (population regression function)
 
-.content-box-green[**Question:**]
-+ **What is the differences among $X \perp \!\!\! \perp e$, $E[e|X]=0$, and $E[Xe]=0$?**
-+ **What is the logical implication among them?**
+$$Y=X \beta^{\prime} + e$$
+Then, 
+The <span style="color:blue">*linear projection coefficient*</span> is
+$$\beta = \arg \min_{b} E[(Y-X^{\prime}b)] = E[X^{\prime}X]^{-1}E[XY]$$
+]
 
-\begin{equation*}
-X \perp \!\!\! \perp e \; \mathrel{\mathop{\rightleftarrows}^{\mathrm{?}}_{\mathrm{?}}} \; E[e|X]=0 \; \mathrel{\mathop{\rightleftarrows}^{\mathrm{?}}_{\mathrm{?}}} \; E[Xe]=0
-\end{equation*}
+<p style="text-align: center;">&darr;</p>
 
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+<span style="color:blue">With sample</span>, estimate Linear projection coefficient $\beta$ with the <span style="color:blue">*least square estimator (OLS)*</span> (population regression function)
 
-???
-+ Here, we specifically focus on the question about the distinction among independence, mean independence, and uncorrelatedness, and their logical implication.  
-
-+ Here, Arrow means mathematical logic symbol. For example, if proposition A implies proposition B, then we can write $A \rightarrow B$.
-
-+ Are we clear what we gonna do?
-
----
-class: middle
-
-# Before starting
-
-Example: A simple linear projection model
-
-\begin{align*}
-Y = \beta_0 + \beta_1 X + e
-\end{align*}
-
-.content-box-red[**A property of linear projection error**]
-
-+ <span style="color:blue"> $E[e]=0$ as long as an intercept is included in the model.</span>
-
-???
-+ Before we start, I want to confime one thing with you. 
-+ That is, the expectation of the regression error is always $0$ as long as an intercept is included in the model. 
-+ This is not an assumption at all but this is a sort a natural result of linear projection error. 
-
-+ <span style="color:blue">This property is explained in the Hansen's book, but he does not explain why. </span>
-
----
-class: middle
-
-.content-box-green[**Demonstration**]
-\begin{align*}
-Y =  \beta_0 + \beta_1 X + u \quad \text{where } E[u]=\alpha \neq 0
-\end{align*}
-
-<br>
-
-Rewriting the model, 
-\begin{align*}
-Y 
-  &= \beta_0 + \beta_1 X + \alpha + (u-\alpha) \\
-  &= \color{blue}{\beta_0 + \alpha} + \beta_1 X + \color{red}{u-\alpha} \\
-  &= \color{blue}{\gamma_0} + \beta_1 X + \color{red}{e} \\
-\end{align*}
-
-where, $\color{blue}{\gamma_0=\beta_0 + \alpha}$ and $\color{red}{e=u-\alpha}$.
-
-Now, $E[e]=E[u-\alpha]=E[u]-\alpha=\alpha-\alpha=0$.
-
-???
-+ Here is an explanation. Suppose that the expectation of error term $u$ is not equal to zero. 
-
-+ Then, rewriting the model, the original error term $u$ can be decomposed into its expected value $\alpha$ and the other part, which is $u-\alpha$. 
-+ $alpha$ is a constant, so we move $\alpha$ to the front, and in the final line, I define new intercept $\gamma_0$ and new error term $u-a$. 
-
-+ Now, calculating the expectation of $u$, it's zero!
-+ This is why, expectation of the error is always zero. 
-
----
-# Independence, Mean independence, and Uncorrelatedness (orthogonality)
-
-
-.content-box-red[**e and X are statistically independent**]: 
-
-$X \perp \!\!\! \perp e \iff f(X, e) = f(X)f(e)$
-
-**Verbally**: $e$ can tell nothing about $X$, and vice versa
-
-<br>
-
-.content-box-red[**e is mean independent of X**]: 
-
-$E[e|X]=E[e]=0$
-
-**Verbally**: Mean of $e$ does not depend on $X$.
-
-<br>
-
-.content-box-red[**e is uncorrelated with X (e and X are orthogonal)**]: 
-
-$X \perp e \iff E[Xe]=0$
-
-**Verbally**: No linear dependency between $e$ and $X$.
-
-
-???
-+ Okay, here is the short summary of independence, mean independence and uncorrelatedness about the explnatory variable $X$ and the error $e$. 
-
-+ As you already know, Independence means statistical independence, right? 
-+ If $e$ and $X$ are independent, the information about $e$ does not tell anything about the information of the distribution of $X$. 
-+ <span style="color:blue">In other words, all the moments of the distribution of $e$ such as mean and variance and so on does not change by $X$, and vice versa.</span>
-
-+ Meanwhile, if $e$ is mean independent of $X$, it means the mean of the distribution of $e$ does not depend on the value of $X$. 
-+ It could be that higher moments such as variance changes with $e$. 
-
-+ and, the uncorrelatedness or orthogonality of $e$ and $X$, <span style="color:blue">simply means there is no linear dependency between $e$ and $X$.</span>
-
-+ We can see that independence is the strongest condition among these three because it says that all the moments of the distribution of $e$ are irrelevant to $X$. 
-
-+ , and the uncorrelatedness is the weakest condition because it simply indicates a broad condition that $X$ and $e$ are not lineary dependent.
-
-+ <span style="color:blue">Do you guys feel comfortable with why uncorrelatedness between $X$ and $e$ can be descrived like this?</span>
-
----
-name: exercises
-class: middle
-
-If $X \perp e$, then $Cov(X, e)=0$. 
-
-\begin{align*}
-&\quad Cov(X, e)=0 \\
-\iff&\quad E[Xe] - E[X]E[e]=0 \\
-\iff&\quad E[Xe] =0 \quad (\text{because } E[e]=0)\\
-\end{align*}
-
-
----
-class: middle
-
-\begin{equation*}
-X \perp \!\!\! \perp e \; \mathrel{\mathop{\rightleftarrows}^{\mathrm{\circ}}_{\mathrm{\times}}} \; E[e|X]=0 \; \mathrel{\mathop{\rightleftarrows}^{\mathrm{\circ}}_{\mathrm{\times}}} \; E[Xe]=0
-\end{equation*}
-
-
-.content-box-green[**Exercise**]
-+ Prove that if $X \perp \!\!\! \perp e$, then $E[e|X]=0$
-+ Prove that if $E[e|X]=0$, then $E[Xe]=0$
-
-
-???
-+ Generally, this logical implication holds among independence, and mean independence and uncorrelatedness. 
-+ That is, independence implies mean independence, and mean independence implies uncorrelatedness.   
-+ But, the reverse is not true. 
-
-+ Here are the simple exercise problems. 
-
----
-## Example: Mean independence does not imply statistical independence
-
-Case: $E[e|X]= 0$ is true but $X \perp \!\!\! \perp e$ is false
-
-```{r, out.width = "80%"}
-knitr::include_graphics("figure1.png")
-```
-
-$e$: unobserved teachers' teaching skills
-
-$D$: participation to a teacher training program
-
-(This is from Lecture Note 3, P63)
-
-???
-+ This an example showing mean indpendence does not imply statistical independence.  
-+ This figure is from the lecture note. 
-+ $e$ is unobserved teaching skill and $D$ is a dummy variable and it indicates the participation to a teacher training program. 
-+ <span style="color:blue">mean of $e$ is the same for treatment and control group, but the distribution of $e$ of the treatment group could take this kind of distribution if teachers who are more likely to attend the training program are such that teachers with low skill and teacher with high skill.</span>
-
----
-## Example: uncorrelatedness does not imply Mean independence
-Case: $E[Xe]=0$ is true but $E[e|X] = 0$ is false
-
-
-
-
----
-class: middle
-
-\begin{equation*}
-X \perp \!\!\! \perp e \; \xrightarrow{\circ} \; E[e|X]=0 \; \xrightarrow{\circ} \; E[Xe]=0
-\end{equation*}
-
-By contraposition,
-
-+ $E[Xe]\neq0 \xrightarrow{\circ} E[e|X]\neq 0$
-+ $E[e|X]\neq 0 \xrightarrow{\circ}$ $X$ and $e$ are dependent
-
-
-Therefore, 
-
-$E[Xe]\neq0 \xrightarrow{\circ}$ $X$ and $e$ are dependent
-
-<br>
-
-.content-box-red[**Implication**]: 
-
-<span style="color:blue">To consider whether Selection-on-observables assumption holds, consider the possible correlation between $X$ and $e$.</span>
-
-???
-+ By contraposition, 
-
----
-
-class: middle
-
-# Don't get confused!
-
-Some authors use (conditional) uncorrelatedness condition between the focal variable and the error term to explain the selection-observables assumption (CIA) in the context of regression model. 
-
-
-<span style="color:blue">`r Citet(bib, "angrist1999empirical")`</span> P1290:
-
->"... The key identifying assumption is that the observable characteristics, $X_i$, are the only reason why $\eta_i$ and $S_i$ (equivalently $f_i(S)$ and $S_i$) are correlated, so 
->
-$E[S_i \eta_i] =0$
-.
->
->This is the "Selection on observables" assumption discussed by Barnow et al. (1981), where the regressor of interest is assumed to be determined independently of potential outcomes after accounting for a set of observable characteristics.
-
-Here, $S_i$ is years of schooling and $\eta_i$ is the error. 
-
-A similar explanation can be seen in <span style="color:blue">`r Citet(bib, "angrist2009mostly")`</span> P44.
-
-???
-+ Angrist and Krueger (1999): Empirical strategies in Labour Economics
-+ Angrist and Piscke (2009): Mostly harmless econometrics
-
-+ By the way, these books are great. I recommend that you read these books if you have not read. I know there is no time for you guys for this and next semester, but maybe next summer break. 
-
----
-But,
-
-+ <span style="color:blue">`r Citet(bib, "wooldridge2010econometric")`</span> P908: 
->"For many purpose, it suffices to assume ignorability in a conditional mean independence sense"
-
-
-+ In the panel data setting, <span style="color:blue">`r Citet(bib, "wooldridge2010econometric")`</span>: 
->For examining consistency of panel data estimators, the zero covariance assumption generally suffices. Further, assumption of the zero covariance assumption is often the easiest way to think about whether strict exogeneity is likely to hold in a particular application."
-
----
-# Reference
-
-```{r, results='asis', echo=FALSE}
-PrintBibliography(bib)
-```
-
----
-class: one-page-font
-
-## Assignment 2: Question 4-(c)
-You can write simulation codes in a different way. 
-
-.panelset[ 
-
-.panel[.panel-name[Data table way (assignment2code.r)]
-.medium-code[
-```{r, echo=T, cache=T}
-set.seed(1234)
-
-library(data.table)
-n <- 1e7  # R notation for 1 x 10^7
-
-mix <- 
-  data.table(
-    X = rchisq(n, 4), 
-    Y = rchisq(n, 8), 
-    Z = rchisq(n, 16),
-    Q = sample(1:3, n, prob=c(0.25, 0.5, 0.25), replace=TRUE)
-  )
-
-# fcase gives M the value of X if Q==1, Y if Q==2, Z if Q==3
-mix[ , M := fcase(Q==1, X, 
-                  Q==2, Y,
-                  Q==3, Z)]
-
-# See the means of all columns (.SD means all columns).
-# lapply()  translates to "Apply the function 'mean' to every column."
-mix[ , lapply(.SD, mean)]
-```
-    ]
-  ]
-
-
-.panel[.panel-name[basic R functions]
-.medium-code[
-```{r, echo=T, cache=T}
-set.seed(1234)
-
-n <- 1e7  # R notation for 1 x 10^7
-
-mix <- data.frame(
-  X = rchisq(n, 4), 
-  Y = rchisq(n, 8), 
-  Z = rchisq(n, 16),
-  Q = sample(1:3, n, prob=c(0.25, 0.5, 0.25), replace=TRUE)
-  )
-
-# sntax: ifelse(condition, x if condition is met, y otherwise)
-mix$M <- 
-  ifelse(mix$Q==1, mix$X,
-    ifelse(mix$Q==2, mix$Y, mix$Z))
-
-colMeans(mix)
-```
-    ]
-  ]
-
-
-.panel[.panel-name[dplyr way]
-Don't use dplyr in the test!
-.medium-code[
-```{r, echo=T, cache=T}
-set.seed(1234)
-
-library(dplyr)
-
-n <- 1e7  # R notation for 1 x 10^7
-
-mix <- data.frame(
-  X = rchisq(n, 4), 
-  Y = rchisq(n, 8), 
-  Z = rchisq(n, 16),
-  Q = sample(1:3, n, prob=c(0.25, 0.5, 0.25), replace=TRUE))
-
-# case_when is the dplyr version of fcase 
-mix <- mutate(mix, M = case_when(Q==1 ~ X, Q==2 ~ Y, Q==3 ~ Z))
-
-# 
-summarise(mix,  across(X:M, mean))
-# this is equivalent to 
-# summarise(mix, X=mean(X), Y=mean(Y), Z=mean(Z), Q=mean(Q), M=mean(M))
-```
-    ]
-  ]
+$$\hat{\beta} = \arg \min_{\beta} \frac{1}{n} \sum_{i=1}^{n}(Y_i - X_{i}^{\prime}\beta)^2 = \left(\sum_{i=1}^{n} X_{i}X_{i}^{\prime} \right)^{-1}\left(\sum_{i=1}^{n} X_{i}Y_{i} \right)=(\mathbf{X}^{\prime}\mathbf{X})^{-1}(\mathbf{X}^{\prime}\mathbf{Y})$$
 ]
 
 
+???
++ Okay, it has been five weeks since the fall semester started. It's only five weeks passed but we learned a lot of econometric theory, right?
+
++ Okay, we started with Conditional expectation function. 
+
+---
+class: middle
+
+```{r, out.width = "100%"}
+knitr::include_graphics("sampring.png")
+```
+
+<!-- <span font-size = 0.5em><p style="text-align: right;">
+[[Appendix B, Step 2: Data Collection, p. B-2](https://learninglink.oup.com/static/5e29bfc369c98b0010b09170/index.html)]
+</p></span> -->
+
++ We will learn lots about inference (e.g., asymptotic theory, resampling methods)in APEC8212!
 
 
+---
+class: inverse, center, middle
+name: intro
+
+# Sampling distribution
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+---
+class: middle
+
+.content-box-red[**Sampling distribution**]
+ 
++ <span style="color:red">The sampling distribution of an estimator is the probability distribution of the estimator.</span>
++ <span style="color:blue">Every statistic (e.g., OLS estimator, t-statistic, standard error) has a sampling distribution</span>
++ <span style="color:blue">Properties of an estimator such as unbiasedness, consistency, and variance are all about the sampling distribution.</span> 
+
+---
+class: middle
+
+# Why does sampling distribution matter?
+
+Consider the following model, 
+$$log(wage) = \beta_0 + \beta_1 educ + \beta_2 exper + e$$
+
+Suppose that you got $\hat{\beta}_1>0$. 
+
+<br>
+
+.content-box-green[**Question**]
+
++ Does the result of $\hat{\beta}_1>0$ alone provide the evidence that $educ$ has a positive impact on $wage$? 
 
 
+???
++ This is related to the question 2-(b) in assignment 3. In that problem, expected value of sample mean is equal to the population mean, but a specific realization of sample mean is not equal to the population mean. 
+
++ Okay, then why do we need to look at statistical significance?
+
+---
+
+## Simulation
++ Suppose that the size of the population is $10000$, and the size of your sample is $100$.
+
+.medium-code[
+.panelset[ 
+.panel[.panel-name[Code]
+```{r, echo=T, eval=F}
+set.seed(2346)
+# population size
+N <- 10^4
+# sample size
+n  <- 100
+
+# === Population data === #
+id <- 1:N
+educ <- rnorm(N, mean = 0, sd = 12)
+exper <- runif(N, min = 0, max = 20)
+data <- data.table(
+  educ = educ,
+  exper = exper,
+  lwage = 1 + 0*educ + 3*exper + rnorm(N, mean = 20, sd = 6)
+  )
+
+# === Estimate the coefficient of "educ" with different samples === #
+for(i in 1:10){
+  sample_id <- sample(1:N, size=100, replace=F)
+  sample <- data[id %in% sample_id,]
+  reg <- lm(lwage ~ educ + exper, sample)
+  print(paste0("sample ", i, ": coefficient of educ is ", coef(reg)[["educ"]]))
+}
+```
+  ]
+.panel[.panel-name[Result]
+```{r, echo=F}
+set.seed(2346)
+# population size
+N <- 10^4
+# sample size
+n  <- 100
+
+# === Population data === #
+id <- 1:N
+educ <- rnorm(N, mean = 0, sd = 12)
+exper <- runif(N, min = 0, max = 20)
+data <- data.table(
+  educ = educ,
+  exper = exper,
+  lwage = 1 + 0*educ + 3*exper + rnorm(N, mean = 20, sd = 5)
+  )
+
+# === Estimate the coefficient of "educ" with different samples === #
+for(i in 1:10){
+  sample_id <- sample(1:N, size=100, replace=F)
+  sample <- data[id %in% sample_id,]
+  reg <- lm(lwage ~ educ + exper, sample)
+  print(paste0("sample ", i, ": coefficient of educ is ", coef(reg)[["educ"]]))
+}
+```
+  ]
+  ]
+]
+
+<span font-size = 0.3em>By the way, this is not how you do Monte Carlo simulation. Don't imitate!</span>
+
+???
++ Look at the results from 3rd sample. The coefficient estimate of education is $0.13$, meaning one more year of education increases wages 13% on average. The size of the estimate is pretty big. 
+
+---
+class: middle
+
+Because of <span style="color:red">sampling variability</span>, you get different realization of $\hat{\beta}_1$.
+
+This means even if $\beta=0$ in the population, it is possible to get an estimate $\hat{\beta}_1$ that is far from $0$
+
+---
+
+## Sampling distribution
+To simulate the sampling distribution of $\beta_1$, repeat the estimation of $\beta_1$ many many times. 
+
+.medium-code[
+.panelset[ 
+.panel[.panel-name[Let's try it!]
+Goal: Simulate the sampling distribution of $\hat{\beta}_1$. (1) Sampling 100 random observations. (2) Run a regression with sample. (3)Save the <span style="color:blue">coefficient estimate</span> and <span style="color:blue">color</span> of $educ$. (4) Repeat (1)-(3) B times. (5)Plot the sampling distribution of $\hat{\beta}_1$ (e.g, `hist(res_data$coef, breaks=50)`). 
+
+```{r, echo=T}
+# the number of iterations 
+B = 2000
+
+# create an object to store the results
+res_dt <- 
+
+# Simulation 
+for (i in 1:B){
+  # 1.select 100 observations randomly from data to make a sample 
+
+  # 2.run a regression with sample data
+
+  # 3. store the results
+}
+
+
+```
+
+]
+
+.panel[.panel-name[Code]
+```{r, echo=T, warning=F}
+# the number of iterations 
+B = 2000
+
+res_data <- 
+  data.table(
+    coef = rep(0, B),
+    se = rep(0, B)
+    )
+
+for(i in 1:B){
+  sample <- data[id %in% sample(1:n, size=100, replace=F)]
+  sample_id <- sample(1:N, size=100, replace=F)
+  sample <- data[id %in% sample_id,]
+  reg <- lm(lwage ~ educ + exper, sample)
+  res_data[i, "coef"] <- coef(reg)[["educ"]]
+  res_data[i, "se"] <- sqrt(diag(vcov(reg))[["educ"]])
+}
+
+# === Visualization === #
+vis_sampling <- 
+  ggplot(res_data) +
+    geom_histogram(aes(x=coef) , alpha = 0.8)+
+    geom_vline(aes(xintercept=mean(coef), color = "red"))+
+    annotate("text", x = mean(res_data$coef), y = -10,
+      label = expression("Mean of " ~ hat(beta[1]) ~ " is 0"), size = 3)+
+    theme_bw() +
+    theme(legend.position="none")
+```
+
+  ]
+
+.panel[.panel-name[Result]
+```{r, echo=F, out.width = "60%"}
+# === Visualization === #
+vis_sampling
+```
+  ]
+  ]
+]
+
+???
++ Although there are some large estimates in the left and right tails, but the sampling distribution is centered at zero, in other words, most of the time, you get the coefficient estimates very close to zero. 
++ Based on the sampling distribution, we conduct hypothesis testing. We will learn a lot of hypothesis testing in APEC8212. 
+
+---
+class: middle
+
+<span style="color:blue">The standard error is an *estimator/estimate* of the standard deviation of the sampling distribution.</span>
+
+.content-box-green[**Let's confirm this**]
+
++ 1. Calculate the standard deviation of the sampling distribution
++ 2. Calculate the mean of the standard errors you estimated 
++ 3. Compare them. 
+
+.medium-code[
+.panelset[ 
+.panel[.panel-name[Let's check it!]
+```{r, echo=T}
+# sd of the sampling distribution
+
+# mean of the se 
+
+```
+  ]
+.panel[.panel-name[Code and Results]
+```{r, echo=T}
+# sd of the sampling distribution
+sd(res_data$coef) 
+# mean of the se 
+mean(res_data$se)
+```
+  ]]
+]
+
+
+---
+class:middle 
+
++ **The problem is that we never know the actual sampling distribution of an  estimator**
+  * This calls for CLT or Delta method
+  * or resampling methods (APEC8212)
+
+PSE P134
+>The goal of an estimator $\hat{\theta}$ is to learn about the parameter $\theta$. To make accurate inferences and to measure the accuracy of our measurements, we need to know something about its sampling. Therefore a considerable effort in statistical theory is devoted to understanding the sampling distribution of estimators. 
+
+---
+
+# Unbiasedness and Consistency
+
+.content-box-red[**Unbiasedness**]
+$$E[\hat{\theta}_n]=\theta$$
+
+**Verbally:** The central tendency of the sampling distribution $(E[\hat{\theta}_n])$ corresponds to the population parameter $(\theta)$. 
+
++ Bias of $\theta$ is $E[\hat{\theta}_n] - \theta$
+
+.content-box-red[**Consistency**]
+
+$$\text{For } \forall \delta > 0, \quad Pr(|\hat{\theta}_n-\theta| \leq \delta) = 1 \quad \text{as } n \rightarrow \infty$$
+<p style="text-align: center;">or</p>
+$$\hat{\theta}_n \xrightarrow{p} \theta \quad \text{as } n \rightarrow \infty$$
+
+**Verbally:** <span style="color:blue">As $n \rightarrow \infty$, </span>the sampling distribution of $\hat{\theta}_n$ convers 
+
+
+???
++ The difference between the two is that the unbiasedness holds for any 
+
+
+---
+# Exercise
++ <span style="color:blue">Generally, unbiasedness does not imply consistency, and vice versa.</span> 
++ Let's think about estimators for the population mean. 
+
+\quad 
+Suppose that we have a i.i.d sample $\{X_i\}_{i=1}^{n}$ which are taken from the population with mean $E[X]=\mu$ and $Var[X] = \sigma^2$ 
+
+Candidates:
+
++ Estimator 1: Sample mean: $\overline{X_n}=\frac{1}{n}\sum_{i=1}^{n}$
++ Estimator 2: Use only 1st observations $\overline{X_1}$
+
+
+.content-box-green[**Question**]
++ Show that $\overline{X_1}$ is an unbiased estimator for the population mean $\mu$ 
++ Is $\overline{X_1}$ is a consistent estimator for he population mean $\mu$?
+
+---
+class: middle
+
+# Let's check Monte Calro simulation
+
+.medium-code[
+.panelset[ 
+.panel[.panel-name[Let's try it!]
+Goal: Simulate the sampling distribution of $\overline{X_n}$ and $X_1$. 
+
+(1) Generate n=1000 random numbers. 
++ For example, you can use 
+  + `rnorm(n, mean = 2, sd = 1)`, population mean is $2$
+  +  `rchisq(n, df = 4)`, population mean is $4$
+  + `rexp(n, rate = 1)`, population mean is 
+
+(2) Calculate a sample mean. (3)Save the result. (4) Repeat (1)-(3) B=1000 times. (5) Plot the sampling distribution of $\hat{\beta}_1$. 
+
+```{r, echo=T}
+# the number of iterations 
+B = 1000
+
+# create an object to store the results
+res_dt <- 
+
+# Simulation 
+for (i in 1:B){
+  # 1. Generate n=1000 random numbers.
+
+  # 2. Obtain sample mean for each estimator 
+
+  # 3. store the results
+}
+
+
+```
+
+]
+
+.panel[.panel-name[Code: n=1000]
+```{r, echo=T, warning=F}
+# the number of iterations 
+B = 1000
+n = 1000
+mu = 10 
+
+
+res_data <- 
+  data.table(
+    x_bar = rep(0, B),
+    x_single = rep(0, B)
+    )
+
+for(i in 1:B){
+  data <- rchisq(n, df=mu)
+  x_bar <- mean(data)
+  x_single <- data[1]
+  res_data[i, "x_bar"] <- x_bar
+  res_data[i, "x_single"] <- x_single
+}
+
+# === Visualization === #
+vis_sampling <- 
+  ggplot(res_data) +
+    geom_histogram(aes(x=x_bar), fill = "green", alpha = 0.5)+
+    geom_histogram(aes(x=x_single), fill = "blue", alpha = 0.5)+
+    geom_vline(aes(xintercept=mu, color = "red"))+
+    labs(title="Sample size 1000")
+```
+  ]
+
+.panel[.panel-name[Result: n=1000]
+```{r}
+vis_sampling
+```
+]
+
+
+.panel[.panel-name[Code 1: n=100, 500, 1000]
+```{r, echo=T, warning=F}
+# the number of iterations 
+B <- 1000
+ls_n <- c(100, 500, 1000)
+mu <- 10 
+
+# make a function
+get_mean <- function(sample_size){
+  storage <- 
+    data.table(
+      sample_size = rep(sample_size, B),
+      x_bar = rep(0, B),
+      x_single = rep(0, B)
+  )
+
+  for(i in 1:B){
+    data <- rnorm(sample_size, mean=mu, sd=5)
+
+    storage[i, "x_bar"] <- mean(data)
+    storage[i, "x_single"] <- data[1]
+  }
+
+  return(storage)
+}
+
+# run simulations
+ls_res_dt <- lapply(ls_n, function(x) get_mean(sample_size=x))
+res_dt <- rbindlist(ls_res_dt)
+
+
+# === Visualization === #
+vis_sampling <- 
+  ggplot(res_dt) +
+    geom_histogram(aes(x=x_bar), bins = 500, fill = "green", alpha = 0.5)+
+    geom_histogram(aes(x=x_single), bins = 500, fill = "blue", alpha = 0.5)+
+    facet_wrap(~ sample_size, ncol=1)+
+    xlim(5, 15)
+```
+  ]
+.panel[.panel-name[Result: n=100, 500, 1000]
+```{r, echo=F, out.width = "70%"}
+# === Visualization === #
+vis_sampling
+```
+  ]
+  ]
+]
+
+---
+
+# The plug-in estimator of $\sigma$
+
+$$\sigma^2 = E[(X_E[X])]$$
+
+The pug-in estimator for $\sigma^2$ is 
+
+$$\hat{\sigma}^2 = \frac{1}{n}(X_i - \overline{X}_i)$$
+
+
+---
+## Simulation
+
+sample mean of the outcomes vs use only first outcomes
+
+.content-box-green[**Sample mean:**]
+
+```{r}
+set.seed(1234)
+# the number of iterations
+B = 1000
+# sample size 
+n = 1000
+# true variance
+var = 4
+
+# storage
+res_dt <- 
+  data.table(
+    var_hat = rep(0, length.out = B),
+    var_mod_hat = rep(0, length.out = B)
+  )
+
+for(i in 1:B){
+  # generate a sequence of random variables 
+  x <- rnorm(n, mean = 0, sd = sqrt(var))
+  # x <- rchisq(n, )
+  res_dt[i, "var_hat"] <- mean((x-mean(x))^2)
+  res_dt[i, "var_mod_hat"] <- sum((x-mean(x))^2)/(n-1)
+}
+
+# check the sampling distribution
+ggplot(res_dt)+
+  geom_density(aes(x=var_hat), fill = "blue", alpha = 0.5)+
+  geom_density(aes(x=var_mod_hat), fill = "red", alpha = 0.5)
+
+
+# bias
+var - mean(res_dt$var_hat)
+```
+
+---
+class: inverse, center, middle
+name: intro
+
+# Variance of Least squares Estimator
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+---
+
+E 4.6 
