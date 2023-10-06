@@ -72,8 +72,7 @@ class: middle
 # Outline
 1. Quick overview 
 2. Sampling distribution
-2. Variance 
-
+3. Variance of Least squares Estimator 
 
 ???
 
