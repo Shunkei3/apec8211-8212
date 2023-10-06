@@ -70,14 +70,12 @@ hitting letter "o" key will give you a panel view of the slides
 class: middle
 
 # Outline
-1. Quick overview of the big picture
+1. Quick overview 
 2. Sampling distribution
 2. Variance 
 
 
 ???
-+ This is the outline for today. 
-+ First thing first, let's do Quize. You have 15 minitues from now. 
 
 ---
 
@@ -91,7 +89,7 @@ name: intro
 ---
 class: middle
 
-## Overview
+## The big picture
 <p style="text-align: center;">.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt5[<span style="color:blue">CEF</span>: $Y=E[Y|X]+\varepsilon$]
 </p>
 
@@ -127,10 +125,6 @@ class: middle
 knitr::include_graphics("sampring.png")
 ```
 
-<!-- <span font-size = 0.5em><p style="text-align: right;">
-[[Appendix B, Step 2: Data Collection, p. B-2](https://learninglink.oup.com/static/5e29bfc369c98b0010b09170/index.html)]
-</p></span> -->
-
 + We will learn lots about inference (e.g., asymptotic theory, resampling methods)in APEC8212!
 
 
@@ -147,8 +141,8 @@ class: middle
 .content-box-red[**Sampling distribution**]
  
 + <span style="color:red">The sampling distribution of an estimator is the probability distribution of the estimator.</span>
-+ <span style="color:blue">Every statistic (e.g., OLS estimator, t-statistic, standard error) has a sampling distribution</span>
-+ <span style="color:blue">Properties of an estimator such as unbiasedness, consistency, and variance are all about the sampling distribution.</span> 
++ <span style="color:blue">Every statistic (e.g., sample mean, median, OLS estimator, t-statistic, standard error ...) has a sampling distribution</span>
++ <span style="color:blue">Properties of an estimator (such as unbiasedness, consistency, and variance) are all about the sampling distribution.</span> 
 
 ---
 class: middle
@@ -537,58 +531,6 @@ vis_sampling
 ]
 
 ---
-
-# The plug-in estimator of $\sigma$
-
-$$\sigma^2 = E[(X_E[X])]$$
-
-The pug-in estimator for $\sigma^2$ is 
-
-$$\hat{\sigma}^2 = \frac{1}{n}(X_i - \overline{X}_i)$$
-
-
----
-## Simulation
-
-sample mean of the outcomes vs use only first outcomes
-
-.content-box-green[**Sample mean:**]
-
-```{r}
-set.seed(1234)
-# the number of iterations
-B = 1000
-# sample size 
-n = 1000
-# true variance
-var = 4
-
-# storage
-res_dt <- 
-  data.table(
-    var_hat = rep(0, length.out = B),
-    var_mod_hat = rep(0, length.out = B)
-  )
-
-for(i in 1:B){
-  # generate a sequence of random variables 
-  x <- rnorm(n, mean = 0, sd = sqrt(var))
-  # x <- rchisq(n, )
-  res_dt[i, "var_hat"] <- mean((x-mean(x))^2)
-  res_dt[i, "var_mod_hat"] <- sum((x-mean(x))^2)/(n-1)
-}
-
-# check the sampling distribution
-ggplot(res_dt)+
-  geom_density(aes(x=var_hat), fill = "blue", alpha = 0.5)+
-  geom_density(aes(x=var_mod_hat), fill = "red", alpha = 0.5)
-
-
-# bias
-var - mean(res_dt$var_hat)
-```
-
----
 class: inverse, center, middle
 name: intro
 
@@ -596,5 +538,13 @@ name: intro
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
 ---
+class: middle
 
-E 4.6 
+.content-box-red[**Important!**]
+
+$$\mathbf{V}_{\hat{\beta}} = Var[\hat{\beta}|\mathbf{X}]=\mathbf{(X^{\prime}X)^{-1}X^{\prime}DX(X^{\prime}X)^{-1}}$$
+
+, where $\mathbf{D}=Var[\mathbf{e|X}]=E[\mathbf{ee^{\prime}|X}]$
+
+.content-box-green[**Question**]
++ Let's derive this formula. 
