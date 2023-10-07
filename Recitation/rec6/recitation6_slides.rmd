@@ -1,0 +1,548 @@
+---
+title: "APEC8211: Recitation 5"
+author: 
+  - "Shunkei Kakimoto" 
+header-includes:
+   - \usepackage{mathtools}
+   - \usepackage{color}
+   - \usepackage{amsmath}
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    css: ../xaringan-themer.css 
+    lib_dir: libs
+    nature: 
+      highlightStyle: github
+      highlightLines: true
+---
+class: middle
+
+```{r, child = '../setup.rmd', cache = FALSE}
+```
+
+```{r, include = F, cache = FALSE}
+# here::i_am("GitControlled/Recitation/1_Introduction/recitation1_slides.rmd")
+```
+
+```{r setup, include=FALSE, cache = FALSE}
+options(htmltools.dir.version = FALSE)
+
+# /*===== Reference =====*/
+suppressMessages(library(RefManageR))
+
+BibOptions(
+  check.entries = FALSE,
+  bib.style = "authoryear",
+  style = "markdown",
+  hyperlink = FALSE,
+  dashed = TRUE,
+  max.names = 2,
+  longnamesfirst = FALSE
+)
+bib <- ReadBib("cite.bib")
+```
+
+```{r, include = F, cache = FALSE}
+library(data.table)
+library(ggplot2)
+library(dplyr)
+library(gganimate)
+library(gifski)
+library(gganimate)
+# library(learnr)
+```
+
+```{r, include = F, eval=F, cache = FALSE}
+httpgd::hgd()
+httpgd::hgd_browse()
+```
+
+```{r xaringan-tachyons, echo=FALSE}
+xaringanExtra::use_tachyons()
+```
+
+
+.content-box-green[**A Useful tip:**]
+
+hitting letter "o" key will give you a panel view of the slides
+
+---
+class: middle
+
+# Outline
+1. Quick overview 
+2. Sampling distribution
+3. Variance of Least squares Estimator 
+
+???
+
+
+---
+class: inverse, center, middle
+name: intro
+
+# Quick overview: where we are
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+---
+
+
+class: middle
+
+## The big picture
+<p style="text-align: center;">.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt5[<span style="color:blue">CEF</span>: $Y=E[Y|X]+\varepsilon$]
+</p>
+
+<p style="text-align: center;">&darr;</p>
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+Aproximate CEF with <span style="color:blue">*linear projection model*</span> (population regression function)
+
+$$Y=X \beta^{\prime} + e$$
+Then, 
+The <span style="color:blue">*linear projection coefficient*</span> is
+$$\beta = \arg \min_{b} E[(Y-X^{\prime}b)] = E[X^{\prime}X]^{-1}E[XY]$$
+]
+
+<p style="text-align: center;">&darr;</p>
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+<span style="color:blue">With sample</span>, estimate Linear projection coefficient $\beta$ with the <span style="color:blue">*least square estimator (OLS)*</span> (population regression function)
+
+$$\hat{\beta} = \arg \min_{\beta} \frac{1}{n} \sum_{i=1}^{n}(Y_i - X_{i}^{\prime}\beta)^2 = \left(\sum_{i=1}^{n} X_{i}X_{i}^{\prime} \right)^{-1}\left(\sum_{i=1}^{n} X_{i}Y_{i} \right)=(\mathbf{X}^{\prime}\mathbf{X})^{-1}(\mathbf{X}^{\prime}\mathbf{Y})$$
+]
+
+
+???
++ Okay, it has been five weeks since the fall semester started. It's only five weeks passed but we learned a lot of econometric theory, right?
+
++ Okay, we started with Conditional expectation function. 
+
+---
+class: middle
+
+```{r, out.width = "100%"}
+knitr::include_graphics("sampring.png")
+```
+
++ We will learn lots about inference (e.g., asymptotic theory, resampling methods)in APEC8212!
+
+---
+class: inverse, center, middle
+name: intro
+
+# Sampling distribution
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+---
+class: middle
+
+.content-box-red[**Sampling distribution**]
+ 
++ <span style="color:red">The sampling distribution of an estimator is the probability distribution of the estimator.</span>
++ <span style="color:blue">Every statistic (e.g., sample mean, median, OLS estimator, t-statistic, standard error ...) has a sampling distribution</span>
++ <span style="color:blue">Properties of an estimator (such as unbiasedness, consistency, and variance) are all about the sampling distribution.</span> 
+
+---
+class: middle
+
+# Why does sampling distribution matter?
+
+Consider the following model, 
+$$log(wage) = \beta_0 + \beta_1 educ + \beta_2 exper + e$$
+
+Suppose that you got $\hat{\beta}_1>0$. 
+
+<br>
+
+.content-box-green[**Question**]
+
++ Does the result of $\hat{\beta}_1>0$ alone provide the evidence that $educ$ has a positive impact on $wage$? 
+
+
+???
++ This is related to the question 2-(b) in assignment 3. In that problem, expected value of sample mean is equal to the population mean, but a specific realization of sample mean is not equal to the population mean. 
+
++ Okay, then why do we need to look at statistical significance?
+
+---
+
+## Simulation
++ Suppose that the size of the population is $10000$, and the size of your sample is $100$.
+
+.medium-code[
+.panelset[ 
+.panel[.panel-name[Code]
+```{r, echo=T, eval=F}
+set.seed(2346)
+# population size
+N <- 10^4
+# sample size
+n  <- 100
+
+# === Population data === #
+id <- 1:N
+educ <- rnorm(N, mean = 0, sd = 12)
+exper <- runif(N, min = 0, max = 20)
+data <- data.table(
+  educ = educ,
+  exper = exper,
+  lwage = 1 + 0*educ + 3*exper + rnorm(N, mean = 20, sd = 6)
+  )
+
+# === Estimate the coefficient of "educ" with different samples === #
+for(i in 1:10){
+  sample_id <- sample(1:N, size=100, replace=F)
+  sample <- data[id %in% sample_id,]
+  reg <- lm(lwage ~ educ + exper, sample)
+  print(paste0("sample ", i, ": coefficient of educ is ", coef(reg)[["educ"]]))
+}
+```
+  ]
+.panel[.panel-name[Result]
+```{r, echo=F}
+set.seed(2346)
+# population size
+N <- 10^4
+# sample size
+n  <- 100
+
+# === Population data === #
+id <- 1:N
+educ <- rnorm(N, mean = 0, sd = 12)
+exper <- runif(N, min = 0, max = 20)
+data <- data.table(
+  educ = educ,
+  exper = exper,
+  lwage = 1 + 0*educ + 3*exper + rnorm(N, mean = 20, sd = 5)
+  )
+
+# === Estimate the coefficient of "educ" with different samples === #
+for(i in 1:10){
+  sample_id <- sample(1:N, size=100, replace=F)
+  sample <- data[id %in% sample_id,]
+  reg <- lm(lwage ~ educ + exper, sample)
+  print(paste0("sample ", i, ": coefficient of educ is ", coef(reg)[["educ"]]))
+}
+```
+  ]
+  ]
+]
+
+<span font-size = 0.3em>By the way, this is not how you do Monte Carlo simulation. Don't imitate!</span>
+
+???
++ Look at the results from 3rd sample. The coefficient estimate of education is $0.13$, meaning one more year of education increases wages 13% on average. The size of the estimate is pretty big. 
+
+---
+class: middle
+
+Because of <span style="color:red">sampling variability</span>, you get different realization of $\hat{\beta}_1$.
+
+This means even if $\beta=0$ in the population, it is possible to get an estimate $\hat{\beta}_1$ that is far from $0$
+
+---
+
+## Sampling distribution
+To simulate the sampling distribution of $\beta_1$, repeat the estimation of $\beta_1$ many many times. 
+
+.medium-code[
+.panelset[ 
+.panel[.panel-name[Let's try it!]
+Goal: Simulate the sampling distribution of $\hat{\beta}_1$. (1) Sampling 100 random observations. (2) Run a regression with sample. (3)Save the <span style="color:blue">coefficient estimate</span> and <span style="color:blue">color</span> of $educ$. (4) Repeat (1)-(3) B times. (5)Plot the sampling distribution of $\hat{\beta}_1$ (e.g, `hist(res_data$coef, breaks=50)`). 
+
+```{r, echo=T}
+# the number of iterations 
+B = 2000
+
+# create an object to store the results
+res_dt <- 
+
+# Simulation 
+for (i in 1:B){
+  # 1.select 100 observations randomly from data to make a sample 
+
+  # 2.run a regression with sample data
+
+  # 3. store the results
+}
+
+
+```
+
+]
+
+.panel[.panel-name[Code]
+```{r, echo=T, warning=F}
+# the number of iterations 
+B = 2000
+
+res_data <- 
+  data.table(
+    coef = rep(0, B),
+    se = rep(0, B)
+    )
+
+for(i in 1:B){
+  sample <- data[id %in% sample(1:n, size=100, replace=F)]
+  sample_id <- sample(1:N, size=100, replace=F)
+  sample <- data[id %in% sample_id,]
+  reg <- lm(lwage ~ educ + exper, sample)
+  res_data[i, "coef"] <- coef(reg)[["educ"]]
+  res_data[i, "se"] <- sqrt(diag(vcov(reg))[["educ"]])
+}
+
+# === Visualization === #
+vis_sampling <- 
+  ggplot(res_data) +
+    geom_histogram(aes(x=coef) , alpha = 0.8)+
+    geom_vline(aes(xintercept=mean(coef), color = "red"))+
+    annotate("text", x = mean(res_data$coef), y = -10,
+      label = expression("Mean of " ~ hat(beta[1]) ~ " is 0"), size = 3)+
+    theme_bw() +
+    theme(legend.position="none")
+```
+
+  ]
+
+.panel[.panel-name[Result]
+```{r, echo=F, out.width = "60%"}
+# === Visualization === #
+vis_sampling
+```
+  ]
+  ]
+]
+
+???
++ Although there are some large estimates in the left and right tails, but the sampling distribution is centered at zero, in other words, most of the time, you get the coefficient estimates very close to zero. 
++ Based on the sampling distribution, we conduct hypothesis testing. We will learn a lot of hypothesis testing in APEC8212. 
+
+---
+class: middle
+
+<span style="color:red">The standard error is an *estimator/estimate* of the standard deviation of the sampling distribution.</span>
+
+.content-box-green[**Let's check this**]
+
+1. Calculate the standard deviation of the sampling distribution
+2. Calculate the mean of the standard errors you estimated 
+3. Compare them. 
+
+.medium-code[
+.panelset[ 
+.panel[.panel-name[Let's check it!]
+```{r, echo=T}
+# sd of the sampling distribution
+
+# mean of the se 
+
+```
+  ]
+.panel[.panel-name[Code and Results]
+```{r, echo=T}
+# sd of the sampling distribution
+sd(res_data$coef) 
+# mean of the se 
+mean(res_data$se)
+```
+  ]]
+]
+
+
+---
+class:middle 
+
++ **The problem is that we never know the actual sampling distribution of an  estimator**
+  * This calls for CLT or Delta method
+  * or resampling methods (APEC8212)
+
+PSE P134
+>The goal of an estimator $\hat{\theta}$ is to learn about the parameter $\theta$. To make accurate inferences and to measure the accuracy of our measurements, we need to know something about its sampling. Therefore a considerable effort in statistical theory is devoted to understanding the sampling distribution of estimators. 
+
+---
+
+# Unbiasedness and Consistency
+
+.content-box-red[**Unbiasedness**]
+$$E[\hat{\theta}_n]=\theta$$
+
+**Verbally:** The central tendency of the sampling distribution $(E[\hat{\theta}_n])$ corresponds to the population parameter $(\theta)$. 
+
++ Bias of $\theta$ is $E[\hat{\theta}_n] - \theta$
+
+.content-box-red[**Consistency**]
+
+$$\text{For } \forall \delta > 0, \quad Pr(|\hat{\theta}_n-\theta| \leq \delta) = 1 \quad \text{as } n \rightarrow \infty$$
+<p style="text-align: center;">or</p>
+$$\hat{\theta}_n \xrightarrow{p} \theta \quad \text{as } n \rightarrow \infty$$
+
+**Verbally:** <span style="color:blue">As $n \rightarrow \infty$, </span>the sampling distribution of $\hat{\theta}_n$ convers 
+
+
+???
++ The difference between the two is that the unbiasedness holds for any 
+
+
+---
+# Exercise
+<span style="color:red">Generally, unbiasedness does not imply consistency, and vice versa.</span> 
+
+<br>
+Let's think about a couple of unbiased estimators for the population mean. 
+
++ Suppose that we have a i.i.d sample $\{X_i\}_{i=1}^{n}$ which are taken from the population with mean $E[X]=\mu$ and $Var[X] = \sigma^2$ 
+
+Candidates:
+
++ Estimator 1: Sample mean: $\overline{X}_n=\frac{1}{n}\sum_{i=1}^{n} X_i$
++ Estimator 2: Use only 1st observations: $X_1$
+
+
+.content-box-green[**Question**]
++ Show that $X_1$ is an unbiased estimator for the population mean $\mu$ 
++ Is $X_1$ a consistent estimator for the population mean $\mu$?
+
+---
+
+# Monte Carlo simulations
+
+.medium-code[
+.panelset[ 
+.panel[.panel-name[Let's try it!]
+
+Let's write codes to see the sampling distribution of $\overline{X}_n$ and $X_1$. 
+
+.content-box-green[**Steps**]
+
+(1) Generate n=1000 random numbers (e.g, `rnorm(n, mean = 2, sd = 1)`, `rchisq(n, df = 4)`)
+
+(2) Obtain $\overline{X}_n$ and $X_1$ . 
+
+(3)Save the result. 
+
+(4) Repeat (1)-(3) B=1000 times. 
+
+(5) Plot the sampling distribution of $\overline{X}_n$ and $X_1$  . 
+
+(6) **For an extra challenge**, produce sampling distributions of $\overline{X}_n$ and $X_1$ with $n = 100, 500, 1000$ and see how the shapes of the distributions change.
+
+]
+
+.panel[.panel-name[Code 1: n=1000]
+```{r, echo=T, warning=F}
+# the number of iterations 
+B = 1000
+n = 1000
+mu = 10 
+
+
+res_data <- 
+  data.table(
+    x_bar = rep(0, B),
+    x_single = rep(0, B)
+    )
+
+for(i in 1:B){
+  data <- rchisq(n, df=mu)
+  x_bar <- mean(data)
+  x_single <- data[1]
+  res_data[i, "x_bar"] <- x_bar
+  res_data[i, "x_single"] <- x_single
+}
+
+# === Visualization === #
+# Just for convenience, transform the data to long-format  (you don't need to do this though)
+vis_sampling <- 
+  ggplot(res_data) +
+    geom_histogram(aes(x=x_bar, fill="x_bar"), bins = 50, alpha = 0.5)+
+    geom_histogram(aes(x=x_single, fill="x_single",), bins = 50, alpha = 0.5)+
+    labs(title="Sample size 1000")+
+    theme_bw()+
+    # modify fill color
+    scale_color_manual(values = c("x_bar"="red", "x_single"="blue"))+
+    # modify x-label and legend name
+    labs(x = expression (~hat(beta)), fill = "Estimator")
+```
+  ]
+
+.panel[.panel-name[Result 1]
+```{r, out.width = "70%"}
+vis_sampling
+```
+]
+
+
+.panel[.panel-name[Code 2: n=100,500,1000]
+.small[
+```{r, echo=T, warning=F}
+# the number of iterations 
+B <- 1000
+ls_n <- c(100, 500, 1000)
+mu <- 10 
+
+# make a function
+get_mean <- function(sample_size){
+  storage <- 
+    data.table(
+      sample_size = rep(sample_size, B),
+      x_bar = rep(0, B),
+      x_single = rep(0, B)
+  )
+
+  for(i in 1:B){
+    data <- rnorm(sample_size, mean=mu, sd=5)
+
+    storage[i, "x_bar"] <- mean(data)
+    storage[i, "x_single"] <- data[1]
+  }
+
+  return(storage)
+}
+
+# run simulations
+ls_res_dt <- lapply(ls_n, function(x) get_mean(sample_size=x))
+res_dt <- rbindlist(ls_res_dt)
+
+
+# === Visualization === #
+vis_sampling <- 
+  ggplot(res_dt) +
+    geom_histogram(aes(x=x_bar, fill = "x_bar"), bins = 50, alpha = 0.5)+
+    geom_histogram(aes(x=x_single, fill = "x_single"), bins = 50, alpha = 0.5)+
+    facet_wrap(~ sample_size, ncol=2)+
+    theme_bw()+
+    # modify fill color
+    scale_color_manual(values = c("x_bar"="red", "x_single"="blue"))+
+    # modify x-label and legend name
+    labs(x = expression (~hat(beta)), fill = "Estimator")
+```
+  ]
+.panel[.panel-name[Result 2]
+```{r, echo=F, out.width = "70%"}
+# === Visualization === #
+vis_sampling
+```
+ ] 
+  ]
+  ]
+]
+
+---
+class: inverse, center, middle
+name: intro
+
+# Variance of Least squares Estimator
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+---
+class: middle
+
+.content-box-red[**Important!**]
+
+$$\mathbf{V}_{\hat{\beta}} = Var[\hat{\beta}|\mathbf{X}]=\mathbf{(X^{\prime}X)^{-1}X^{\prime}DX(X^{\prime}X)^{-1}}$$
+
+, where $\mathbf{D}=Var[\mathbf{e|X}]=E[\mathbf{ee^{\prime}|X}]$
+
+.content-box-green[**Question**]
++ Let's derive this formula. 
