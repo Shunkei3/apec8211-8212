@@ -461,7 +461,7 @@ vis_sampling <-
   ]
 
 .panel[.panel-name[Result 1]
-```{r, out.width = "70%"}
+```{r, out.width = "60%"}
 vis_sampling
 ```
 ]
@@ -498,13 +498,12 @@ get_mean <- function(sample_size){
 ls_res_dt <- lapply(ls_n, function(x) get_mean(sample_size=x))
 res_dt <- rbindlist(ls_res_dt)
 
-
 # === Visualization === #
 vis_sampling <- 
   ggplot(res_dt) +
     geom_histogram(aes(x=x_bar, fill = "x_bar"), bins = 50, alpha = 0.5)+
     geom_histogram(aes(x=x_single, fill = "x_single"), bins = 50, alpha = 0.5)+
-    facet_wrap(~ sample_size, ncol=2)+
+    facet_wrap(~ sample_size, nrow=1)+
     theme_bw()+
     # modify fill color
     scale_color_manual(values = c("x_bar"="red", "x_single"="blue"))+
@@ -513,9 +512,28 @@ vis_sampling <-
 ```
   ]
 .panel[.panel-name[Result 2]
-```{r, echo=F, out.width = "70%"}
-# === Visualization === #
+
+```{r, eval=F}
 vis_sampling
+```
+
+```{r, echo=F, fig.asp = 0.8, fig.width = 9, out.width = "60%"}
+# === Visualization === #
+  ggplot(res_dt) +
+    geom_histogram(aes(x=x_bar, fill = "x_bar"), bins = 50, alpha = 0.5)+
+    geom_histogram(aes(x=x_single, fill = "x_single"), bins = 50, alpha = 0.5)+
+    facet_wrap(~ sample_size, nrow=1)+
+    theme_bw()+
+    # modify fill color
+    scale_color_manual(values = c("x_bar"="red", "x_single"="blue"))+
+    # modify x-label and legend name
+    labs(x = expression (~hat(beta)), fill = "Estimator") +
+    # specify the legend position (this just )
+    theme(
+      legend.position='bottom',
+      legend.title = element_text(size=8),
+      legend.text = element_text(size =8)
+    )
 ```
  ] 
   ]
