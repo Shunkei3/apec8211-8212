@@ -257,7 +257,7 @@ X \perp \!\!\! \perp e \; \mathrel{\mathop{\rightleftarrows}^{\mathrm{\circ}}_{\
 
 Case: $E[e|X]= 0$ is true but $X \perp \!\!\! \perp e$ is false
 
-```{r, out.width = "80%"}
+```{r, echo=F, out.width = "80%"}
 knitr::include_graphics("figure1.png")
 ```
 

@@ -13,7 +13,7 @@ opts_chunk$set(
   message = F,
   #fig.path='Figs/',
   cache = F,
-  echo = F, 
+  echo = T, 
   warning = F, 
   message = F
 )
@@ -58,7 +58,7 @@ suppressMessages(library(flair))
 ```
 
 
-```{r tmap-layout, cache = FALSE}
+```{r tmap-layout, echo=F, cache = FALSE}
 tm_layout_to_add <-
   tm_layout(
     legend.outside = "TRUE",
@@ -68,7 +68,7 @@ tm_layout_to_add <-
   )
 ```
 
-```{r figure_setup, cache = F}
+```{r figure_setup, echo=F, cache = F}
 theme_update(
   axis.title.x =
     element_text(

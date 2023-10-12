@@ -121,7 +121,7 @@ $$\hat{\beta} = \arg \min_{\beta} \frac{1}{n} \sum_{i=1}^{n}(Y_i - X_{i}^{\prime
 ---
 class: middle
 
-```{r, out.width = "100%"}
+```{r, echo=F, out.width = "100%"}
 knitr::include_graphics("sampring.png")
 ```
 
@@ -163,8 +163,6 @@ Suppose that you got $\hat{\beta}_1>0$.
 ???
 + This is related to the question 2-(b) in assignment 3. In that problem, expected value of sample mean is equal to the population mean, but a specific realization of sample mean is not equal to the population mean. 
 
-+ Okay, then why do we need to look at statistical significance?
-
 ---
 
 ## Simulation
@@ -190,7 +188,7 @@ data <- data.table(
   lwage = 1 + 0*educ + 3*exper + rnorm(N, mean = 20, sd = 6)
   )
 
-# === Estimate the coefficient of "educ" with different samples === #
+# === Estimate the coefficient of "educ" with 10 different samples === #
 for(i in 1:10){
   sample_id <- sample(1:N, size=100, replace=F)
   sample <- data[id %in% sample_id,]
@@ -367,7 +365,7 @@ PSE P134
 .content-box-red[**Unbiasedness**]
 $$E[\hat{\theta}_n]=\theta$$
 
-**Verbally:** The central tendency of the sampling distribution $(E[\hat{\theta}_n])$ corresponds to the population parameter $(\theta)$. 
+**Verbally:** The central tendency of the sampling distribution $(E[\hat{\theta}_n])$ corresponds to the population parameter $\theta$. 
 
 + Bias of $\theta$ is $E[\hat{\theta}_n] - \theta$
 
@@ -377,11 +375,7 @@ $$\text{For } \forall \delta > 0, \quad Pr(|\hat{\theta}_n-\theta| \leq \delta) 
 <p style="text-align: center;">or</p>
 $$\hat{\theta}_n \xrightarrow{p} \theta \quad \text{as } n \rightarrow \infty$$
 
-**Verbally:** <span style="color:blue">As $n \rightarrow \infty$, </span>the sampling distribution of $\hat{\theta}_n$ convers 
-
-
-???
-+ The difference between the two is that the unbiasedness holds for any 
+**Verbally:** <span style="color:blue">As $n \rightarrow \infty$, </span>the sampling distribution of $\hat{\theta}_n$ converges in probability to the population parameter $\theta$.
 
 
 ---
