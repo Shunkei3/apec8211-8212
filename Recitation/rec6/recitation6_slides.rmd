@@ -75,10 +75,10 @@ class: middle
 
 # Outline
 1. Quiz 2 (15 mins)
-2. Quick overview: plug-in estimator (10 mins)
-  + Exercise problem 
-3. Quick overview of the asymptotic theorems
-  + Exercise problem (optional)
+2. Quick overview: plug-in estimator (5 mins)
+  + Exercise problem (15 mins)
+3. Quick overview of the asymptotic theorems (10 mins)
+  + Exercise problem
 
 ???
 + Okay, today, fist I wanna talk about plug-in estimators and asymptotic theorems. 
@@ -99,10 +99,7 @@ class: middle
 
 <span style="color:blue">In general, many parameters of interest can written can be written as a function of moments of the distribution</span>(e.g., $E[X], E[X^2] ...$. See PSE Section 2.17).
 
-.content-box-green[**Examples:**]
-
-(Population) Variance of $X$:
-$$\sigma^2=E[(X-E[X])^2]=E[X^2]-(E[X])^2$$
+.content-box-green[**Example:**]
 
 Projection coefficient:
 $$\beta = E[XX^{\prime}]^{-1}E[XY]$$
@@ -110,42 +107,35 @@ $$\beta = E[XX^{\prime}]^{-1}E[XY]$$
 
 ???
 + The moments are the expected values of the powers of $X$. 
-+ For example, the variance of $X$ is a function of first and second moments of $X$. 
 + Projection coefficient is a function of two types of first moments.   
-
-+ We never know the true values of these parameters, because we don't know about $E[X]$ and $E[X^2]$. So what should we do to estimate these parameters? Use plug-in estimators,
 
 ---
 class: middle
 
 <span style="color:blue">In general, many parameters of interest can written can be written as a function of moments of the distribution</span>(e.g., $E[X], E[X^2] ...$. See PSE Section 2.17).
 
-.content-box-green[**Examples:**]
-
-(Population) Variance of $X$:
-$$\sigma^2=E[(X-E[X])^2]=E[X^2]-(E[X])^2$$
+.content-box-green[**Example:**]
 
 Projection coefficient:
 $$\beta = E[XX^{\prime}]^{-1}E[XY]$$
 
 <br>
 
-We don't know $E[X]$ and $E[X^2]$ and so on... What should we do to estimate these parameters?
+We don't know the moments $E[XX^{\prime}]$ and $E[XY]$. What should we do to estimate the parameter $\beta$?
 
 <span style="color:red">Plug-in estimators!!</span>
 
 
 ???
 + The moments are the expected values of the powers of $X$. 
-+ For example, the variance of $X$ is a function of first and second moments of $X$. 
 + Projection coefficient is a function of two types of first moments.   
 
-+ We never know the true values of these parameters, because we don't know about $E[X]$ and $E[X^2]$. So what should we do to estimate these parameters? Use plug-in estimators,
++ We never know about the true values of these parameters, because we don't know about $E[X]$ and $E[X^2]$. So what should we do to estimate these parameters? Use plug-in estimators,
 
 ---
 class: middle
 
-.content-box-green[**Plug-in estimator**]
+.content-box-red[**Plug-in estimator**]
 
 <span style="color:blue">Plugin sample moment estimator $(\hat{\theta})$ into the moment $(\theta)$ in the formula of the parameter.</span> 
 
@@ -154,29 +144,40 @@ class: middle
 
 .content-box-green[**Example:**]
 
-Plug-in estimator of the variance of $X$: 
-$$\hat{\sigma}^2=\frac{1}{n}\sum_{i=1}^{n}X_i^2- \left(\frac{1}{n}\sum_{i=1}^{n} X_i \right)=\frac{1}{n}\sum_{i=1}^{n} (X_i - \overline{X}_n)$$
-
 Plug-in estimator of the projection coefficient $\beta$: 
 $$\hat{\beta} = \left(\frac{1}{n}\sum_{i=1}^{n} X_iX_i^{\prime}\right)^{-1} \left(\frac{1}{n}\sum_{i=1}^{n} X_iY_i \right)$$
-
+, which leads to the OLS estimator. This approach is generally called a method of moments. 
 
 ???
 + For example, variance consists of two types of moments, that is first moments $E[X]$ and $E[X^2]$. Moment estimators for these 
 
-+ Plug-in estimator of projection coefficient is called the OLS estimator of $\beta$ because it solves the sample analog of the least-squares problem. 
++ Plug-in estimator of projection coefficient is called the OLS estimator because it solves the sample analog of the least-squares problem. 
 
 ---
 class: middle
 
 <span style="color:blue">With the tools of the sample mean and the plug-in estimator, we can construct estimators for any parameter that can be wirtten as an explicit function of moments.</span>
 
+???
++ The key point here is that 
+
 ---
+class: middle
 
+## Exercise Problem (from PSE section 6.13)
 
+1. Write $\sigma^2 = Var[X]$ with moments. 
+2. Given your answer to (1), propose the plug-in estimator $\hat{\sigma}^2$ for $\sigma^2$
+3. Show algebraically that $\hat{\sigma}^2=\frac{1}{n}\sum_{i=1}^{n}(X_i -\mu)^2 - (\overline{X}_n - \mu)^2$ 
++ You can skip this question and simply use the result for the next question. 
 
+5. Is $\hat{\sigma}^2$ unbiased estimator for $\sigma^2$? In other words, $E[\hat{\sigma}^2]=\sigma^2$?
+6. Propose an unbiased estimator for $\theta$.
 
-
+???
++ Here is an exercise problem. You might know that variance estimator is biased for the $\sigma^2$, and there is an alternative estimator called bias-correced variance estimator.
++ The logic we gonna practice in this exercise might be helpful for this week's assignment. 
++ Let's do it. 
 
 ---
 ## Check this with Monte Carlo simulation
@@ -185,7 +186,7 @@ class: middle
 .panelset[ 
 .panel[.panel-name[Goal]
 
-+ Simulate the sampling distribution of $\hat{\sigma}^2=\frac{1}{n}(X_i - \overline{X}_n)^2$ and $s^2=\frac{1}{n-1}(X_i - \overline{X}_n)$. 
++ Simulate the sampling distribution of $\hat{\sigma}^2=\frac{1}{n}\frac{1}{n}\sum_{i=1}^{n}(X_i - \overline{X}_n)^2$ and $s^2=\frac{1}{n-1}\frac{1}{n}\sum_{i=1}^{n}(X_i - \overline{X}_n)$. 
 + See the extent of bias in $\hat{\sigma}^2$
 + See $s^2$ is unbiased
   ]
@@ -241,31 +242,44 @@ mean(res_dt$s2)
 var - mean(res_dt$hat_sigma2)
 ```
   ]
+]
+]
 
-.panel[.panel-name[Sampling distribution]
+---
+## Check this with Monte Carlo simulation
 
-As written in PSE P139, the difference between $\hat{\sigma}^2$ and $s^2$ is minor in practical application. Although $\hat{\sigma}^2$ is biased in the finite sample, $\hat{\sigma}^2$ and $s^2$ are both consistent estimators for $\sigma^2$ after all.
+As Hansen says in PSE P139, the difference between $\hat{\sigma}^2$ and $s^2$ is minor in practical application. Although $\hat{\sigma}^2$ is biased in the finite sample, $\hat{\sigma}^2$ and $s^2$ are both consistent estimators for $\sigma^2$ after all.
 
-.left-code[
-```{r, out.width = "50%"}
+.medium-code[
+.panelset[ 
+
+.panel[.panel-name[Code for figures]
+
+```{r}
 vis_sampling <- 
   ggplot(res_dt)+
-    geom_density(aes(x=hat_sigma2), fill = "blue", alpha = 0.5)+
-    geom_density(aes(x=s2), fill = "green", alpha = 0.5)+
+    geom_density(aes(x=hat_sigma2, fill = "sigma^2"), alpha = 0.5)+
+    geom_density(aes(x=s2, fill = "s^2"), alpha = 0.5)+
     geom_vline(aes(xintercept=var)) +
     annotate("text", x = var, y = 0,
       label = paste0("True variance is ", var),
       size = 3, color="red")+
-    labs(x="Estimates for the variance", y="Density")
+    theme_bw()+
+    # change x and y label
+    labs(x="Estimates for the variance", y="Density", fill = "Estimator")+
+    theme(
+      legend.title = element_text(size=8),
+      legend.text = element_text(size =8)
+    )
+
 ```
-]
-.right-plot[
-```{r, echo=F}
+  ]
+.panel[.panel-name[Sampling distributions]
+```{r, echo=F, out.width = "50%"}
 vis_sampling
 ```
   ]
   ]
-]
 ]
 
 ---
@@ -276,33 +290,20 @@ name: intro
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
 ---
-class: middle
 
-
-.content-box-green[**Question**]
-
-Why do we bother to consider the distribution of the OLS estimator under $n \rightarrow \infty$ even though our sample size is finite?
-
-1.
-
-2.
-
-???
-+ Okay, just for checking, what do you think about why we bother to think about the distribution of the OLS estimator when $n$ goes infinity, even though our sample size is finite?
-
----
 class: middle
 
 .content-box-green[**Question**]
 
 Why do we bother to consider the distribution of the OLS estimator under $n \rightarrow \infty$ even though our sample size is finite?
 
-1. To check the consistency of the estimator
-
-2. To approximate the estimator's sampling distribution (i.e., asymptotic distribution) for statistical inference. 
 
 ???
 + Okay, just for checking, what do you think about why we bother to think about the distribution of the OLS estimator when $n$ goes infinity, even though our sample size is finite?
+
++ To check the consistency of the estimator
+
++ To approximate the estimator's sampling distribution (i.e., asymptotic distribution) for statistical inference. 
 
 + Not all the estimators have desirable small-sample properties (e.g., unbiasedness). For example, an IV estimator is biased, but it is asymptotically consistent. 
 
@@ -319,15 +320,6 @@ class: middle
 > 3. Formulas based on asymptotic derivations are useful approximations to formulas that otherwise would be very difficult to derive and estimate. .... (e.g., the variance of a nonlinear function of an estimator)
 > 
 > 4. Many useful estimators and test statistics might never have been found had it not been for algebraic simplification made possible by asymptotic algebra. ... (e.g., the likelihood ratio, the Wald, and the Lagrange multiplier test statistics for testing nonlinear restrictions.)
-
----
-class: middle 
-
-In <span style="color:blue">`r Citet(bib, "angrist2009mostly")`</span>, the section of asymptotic OLS inference (p30) starts with:
-> In practive, we don't really know what the CEF or the population regression vector is. We therefore draw statistical inferences about these quantities using samples. Statistical inference is what much of traditional econometrics is about. ... 
-> 
-> A review of basic asymptotic theory allows us to highlight the important fact that the process of statistical inference is entirely distinct from the question of how a particular set of regression estimates should be interpreted. Whatever a regression coefficient may mean, it has a sampling distribution that is easy to describe and use for statistical inference. 
-
 
 ---
 class: middle

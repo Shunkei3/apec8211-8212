@@ -132,4 +132,12 @@ t_stat_store[i] <- b_hat / sqrt(vcov_ols['x', 'x']) # calculate t-stat
 ```
 
 ---
-Monte
+
+---
+class: middle 
+
+In <span style="color:blue">`r Citet(bib, "angrist2009mostly")`</span>, the section of asymptotic OLS inference (p30) starts with:
+> In practive, we don't really know what the CEF or the population regression vector is. We therefore draw statistical inferences about these quantities using samples. Statistical inference is what much of traditional econometrics is about. ... 
+> 
+> A review of basic asymptotic theory allows us to highlight the important fact that the process of statistical inference is entirely distinct from the question of how a particular set of regression estimates should be interpreted. Whatever a regression coefficient may mean, it has a sampling distribution that is easy to describe and use for statistical inference. 
+
