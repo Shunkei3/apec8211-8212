@@ -116,7 +116,7 @@ class: middle
 
 .content-box-green[**Example:**]
 
-Projection coefficient:
+The projection coefficient:
 $$\beta = E[XX^{\prime}]^{-1}E[XY]$$
 
 <br>
@@ -137,14 +137,14 @@ class: middle
 
 .content-box-red[**Plug-in estimator**]
 
-<span style="color:blue">Plugin sample moment estimator $(\hat{\theta})$ into the moment $(\theta)$ in the formula of the parameter.</span> 
+<span style="color:blue">Plugin the sample moment estimator $(\hat{\theta})$ into the moment $(\theta)$ in the formula of the parameter.</span> 
 
 + For example, the sample moment estimator for $E[X]$ is the sample mean $\frac{1}{n}\sum_{i=1}^{n} X_i$.
 
 
 .content-box-green[**Example:**]
 
-Plug-in estimator of the projection coefficient $\beta$: 
+The plug-in estimator of the projection coefficient $\beta$: 
 $$\hat{\beta} = \left(\frac{1}{n}\sum_{i=1}^{n} X_iX_i^{\prime}\right)^{-1} \left(\frac{1}{n}\sum_{i=1}^{n} X_iY_i \right)$$
 , which leads to the OLS estimator. This approach is generally called a method of moments. 
 
@@ -166,18 +166,30 @@ class: middle
 
 ## Exercise Problem (from PSE section 6.13)
 
-1. Write $\sigma^2 = Var[X]$ with moments. 
-2. Given your answer to (1), propose the plug-in estimator $\hat{\sigma}^2$ for $\sigma^2$
-3. Show algebraically that $\hat{\sigma}^2=\frac{1}{n}\sum_{i=1}^{n}(X_i -\mu)^2 - (\overline{X}_n - \mu)^2$ 
-+ You can skip this question and simply use the result for the next question. 
+(1) Write $\sigma^2 = Var[X]$ with moments. 
 
-5. Is $\hat{\sigma}^2$ unbiased estimator for $\sigma^2$? In other words, $E[\hat{\sigma}^2]=\sigma^2$?
-6. Propose an unbiased estimator for $\theta$.
+(2) Given your answer to (1), propose the plug-in estimator $\hat{\sigma}^2$ for $\sigma^2$
+
+(3) Show algebraically that $\hat{\sigma}^2=\frac{1}{n}\sum_{i=1}^{n}(X_i -\mu)^2 - (\overline{X}_n - \mu)^2$ 
+
++ You can skip this question and simply use this fact for the next question. 
+
+(5) Is $\hat{\sigma}^2$ an unbiased estimator for $\sigma^2$? In other words, $E[\hat{\sigma}^2]=\sigma^2$?
+
++ You will see $\hat{\sigma}^2$ is biased toward $0$.
+
+(6) Given your answer to (5), propose an unbiased estimator for $\theta$.
 
 ???
-+ Here is an exercise problem. You might know that variance estimator is biased for the $\sigma^2$, and there is an alternative estimator called bias-correced variance estimator.
-+ The logic we gonna practice in this exercise might be helpful for this week's assignment. 
++ Here is an exercise problem which is similar to the questions in assignment 4. You might know that variance estimator is biased for the $\sigma^2$, and there is an alternative estimator called bias-correced variance estimator.
++ The logic we gonna practice in this exercise might be helpful for assignment 4.
 + Let's do it. 
+
+---
+class: middle
+
+By the way, the difference between $\hat{\sigma}^2$ and $s^2$ directly connects the difference between Het-robust covariance estimators $\hat{\mathbf{V}}_{\hat{\beta}}^{HC0}$ (a.k.a. White covariance matrix estimator) and $\hat{\mathbf{V}}_{\hat{\beta}}^{HC1}$
+
 
 ---
 ## Check this with Monte Carlo simulation
@@ -295,7 +307,7 @@ class: middle
 
 .content-box-green[**Question**]
 
-Why do we bother to consider the distribution of the OLS estimator under $n \rightarrow \infty$ even though our sample size is finite?
+Why do we bother to consider the distributions of estimators (like OLS) under $n \rightarrow \infty$ even though our sample size is finite?
 
 
 ???
@@ -461,6 +473,6 @@ where, $\mathbf{h}(u)= \nabla h(u)$ (the gradient of $h$, evaluated at $\mathbf{
 ---
 ## Exercise Problem (2022 Final Exam)
 
-See the "rec6_exercise_problem.pdf" on Canvas. 
+See "rec6_exercise_problem.pdf" on Canvas. 
 
 
