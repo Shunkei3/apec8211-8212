@@ -75,9 +75,9 @@ class: middle
 
 # Outline
 1. Quiz 2 (15 mins)
-2. Quick overview: plug-in estimator (5 mins)
-  + Exercise problem (15 mins)
-3. Quick overview of the asymptotic theorems (10 mins)
+2. Quick overview: plug-in estimator
+  + Exercise problem
+3. Quick overview of the asymptotic theorems
   + Exercise problem
 
 ???
@@ -188,8 +188,14 @@ class: middle
 ---
 class: middle
 
-By the way, the difference between $\hat{\sigma}^2$ and $s^2$ directly connects the difference between Het-robust covariance estimators $\hat{\mathbf{V}}_{\hat{\beta}}^{HC0}$ (a.k.a. White covariance matrix estimator) and $\hat{\mathbf{V}}_{\hat{\beta}}^{HC1}$
+The difference between $\hat{\sigma}^2$ and $s^2$ directly results in the difference between Het-robust covariance estimators $\hat{\mathbf{V}}_{\hat{\beta}}^{HC0}$ (a.k.a. White covariance matrix estimator) and $\hat{\mathbf{V}}_{\hat{\beta}}^{HC1}$
 
+Both $\hat{\mathbf{V}}_{\hat{\beta}}^{HC0}$ and $\hat{\mathbf{V}}_{\hat{\beta}}^{HC1}$ use the squared residual $\hat{e_i}^2$. 
+
++ HC0 uses $\hat{\sigma}^2=\frac{1}{n} \sum_{i=1}^{n} \hat{e_i}^2$ (biased toward $0$)
++ HC1 uses $s^2=\frac{1}{n-k} \sum_{i=1}^{n} \hat{e_i}^2$ (unbiased =for $\sigma^2$)
+
+So, HC0 is biased toward $0$. But, they are both asymtotically consistent. 
 
 ---
 ## Check this with Monte Carlo simulation
