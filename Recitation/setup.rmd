@@ -68,7 +68,7 @@ tm_layout_to_add <-
   )
 ```
 
-```{r figure_setup, echo=F, cache = F}
+```{r figure_setup, echo=F, cache = F, eval=F}
 theme_update(
   axis.title.x =
     element_text(
