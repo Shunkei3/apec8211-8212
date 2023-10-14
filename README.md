@@ -12,3 +12,4 @@ This is the repository for APEC 8211-8212 at the University of Minnesota, where 
 	* Solutions for the exercise problems ([here](https://shunkei3.github.io/apec8211-8212/Recitation/rec2/rec3_exericise_solutions.pdf))
 + Week 5 ([slides](https://shunkei3.github.io/apec8211-8212/Recitation/rec5/recitation5_slides.html))
 + Week 6 ([slides](https://shunkei3.github.io/apec8211-8212/Recitation/rec6/recitation6_slides.html))
++ Week 7 

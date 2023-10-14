@@ -80,13 +80,6 @@ class: middle
 3. Quick overview of the asymptotic theorems
   + Exercise problem
 
-???
-+ Okay, today, fist I wanna talk about plug-in estimators and asymptotic theorems. 
-+ Did you guys see the assignment 4? Question 1 is the problem related to plug-in estimators, right?
-+ So, I will demonstrate how to approach that questions using an example. 
-+ Then, if I have time, I wanna talk a little bit about the asymptotic theorems.  
-
-
 ---
 class: inverse, center, middle
 name: intro
@@ -182,8 +175,6 @@ class: middle
 
 ???
 + Here is an exercise problem which is similar to the questions in assignment 4. You might know that variance estimator is biased for the $\sigma^2$, and there is an alternative estimator called bias-correced variance estimator.
-+ The logic we gonna practice in this exercise might be helpful for assignment 4.
-+ Let's do it. 
 
 ---
 class: middle
