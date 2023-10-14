@@ -174,11 +174,11 @@ class: middle
 
 + You can skip this question and simply use this fact for the next question. 
 
-(5) Is $\hat{\sigma}^2$ an unbiased estimator for $\sigma^2$? In other words, $E[\hat{\sigma}^2]=\sigma^2$?
+(4) Is $\hat{\sigma}^2$ an unbiased estimator for $\sigma^2$? In other words, $E[\hat{\sigma}^2]=\sigma^2$?
 
 + You will see $\hat{\sigma}^2$ is biased toward $0$.
 
-(6) Given your answer to (5), propose an unbiased estimator for $\theta$.
+(5) Given your answer to (5), propose an unbiased estimator for $\sigma^2$.
 
 ???
 + Here is an exercise problem which is similar to the questions in assignment 4. You might know that variance estimator is biased for the $\sigma^2$, and there is an alternative estimator called bias-correced variance estimator.
@@ -188,14 +188,15 @@ class: middle
 ---
 class: middle
 
-The difference between $\hat{\sigma}^2$ and $s^2$ directly results in the difference between Het-robust covariance estimators $\hat{\mathbf{V}}_{\hat{\beta}}^{HC0}$ (a.k.a. White covariance matrix estimator) and $\hat{\mathbf{V}}_{\hat{\beta}}^{HC1}$
+The difference between $\hat{\sigma}^2$ and $s^2$ results in the difference between Het-robust covariance estimators $\hat{\mathbf{V}}_{\hat{\beta}}^{HC0}$ (a.k.a. White covariance matrix estimator) and $\hat{\mathbf{V}}_{\hat{\beta}}^{HC1}$
 
-Both $\hat{\mathbf{V}}_{\hat{\beta}}^{HC0}$ and $\hat{\mathbf{V}}_{\hat{\beta}}^{HC1}$ use the squared residual $\hat{e_i}^2$. 
+<!-- Note that both $\hat{\mathbf{V}}_{\hat{\beta}}^{HC0}$ and $\hat{\mathbf{V}}_{\hat{\beta}}^{HC1}$ use the squared residual $\hat{e_i}^2$.  -->
 
 + HC0 uses $\hat{\sigma}^2=\frac{1}{n} \sum_{i=1}^{n} \hat{e_i}^2$ (biased toward $0$)
-+ HC1 uses $s^2=\frac{1}{n-k} \sum_{i=1}^{n} \hat{e_i}^2$ (unbiased =for $\sigma^2$)
 
-So, HC0 is biased toward $0$. But, they are both asymtotically consistent. 
++ HC1 uses $s^2=\frac{1}{n-k} \sum_{i=1}^{n} \hat{e_i}^2$ (unbiased for $\sigma^2$)
+
+So, $\hat{\mathbf{V}}_{\hat{\beta}}^{HC0}$ is biased toward $0$, but $\hat{\mathbf{V}}_{\hat{\beta}}^{HC0}$ and $\hat{\mathbf{V}}_{\hat{\beta}}^{HC1}$ are <span style="color:blue">both asymtotically consistent</span>. 
 
 ---
 ## Check this with Monte Carlo simulation
@@ -479,6 +480,6 @@ where, $\mathbf{h}(u)= \nabla h(u)$ (the gradient of $h$, evaluated at $\mathbf{
 ---
 ## Exercise Problem (2022 Final Exam)
 
-See "rec6_exercise_problem.pdf" on Canvas. 
+See "rec6_exercise2.pdf" on Canvas. 
 
 
