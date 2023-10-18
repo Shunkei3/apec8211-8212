@@ -1,0 +1,476 @@
+---
+title: "APEC8211: Recitation 6"
+author: 
+  - "Shunkei Kakimoto" 
+header-includes:
+   - \usepackage{mathtools}
+   - \usepackage{color}
+   - \usepackage{amsmath}
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    css: ../xaringan-themer.css 
+    lib_dir: libs
+    nature: 
+      highlightStyle: github
+      highlightLines: true
+---
+class: middle
+
+```{r, child = '../setup.rmd', cache = FALSE}
+```
+
+```{r xaringan-scribble, echo=FALSE, eval=F}
+xaringanExtra::use_scribble()
+```
+
+```{r, include = F, cache = FALSE}
+# here::i_am("GitControlled/Recitation/1_Introduction/recitation1_slides.rmd")
+```
+
+```{r setup, include=FALSE, cache = FALSE}
+options(htmltools.dir.version = FALSE)
+
+# /*===== Reference =====*/
+suppressMessages(library(RefManageR))
+
+BibOptions(
+  check.entries = FALSE,
+  bib.style = "authoryear",
+  style = "markdown",
+  hyperlink = FALSE,
+  dashed = TRUE,
+  max.names = 2,
+  longnamesfirst = FALSE
+)
+bib <- ReadBib("cite.bib")
+```
+
+```{r, include = F, cache = FALSE}
+library(data.table)
+library(ggplot2)
+library(dplyr)
+library(gganimate)
+library(gifski)
+library(gganimate)
+# library(learnr)
+```
+
+```{r, include = F, eval=F, cache = FALSE}
+httpgd::hgd()
+httpgd::hgd_browse()
+```
+
+```{r xaringan-tachyons, echo=FALSE}
+xaringanExtra::use_tachyons()
+```
+
+
+.content-box-green[**A Useful tip:**]
+
+hitting letter "o" key will give you a panel view of the slides
+
+---
+class: middle
+
+# Outline
+1. Quiz 2 (15 mins)
+2. Quick overview: plug-in estimator
+  + Exercise problem
+3. Quick overview of the asymptotic theorems
+  + Exercise problem
+
+---
+class: inverse, center, middle
+name: intro
+
+# Plug-in estimators
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+---
+class: middle
+
+<span style="color:blue">In general, many parameters of interest can written can be written as a function of moments of the distribution</span>(e.g., $E[X], E[X^2] ...$. See PSE Section 2.17).
+
+.content-box-green[**Example:**]
+
+Projection coefficient:
+$$\beta = E[XX^{\prime}]^{-1}E[XY]$$
+
+
+???
++ The moments are the expected values of the powers of $X$. 
++ Projection coefficient is a function of two types of first moments.   
+
+---
+class: middle
+
+<span style="color:blue">In general, many parameters of interest can be written as a function of moments of the distribution</span>(e.g., $E[X], E[X^2] ...$. See PSE Section 2.17).
+
+.content-box-green[**Example:**]
+
+The projection coefficient:
+$$\beta = E[XX^{\prime}]^{-1}E[XY]$$
+
+<br>
+
+We don't know the moments $E[XX^{\prime}]$ and $E[XY]$. What should we do to estimate the parameter $\beta$?
+
+<span style="color:red">Plug-in estimators!!</span>
+
+
+???
++ The moments are the expected values of the powers of $X$. 
++ Projection coefficient is a function of two types of first moments.   
+
++ We never know about the true values of these parameters, because we don't know about $E[X]$ and $E[X^2]$. So what should we do to estimate these parameters? Use plug-in estimators,
+
+---
+class: middle
+
+.content-box-red[**Plug-in estimator**]
+
+<span style="color:blue">Plugin the sample moment estimator $(\hat{\theta})$ into the moment $(\theta)$ in the formula of the parameter.</span> 
+
++ For example, the sample moment estimator for $E[X]$ is the sample mean $\frac{1}{n}\sum_{i=1}^{n} X_i$.
+
+
+.content-box-green[**Example:**]
+
+The plug-in estimator of the projection coefficient $\beta$: 
+$$\hat{\beta} = \left(\frac{1}{n}\sum_{i=1}^{n} X_iX_i^{\prime}\right)^{-1} \left(\frac{1}{n}\sum_{i=1}^{n} X_iY_i \right)$$
+, which leads to the OLS estimator. This approach is generally called a method of moments. 
+
+???
++ For example, variance consists of two types of moments, that is first moments $E[X]$ and $E[X^2]$. Moment estimators for these 
+
++ Plug-in estimator of projection coefficient is called the OLS estimator because it solves the sample analog of the least-squares problem. 
+
+---
+class: middle
+
+<span style="color:blue">With the tools of the sample mean and the plug-in estimator, we can construct estimators for any parameter that can be wirtten as an explicit function of moments.</span>
+
+???
++ The key point here is that 
+
+---
+class: middle
+
+## Exercise Problem (from PSE section 6.13)
+
+(1) Write $\sigma^2 = Var[X]$ with moments. 
+
+(2) Given your answer to (1), propose the plug-in estimator $\hat{\sigma}^2$ for $\sigma^2$
+
+(3) Show algebraically that $\hat{\sigma}^2=\frac{1}{n}\sum_{i=1}^{n}(X_i -\mu)^2 - (\overline{X}_n - \mu)^2$ 
+
++ You can skip this question and simply use this fact for the next question. 
+
+(4) Is $\hat{\sigma}^2$ an unbiased estimator for $\sigma^2$? In other words, $E[\hat{\sigma}^2]=\sigma^2$?
+
++ You will see $\hat{\sigma}^2$ is biased toward $0$.
+
+(5) Given your answer to (5), propose an unbiased estimator for $\sigma^2$.
+
+???
++ Here is an exercise problem which is similar to the questions in assignment 4. You might know that variance estimator is biased for the $\sigma^2$, and there is an alternative estimator called bias-correced variance estimator.
+
+---
+class: middle
+
+The difference between $\hat{\sigma}^2$ and $s^2$ results in the difference between Het-robust covariance estimators $\hat{\mathbf{V}}_{\hat{\beta}}^{HC0}$ (a.k.a. White covariance matrix estimator) and $\hat{\mathbf{V}}_{\hat{\beta}}^{HC1}$
+
+<!-- Note that both $\hat{\mathbf{V}}_{\hat{\beta}}^{HC0}$ and $\hat{\mathbf{V}}_{\hat{\beta}}^{HC1}$ use the squared residual $\hat{e_i}^2$.  -->
+
++ HC0 uses $\hat{\sigma}^2=\frac{1}{n} \sum_{i=1}^{n} \hat{e_i}^2$ (biased toward $0$)
+
++ HC1 uses $s^2=\frac{1}{n-k} \sum_{i=1}^{n} \hat{e_i}^2$ (unbiased for $\sigma^2$)
+
+So, $\hat{\mathbf{V}}_{\hat{\beta}}^{HC0}$ is biased toward $0$, but $\hat{\mathbf{V}}_{\hat{\beta}}^{HC0}$ and $\hat{\mathbf{V}}_{\hat{\beta}}^{HC1}$ are <span style="color:blue">both asymtotically consistent</span>. 
+
+---
+## Check this with Monte Carlo simulation
+
+.medium-code[
+.panelset[ 
+.panel[.panel-name[Goal]
+
++ Simulate the sampling distribution of $\hat{\sigma}^2=\frac{1}{n}\frac{1}{n}\sum_{i=1}^{n}(X_i - \overline{X}_n)^2$ and $s^2=\frac{1}{n-1}\frac{1}{n}\sum_{i=1}^{n}(X_i - \overline{X}_n)$. 
++ See the extent of bias in $\hat{\sigma}^2$
++ See $s^2$ is unbiased
+  ]
+
+.panel[.panel-name[Code]
+
+```{r}
+library(data.table)
+library(ggplot2)
+
+set.seed(1234)
+# number of iterations
+B = 2000
+# sample size 
+n = 100
+# true variance
+var = 100
+
+# storage
+res_dt <- 
+  data.table(
+    hat_sigma2 = rep(0, length.out = B),
+    s2 = rep(0, length.out = B)
+  )
+
+# simulation
+for(i in 1:B){
+  # generate a sequence of random variables 
+  # the variance of chi-square distribution with degree of freedom k is 2k
+  x <- rchisq(n, df=var/2) 
+  # naive variance estimator
+  res_dt[i, "hat_sigma2"] <- mean((x-mean(x))^2)
+  # bias-corrected variance estimator
+  res_dt[i, "s2"] <- sum((x-mean(x))^2)/(n-1)
+}
+```
+  ]
+
+.panel[.panel-name[Result]
+
+As written in PSE P139, the difference between $\hat{\sigma}^2$ and $s^2$ is minor in practical application. Although $\hat{\sigma}^2$ is biased in the finite sample, $\hat{\sigma}^2$ and $s^2$ are both consistent estimators for $\sigma^2$ after all.
+
++ Recall that the true variance is `r var`
+
+```{r}
+# Mean estimates of the naive variance estimator
+mean(res_dt$hat_sigma2)
+
+# Mean estimates of the bias-corrected variance estimator
+mean(res_dt$s2)
+
+# Bias of the naive variance estimator
+var - mean(res_dt$hat_sigma2)
+```
+  ]
+]
+]
+
+---
+## Check this with Monte Carlo simulation
+
+As Hansen says in PSE P139, the difference between $\hat{\sigma}^2$ and $s^2$ is minor in practical application. Although $\hat{\sigma}^2$ is biased in the finite sample, $\hat{\sigma}^2$ and $s^2$ are both consistent estimators for $\sigma^2$ after all.
+
+.medium-code[
+.panelset[ 
+
+.panel[.panel-name[Code for figures]
+
+```{r}
+vis_sampling <- 
+  ggplot(res_dt)+
+    geom_density(aes(x=hat_sigma2, fill = "sigma^2"), alpha = 0.5)+
+    geom_density(aes(x=s2, fill = "s^2"), alpha = 0.5)+
+    geom_vline(aes(xintercept=var)) +
+    annotate("text", x = var, y = 0,
+      label = paste0("True variance is ", var),
+      size = 3, color="red")+
+    theme_bw()+
+    # change x and y label
+    labs(x="Estimates for the variance", y="Density", fill = "Estimator")+
+    theme(
+      legend.title = element_text(size=8),
+      legend.text = element_text(size =8)
+    )
+
+```
+  ]
+.panel[.panel-name[Sampling distributions]
+```{r, echo=F, out.width = "50%"}
+vis_sampling
+```
+  ]
+  ]
+]
+
+---
+class: inverse, center, middle
+name: intro
+
+# Asymptotic theorems
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+---
+
+class: middle
+
+.content-box-green[**Question**]
+
+Why do we bother to consider the distributions of estimators (like OLS) under $n \rightarrow \infty$ even though our sample size is finite?
+
+
+???
++ Okay, just for checking, what do you think about why we bother to think about the distribution of the OLS estimator when $n$ goes infinity, even though our sample size is finite?
+
++ To check the consistency of the estimator
+
++ To approximate the estimator's sampling distribution (i.e., asymptotic distribution) for statistical inference. 
+
++ Not all the estimators have desirable small-sample properties (e.g., unbiasedness). For example, an IV estimator is biased, but it is asymptotically consistent. 
+
++ Derivation of small-sample properties are difficult, but derivation of asymptotic properties is not. 
+
+---
+class: middle
+
+<span style="color:blue">`r Citet(bib, "kennedy2008guide")` (p20)</span> summaries  four reasons for why asymptotic theory has come to play such a prominent role in econometrics. 
+> 1. When no estimator with desirable small-sample properties can be found, as is often the case, econometrician are foced to choose estimators on the basis of their asymptotic properties. ... (e.g, OLS with lagged value of the dependnet variable as a aggressor.)
+> 
+> 2. Small sample properties of some estimator are extraordinarily difficult to calculate, in which case using asymptotic algebra can provide an indication of what the small-sample properties of this estimator likely to be. ... (e.g., OLS in the simultaneous equations context)
+> 
+> 3. Formulas based on asymptotic derivations are useful approximations to formulas that otherwise would be very difficult to derive and estimate. .... (e.g., the variance of a nonlinear function of an estimator)
+> 
+> 4. Many useful estimators and test statistics might never have been found had it not been for algebraic simplification made possible by asymptotic algebra. ... (e.g., the likelihood ratio, the Wald, and the Lagrange multiplier test statistics for testing nonlinear restrictions.)
+
+---
+class: middle
+
+## Core asymptotic concepts
+
+**<span style="color:red">The Week law of large number (WLLN)</span>**
+
+**<span style="color:red">The central limit theorem (CLT)</span>** 
+
+**<span style="color:red">The continuous mapping theorem (CMP)</span>**
+
+**<span style="color:red">Slutky's theorem</span>**
+
+**<span style="color:red">The Delta method</span>**
+
+
+---
+class: middle
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+**<span style="color:red">The Week law of large number (WLLN)</span>**
+
+If $X_i$ are i.i.d. and $E|X| < \infty$, then $\overline{X}_n =\frac{1}{n} \sum_{i=1}^{n} X_i \xrightarrow{p} E[X]$ as $n \rightarrow \infty$
+]
+
+<br>
+
+.content-box-green[**Corollary:**]
+
+You can apply the WLLN to any sample moments $\frac{1}{n} \sum_{i=1}^{n} h(X_i)$.
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+If $X_i$ are i.i.d. and $E|h(X)| < \infty$, then $\frac{1}{n} \sum_{i=1}^{n} h(X_i) \xrightarrow{p} E[h(X)]$ as $n \rightarrow \infty$
+]
+
+.content-box-green[**Example:**]
+
+$\frac{1}{n} \sum_{i=1}^{n} (X_i)^2 \xrightarrow{p} E[(X)^2]$ as $n \rightarrow \infty$
+
+If $(X_i, Y_i)$ are mutually i.i.d., then $\frac{1}{n} \sum_{i=1}^{n} (X_i Y_i) \xrightarrow{p} E[X Y]$ as $n \rightarrow \infty$
+
+---
+class: middle
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+**<span style="color:red">The central limit theorem</span>**
+
++ If $X_i$ are i.i.d. and $E[X^2] < \infty$, then $\sqrt{n}(\overline{X}_n - \mu) \xrightarrow{d} N(0, \sigma^2)$ as $n \rightarrow \infty.$
+
+, where $\mu=E[X]$ and $\sigma=E[(X-\mu)^2]$.
+]
+
+<br>
+
+CLT can be used to approximate the <span style="color:blue">finite</span> distribution of $\overline{X}_n$ when $n$ is large enough. 
+
+\begin{align*}
+\overline{X}_n \overset{\text{a}}{\sim} N\left(\mu, \frac{\sigma^2}{n}\right)
+\end{align*}
+
+
+???
++ Mention this part
+
+---
+
+class: middle
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+**<span style="color:red">The central limit theorem</span>**
+
++ If $X_i$ are i.i.d. and $E[X^2] < \infty$, then $\sqrt{n}(\overline{X}_n - \mu) \xrightarrow{d} N(0, \sigma^2)$ as $n \rightarrow \infty.$
+
+, where $\mu=E[X]$ and $\sigma=E[(X-\mu)^2]$.
+]
+
+CLT can be used to approximate the <span style="color:blue">finite</span> distribution of $\overline{X}_n$ when $n$ is large enough. 
+
+\begin{align*}
+\overline{X}_n \overset{\text{a}}{\sim} N\left(\mu, \frac{\sigma^2}{n}\right)
+\end{align*}
+
+.content-box-red[**NOTE:**] **This is just an approximation and <span style="color:red">does not</span> mean that $\overline{X}_n$ converge in distribution to $N(\mu, \sigma^2/n)$.** (The CLT says the standardized sequence $\sqrt{n}(\overline{X}_n - \mu)$ converges in distribution to $N(0, \sigma^2)$ as $n \rightarrow \infty$.)
+
+
+<!-- <span style="color:blue">How much normality does accurately approximate the distribution of $\overline{X}_n$?</span>
+
+&rarr; Compare **quantiles** of the sampling distribution of $\overline{X}_n$ with the quantiles of the normal distribution. Comparison of the shape of the distributions is misleading. -->
+
+---
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+**<span style="color:red">The continuous mapping theorem (CMP-P, CMP-D)</span>**
+
+Simply stated, if $h(\cdot)$ is continuous, 
+
+If $Z_n \xrightarrow{p} c$ as $n \rightarrow \infty$, then $h(Z_n) \xrightarrow{p} h(c)$ as $n \rightarrow \infty$
+
+If $Z_n \xrightarrow{d} Z$ as $n \rightarrow \infty$, then $h(Z_n) \xrightarrow{d} h(Z)$ as $n \rightarrow \infty$
+]
+
+**Verbally:** Convergence in probability (or distribution) is preserved by continuous transformations. 
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+**<span style="color:red">Slutky's theorem</span>**
+
+If $Z_n \xrightarrow{d} Z$ and $c_n \xrightarrow{p} c$, then
+
+$Z_n + c_n \xrightarrow{\color{red}{d}} Z + c$
+
+$Z_n c_n \xrightarrow{\color{red}{d}} Z c$
+
+$\frac{Z_n}{c_n} \xrightarrow{\color{red}{d}} \frac{Z}{c}$
+]
+
+---
+class: middle 
+
+.content-box-green[**Motivation**]
+
+We would like to know about the distribution of the plug-in estimator $\hat{\beta}=h(\hat{\theta})$ using what we know about the moment estimator $\hat{\theta}$. 
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+**<span style="color:red">Delta method</span>**
+
+If a function $h(u)$ is continuously differentiable in a neighborhood of $\theta$ and if the standardized sequence $\sqrt{n}(\hat{\theta}-\theta) \xrightarrow{d} N(0, \mathbf{V})$, then as $n \rightarrow \infty$
+
+\begin{align*}
+\sqrt{n}(h(\hat{\theta})-h(\theta)) \xrightarrow{d} N(0, \mathbf{h^{\prime}Vh})
+\end{align*}
+
+where, $\mathbf{h}(u)= \nabla h(u)$ (the gradient of $h$, evaluated at $\mathbf{\theta}$)
+
+]
+
+**Verbally:** Differentiable functions of asymptotically normal random estimators are asymptotically normal. 
+
+---
+## Exercise Problem (2022 Final Exam)
+
+See "rec6_exercise2.pdf" on Canvas. 
+
+
