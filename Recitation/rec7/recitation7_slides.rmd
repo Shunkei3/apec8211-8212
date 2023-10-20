@@ -208,7 +208,7 @@ $$\mathbf{V}_{\hat{\beta}} = Var[\hat{\beta}|\mathbf{X}]=\mathbf{(X^{\prime}X)^{
 class: inverse, center, middle
 name: hete_r
 
-# Regression analysis with R
+# Im
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
 ---
@@ -216,16 +216,27 @@ class: middle
 
 ## Implementation in R: Het-robust variance covariance estimator
 
-There are various ways to obtain het-robust standard errors (e.g., `coeftest()` from `lmtest` package). In this class, we mainly use `vcovHC()` function from `sandwich` package. `vcovHC()` returns a <span style="color:blue">het-robust variance-covariance matrix</span> of the coefficient estimates in regression models.
++ There are various ways to obtain het-robust standard error estimates (e.g., `coeftest()` from `lmtest` package). 
++ In this class, we mainly use `vcovHC()` function from `sandwich` package. `vcovHC()` returns a <span style="color:blue">het-robust variance-covariance matrix</span> of the coefficient estimates in regression models.
 
 <br>
 
 .content-box-green[**Question**]
-+ Given a variance covariance matrix, how to get the standard errors of the coefficient estimates?
+
++ How to get the standard errors of the coefficient estimates from the estimated het-robust variance covariance matrix?
 
 
 ???
 + `vcovHC()` returns a het-robust variance-covariance matrix. Given the matrix, we get het-robust se. 
+
+---
+class; middle
+
+## Process
+
+1. Estimate the model using OLS (you do nothing special here)
+2. Assuming the error term is heteorskedastic, estimate the het-robust standard errors for each coefficient estimates. 
+3. Replace the estimates from $s(\beta)_{default}$ with $s(\beta)_{robust}$. 
 
 
 ---
@@ -466,11 +477,72 @@ coeftest(reg)
 name: Exercise1
 class: middle
 
-## Exercise E 4.22
+## Exercise 1, E 4.22
 
 An economist friend tells you that the assumption that the observations $(Y_i, X_i)$ are i.i.d. implies that the regression $Y=X^{\prime} \beta +e$ is homoskedastic. Do you agree with your friend? How would you explain your position?
 
 ---
+
+## Exercise 2, E 3.24, 4.24
+
+Use the `cps09mar` dataset (March 2009 Current Population Survey) on the canvas. 
+
+(1) Subset for single (never married) Asian men with less than 45 years experience. The total number of observations should be $267$. 
+
++ See cps09mar_description.pdf to refer to which variables should be used.
++ $experience$ is `age-education-6`
+
+(2) Estimate the regression model: $log(wage)=\beta_0 + \beta_1 education + \beta_2 experience + \beta_3 experience^2/100 + e$. 
+
++ $wage$ is  `earnings/(hours*week)`
+
+
+(3) Report the regression results with standard errors using the homoskedasticity formula and using the four het-robust variance-covariance formulas (HC0, HC1, HC2, HC3).  
+
+```{r, echo=F, eval=F}
+library(data.table)
+library(rio)
+library(sandwich)
+library(dplyr)
+
+data <- 
+  import("Data/hansen_data/cps09mar/cps09mar.dta") %>%
+  data.table()
+
+sub_data <-   
+  data %>%
+  .[marital==7 & race==4 & female==0,] %>%
+  .[, exp := age - education - 6] %>%
+  .[exp < 45,] %>%
+  .[, wage := earnings/(hours*week)] %>%
+  .[, exp2 := exp*exp/100]
+
+reg <- lm(log(wage) ~ education + exp + exp2, data=sub_data)
+
+se <- sqrt(diag(vcov(reg)))
+se_hc0 <- sqrt(diag(vcovHC(reg, type="HC0")))
+se_hc1 <- sqrt(diag(vcovHC(reg, type="HC1")))
+se_hc2 <- sqrt(diag(vcovHC(reg, type="HC2")))
+se_hc3 <- sqrt(diag(vcovHC(reg, type="HC3")))
+
+stargazer(
+  # --- regression objects --- $
+  reg, reg, reg, reg, reg,
+  # --- a list of standard errors --- #
+  se=list(se, se_hc0, se_hc1, se_hc2, se_hc3),
+  # --- what type of output --- #
+  type="text", #change this part accordingly
+  # --- other options (these are not necessary)--- #
+  header = FALSE,
+  column.labels=c("non-robust", "het-robust"),
+  title = "Compare se estimates",
+  omit.stat=c("adj.rsq","ser","f"),
+  table.layout="-ld#-t-s-"
+  )
+```
+
+
+
 
 
 

@@ -5689,7 +5689,7 @@ class: middle
 class: inverse, center, middle
 name: hete_r
 
-# Regression analysis with R
+# Im
 
 &lt;html&gt;&lt;div style=&#39;float:left&#39;&gt;&lt;/div&gt;&lt;hr color=&#39;#EB811B&#39; size=1px width=796px&gt;&lt;/html&gt;
 ---
@@ -5697,16 +5697,27 @@ class: middle
 
 ## Implementation in R: Het-robust variance covariance estimator
 
-There are various ways to obtain het-robust standard errors (e.g., `coeftest()` from `lmtest` package). In this class, we mainly use `vcovHC()` function from `sandwich` package. `vcovHC()` returns a &lt;span style=&quot;color:blue&quot;&gt;het-robust variance-covariance matrix&lt;/span&gt; of the coefficient estimates in regression models.
++ There are various ways to obtain het-robust standard error estimates (e.g., `coeftest()` from `lmtest` package). 
++ In this class, we mainly use `vcovHC()` function from `sandwich` package. `vcovHC()` returns a &lt;span style=&quot;color:blue&quot;&gt;het-robust variance-covariance matrix&lt;/span&gt; of the coefficient estimates in regression models.
 
 &lt;br&gt;
 
 .content-box-green[**Question**]
-+ Given a variance covariance matrix, how to get the standard errors of the coefficient estimates?
+
++ How to get the standard errors of the coefficient estimates from the estimated het-robust variance covariance matrix?
 
 
 ???
 + `vcovHC()` returns a het-robust variance-covariance matrix. Given the matrix, we get het-robust se. 
+
+---
+class; middle
+
+## Process
+
+1. Estimate the model using OLS (you do nothing special here)
+2. Assuming the error term is heteorskedastic, estimate the het-robust standard errors for each coefficient estimates. 
+3. Replace the estimates from `\(s(\beta)_{default}\)` with `\(s(\beta)_{robust}\)`. 
 
 
 ---
@@ -5966,11 +5977,32 @@ coeftest(reg)
 name: Exercise1
 class: middle
 
-## Exercise E 4.22
+## Exercise 1, E 4.22
 
 An economist friend tells you that the assumption that the observations `\((Y_i, X_i)\)` are i.i.d. implies that the regression `\(Y=X^{\prime} \beta +e\)` is homoskedastic. Do you agree with your friend? How would you explain your position?
 
 ---
+
+## Exercise 2, E 3.24, 4.24
+
+Use the `cps09mar` dataset (March 2009 Current Population Survey) on the canvas. 
+
+(1) Subset for single (never married) Asian men with less than 45 years experience. The total number of observations should be `\(267\)`. 
+
++ See cps09mar_description.pdf to refer to which variables should be used.
++ `\(experience\)` is `age-education-6`
+
+(2) Estimate the regression model: `\(log(wage)=\beta_0 + \beta_1 education + \beta_2 experience + \beta_3 experience^2/100 + e\)`. 
+
++ `\(wage\)` is  `earnings/(hours*week)`
+
+
+(3) Report the regression results with standard errors using the homoskedasticity formula and using the four het-robust variance-covariance formulas (HC0, HC1, HC2, HC3).  
+
+
+
+
+
 
 
 
