@@ -5570,8 +5570,6 @@ class: middle
 3. [Exercise problem 1](#Exercise1) 
 4. [Exercise problem 2](#Exercise2) 
 
-+ okay, today, I wannna talk about the problem of heteroskedasticity and how to estimate heteroskedasticity-robust standard errors with R. 
-
 ---
 class: inverse, center, middle
 name: hete
@@ -5590,21 +5588,6 @@ class: middle
 
 Why do we care about heteroskedasticity? What is the consequence of disregarding this problem?
 
-???
-+ Here is the question for you guys.
-+ Why do we car about heteroskeasticity?
-
-+ (1) In the presence of heteroskedasticity, the OLS estimator is inefficient, that is OLS estimator returns imprecise coefficient estimates. 
-  * According to the Gauss-Markov theorem, OLS is the best liear unbiased estimator under the homoskedasticity. But, in the case of  heteroskedasticity, the OLS is not the most efficient anymore, but instead, GLS is the most efficient estimator. 
-  
-
-+ (2) and estimates of the OLS standard error becomes biased, and therefore the subsequent  statistical inference based on those biased standard error estimates is incorrect. 
-
-+ **the next question is that** do you think that the heterosekdasticity affects the unbiasedness or consistency property of OLS?
-
-+ Right, so the point here is that, heteroskedasticity matters for statistical inference but it does not affect unbiasedness and consistency of OLS. 
-
-+ Statistical inference is the main theme of this last half of this class.
 
 
 ---
@@ -5630,23 +5613,11 @@ Heteroskedasticity is one type of the violation of the &quot;classical&quot; hom
 + **Verbally:** the errors have uniform variance (all the diagonal elements of the vcov matrix are the same) and are not correlated with one another (all the off-diagonal elements of the vcov matrix are zero).
 ]
 
-???
-+ This is a digression.
-
-+ As you might know, the non-homoskedastic errors do not always mean heteroskedasticity, right?
-+ Heteroskedasticity is one type of the violation of the classical homoskedasticity. 
-
-+ Homoskedasticity errors a specific type of errors such that have uniform variance, and not correlated  variance is defined as `\(Var[e|X]=Var[e]=\sigma^2\)`. That is, the variance of the error terms is independent of `\(X\)` and consistent. 
-
-+ 
 
 ---
 class: middle
 
-+ So, the violation of the &quot;classical&quot; homoskedasticity assumption means that the errors are either not uniform or correlated with each other, or both. 
-
-
-+ 
+So, the violation of the &quot;classical&quot; homoskedasticity assumption means that the errors are either not uniform or correlated with each other, or both. 
 
 ---
 class: middle
@@ -5672,9 +5643,6 @@ class: middle
 **Verbally**: The off-diagonal elements of the vcov matrix of the errors are non-zero.
   * Example: clustered errors (APEC8212), serial correlation in time series models (APEC8213)
 ]
-
-???
-
 
 
 ---
@@ -6017,8 +5985,7 @@ class: middle
 
 An economist friend tells you that the assumption that the observations `\((Y_i, X_i)\)` are i.i.d. implies that the regression `\(Y=X^{\prime} \beta +e\)` is homoskedastic. Do you agree with your friend? How would you explain your position?
 
-???
-+ Transformations of i.i.d. variables are also i.i.d. 
+
 ---
 
 ## Exercise 2, E 3.24, 4.24
