@@ -72,42 +72,55 @@ class: middle
 
 # Outline
 1. [Brief review of heteroskedasticity](#hete).
-
-2. [Regression analysis with R](#hete_r)
-
-+ How to estimate hete-robust standard errors?
-+ How to report regression results nicely?
-
+2. [How to obtain het-robust variance covariance estimates in R?](#hete_r)
 3. [Exercise problem 1](#Exercise1) 
-
 4. [Exercise problem 2](#Exercise2) 
 
----
++ okay, today, I wannna talk about the problem of heteroskedasticity and how to estimate heteroskedasticity-robust standard errors with R. 
 
+---
 class: inverse, center, middle
 name: hete
 
 # Brief review of the theories of heteroskedasticity.
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+???
++ First, let's do a quick review of heteroskedasticity. 
+
 ---
 class: middle
 
 .content-box-green[**Question:**]
 
-Why do we care about heteroskedasticity?
+Why do we care about heteroskedasticity? What is the consequence of disregarding this problem?
 
 ???
-+ First of all, what is does the problem of heteroskedasticity mean?
-  * the variance of the error terms (specifically, the diagonal elements of the variance-covariance matrix of the error term) are  by independent variables. 
-+ Does it affect the unbiasedness or consistency property of OLS?
-+ For statistical inference
++ Here is the question for you guys.
++ Why do we car about heteroskeasticity?
+
++ (1) In the presence of heteroskedasticity, the OLS estimator is inefficient, that is OLS estimator returns imprecise coefficient estimates. 
+  * According to the Gauss-Markov theorem, OLS is the best liear unbiased estimator under the homoskedasticity. But, in the case of  heteroskedasticity, the OLS is not the most efficient anymore, but instead, GLS is the most efficient estimator. 
+  
+
++ (2) and estimates of the OLS standard error becomes biased, and therefore the subsequent  statistical inference based on those biased standard error estimates is incorrect. 
+
++ **the next question is that** do you think that the heterosekdasticity affects the unbiasedness or consistency property of OLS?
+
++ Right, so the point here is that, heteroskedasticity matters for statistical inference but it does not affect unbiasedness and consistency of OLS. 
+
++ Statistical inference is the main theme of this last half of this class.
+
+
 ---
 class: middle
 
 ## By the way...
 
 Heteroskedasticity is one type of the violation of the "classical" homoskedasticity assumption.  
+
+
 
 .bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
 <b>Homoskedastic errors (or Spherical errors)</b>: 
@@ -124,12 +137,22 @@ $$Var[\mathbf{e}|\mathbf{X}]=\sigma^2 \mathbf{I} =
 ]
 
 ???
-+ Homoskedasticity is defined as $Var[e|X]=Var[e]=\sigma^2$. That is, the variance of the error terms is independent of $X$ and consistent. 
++ This is a digression.
+
++ As you might know, the non-homoskedastic errors do not always mean heteroskedasticity, right?
++ Heteroskedasticity is one type of the violation of the classical homoskedasticity. 
+
++ Homoskedasticity errors a specific type of errors such that have uniform variance, and not correlated  variance is defined as $Var[e|X]=Var[e]=\sigma^2$. That is, the variance of the error terms is independent of $X$ and consistent. 
+
++ 
 
 ---
 class: middle
 
-So, the violation of the "classical" homoskedasticity assumption means that the errors are either not uniform or correlated with each other, or both. 
++ So, the violation of the "classical" homoskedasticity assumption means that the errors are either not uniform or correlated with each other, or both. 
+
+
++ 
 
 ---
 class: middle
@@ -195,7 +218,7 @@ $$\mathbf{V}_{\hat{\beta}} = Var[\hat{\beta}|\mathbf{X}]=\mathbf{(X^{\prime}X)^{
 
 .content-box-green[**NOTE:**]
 
-1. This is called <b span style="color:blue">actual, or theoretical variance</b span>, not to be confused with $\hat{\mathbf{V}}_{\hat{\beta}}$, which is the estimator of $\mathbf{V}_{\hat{\beta}}$. 
+1. This is called <b span style="color:blue">actual, or theoretical variance</b span>, not to be confused with $\widehat{\mathbf{V}}_{\hat{\beta}}$, which is the estimator of $\mathbf{V}_{\hat{\beta}}$. 
 
 2. We need to estimate $\color{red}{\mathbf{D}}=Var[\mathbf{e|X}]$. 
 
@@ -208,13 +231,11 @@ $$\mathbf{V}_{\hat{\beta}} = Var[\hat{\beta}|\mathbf{X}]=\mathbf{(X^{\prime}X)^{
 class: inverse, center, middle
 name: hete_r
 
-# Im
+# How to obtain het-robust variance covariance estimates in R?
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
 ---
 class: middle
-
-## Implementation in R: Het-robust variance covariance estimator
 
 + There are various ways to obtain het-robust standard error estimates (e.g., `coeftest()` from `lmtest` package). 
 + In this class, we mainly use `vcovHC()` function from `sandwich` package. `vcovHC()` returns a <span style="color:blue">het-robust variance-covariance matrix</span> of the coefficient estimates in regression models.
@@ -242,8 +263,6 @@ class; middle
 ---
 class: middle
 
-## Implementation in R: Het-robust variance covariance estimator
-
 ```{r, eval=F}
 # If you haven't installed the package yet
 install.packages("sandwich")
@@ -256,10 +275,11 @@ install.packages("sandwich")
 Here is the general syntax to obtain various types of VCOV (and se) estimates
 ```{r, eval=F}
 # === Het-robust variance-covariance matrix ===
-vcovHC(regression result, type="type of vcov")
+cov <- vcovHC(regression result, type="type of vcov")
 
 # === Het-robust standard error estimates ===
-sqrt(diag(vcovHC(regression result, type="type of vcov")))
+# Extract the diagonal elements and compute square-roots of them
+sqrt(diag(cov))
 ```
 
 In `type=`, you specify a type of het-robust estimator (e.g., `type="HC3"`). 
@@ -331,7 +351,7 @@ class: middle
 
 .panel[.panel-name[Code]
 
-This is one way to report the regression result nicely. 
+I will report only the coefficient estimate of `white`.
 
 .medium-code[
 ```{r, eval=FALSE}
@@ -358,14 +378,14 @@ stargazer(
     ]
 
 You need to specify `type=` depending on the format of your output document:
-+ For pdf document, use `type=latex`.
-+ For html document, use `type=html`.
++ For pdf output, use `type=latex`.
++ For html output, use `type=html`.
 + If you want to see the result on R console, use `type=text`.
   ]
 
 .panel[.panel-name[Output: type="text"]
 
-If you use `type="text"` for an html output, you get something like this.
+If you use `type="text"`, you get something like this.
 
 ```{r, echo=F}
 library(stargazer)
@@ -390,7 +410,7 @@ stargazer(
   ]
 .panel[.panel-name[Output: type="html"]
 
-If you use `type="html"` for an html output, you get something like this.
+Use `type="html"`, if you desire html output.
 
 This html output is so bad because of my Rmakrdown settings. haha 
 
@@ -419,7 +439,7 @@ stargazer(
 
 .panel[.panel-name[Output: type="latex"]
 
-If you use `type="latex"` for a pdf output, you get something like this.
+Use `type="latex"`, if you desire Latex (pdf) output.
 
 ```{r, echo=F, out.width = "80%"}
 knitr::include_graphics("stargazer_pdf.png")
@@ -457,9 +477,12 @@ stargazer(
 ---
 class: middle
 
+For more details, take a look at this website: ["A Stargazer Cheatsheet"](https://www.jakeruss.com/cheatsheets/stargazer/)
 
+---
+class: middle
 
-I don't mind if you report your regression result with `summary()` function or `coeftest()` function (from `lmtest` package) in your assignment. 
+By the way, I don't mind if you report your regression result with `summary()` function or `coeftest()` function (from `lmtest` package) in your assignment. 
 
 .medium-code[
 ```{r}
@@ -481,6 +504,8 @@ class: middle
 
 An economist friend tells you that the assumption that the observations $(Y_i, X_i)$ are i.i.d. implies that the regression $Y=X^{\prime} \beta +e$ is homoskedastic. Do you agree with your friend? How would you explain your position?
 
+???
++ Transformations of i.i.d. variables are also i.i.d. 
 ---
 
 ## Exercise 2, E 3.24, 4.24
