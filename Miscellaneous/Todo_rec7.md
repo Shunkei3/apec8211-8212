@@ -1,4 +1,5 @@
-+ Assignment 5:
+# Assignment 5:
+
 
 
 + Variance:
@@ -19,7 +20,7 @@
 # For recitation 8
 + Hypothesis tesing in regression 
 	* starting from a simple concept for hypothesis testing for sample mean
-+ explain the notation (review: inference P23)
++ explain the notation (review: inference P23, OLS asymptotics p10)
 	* asymptotic variance
 	* actual variance
 	* variance estimator
