@@ -367,7 +367,7 @@ $$E[\hat{\theta}_n]=\theta$$
 
 **Verbally:** The central tendency of the sampling distribution $(E[\hat{\theta}_n])$ corresponds to the population parameter $\theta$. 
 
-+ Bias of $\theta$ is $E[\hat{\theta}_n] - \theta$
++ Bias of $\hat{\theta}_n$ is $E[\hat{\theta}_n] - \theta$
 
 .content-box-red[**Consistency**]
 

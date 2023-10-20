@@ -323,7 +323,7 @@ Why do we bother to consider the distributions of estimators (like OLS) under $n
 class: middle
 
 <span style="color:blue">`r Citet(bib, "kennedy2008guide")` (p20)</span> summaries  four reasons for why asymptotic theory has come to play such a prominent role in econometrics. 
-> 1. When no estimator with desirable small-sample properties can be found, as is often the case, econometrician are foced to choose estimators on the basis of their asymptotic properties. ... (e.g, OLS with lagged value of the dependnet variable as a aggressor.)
+> 1. When no estimator with desirable small-sample properties can be found, as is often the case, econometrician are forced to choose estimators on the basis of their asymptotic properties. ... (e.g, OLS with lagged value of the dependent variable as a regressor.)
 > 
 > 2. Small sample properties of some estimator are extraordinarily difficult to calculate, in which case using asymptotic algebra can provide an indication of what the small-sample properties of this estimator likely to be. ... (e.g., OLS in the simultaneous equations context)
 > 
@@ -336,7 +336,7 @@ class: middle
 
 ## Core asymptotic concepts
 
-**<span style="color:red">The Week law of large number (WLLN)</span>**
+**<span style="color:red">The week law of large number (WLLN)</span>**
 
 **<span style="color:red">The central limit theorem (CLT)</span>** 
 
@@ -351,7 +351,7 @@ class: middle
 class: middle
 
 .bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
-**<span style="color:red">The Week law of large number (WLLN)</span>**
+**<span style="color:red">The week law of large number (WLLN)</span>**
 
 If $X_i$ are i.i.d. and $E|X| < \infty$, then $\overline{X}_n =\frac{1}{n} \sum_{i=1}^{n} X_i \xrightarrow{p} E[X]$ as $n \rightarrow \infty$
 ]
@@ -462,13 +462,15 @@ If a function $h(u)$ is continuously differentiable in a neighborhood of $\theta
 \sqrt{n}(h(\hat{\theta})-h(\theta)) \xrightarrow{d} N(0, \mathbf{h^{\prime}Vh})
 \end{align*}
 
-where, $\mathbf{h}(u)= \nabla h(u)$ (the gradient of $h$, evaluated at $\mathbf{\theta}$)
+where, $\mathbf{h}= \nabla h(\theta)$ (the gradient of $h$, evaluated at $\mathbf{\theta}$)
 
 ]
 
 **Verbally:** Differentiable functions of asymptotically normal random estimators are asymptotically normal. 
 
 ---
+class: middle
+
 ## Exercise Problem (2022 Final Exam)
 
 See "rec6_exercise2.pdf" on Canvas. 

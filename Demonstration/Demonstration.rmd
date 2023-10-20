@@ -12,6 +12,7 @@ header-includes:
    - \usepackage{bm}
 geometry: margin=2cm
 ---
+
 ```{r setup, include=FALSE}
 library(knitr)
 

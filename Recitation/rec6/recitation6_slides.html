@@ -5024,7 +5024,7 @@ Why do we bother to consider the distributions of estimators (like OLS) under `\
 class: middle
 
 &lt;span style=&quot;color:blue&quot;&gt;Kennedy (2008) (p20)&lt;/span&gt; summaries  four reasons for why asymptotic theory has come to play such a prominent role in econometrics. 
-&gt; 1. When no estimator with desirable small-sample properties can be found, as is often the case, econometrician are foced to choose estimators on the basis of their asymptotic properties. ... (e.g, OLS with lagged value of the dependnet variable as a aggressor.)
+&gt; 1. When no estimator with desirable small-sample properties can be found, as is often the case, econometrician are forced to choose estimators on the basis of their asymptotic properties. ... (e.g, OLS with lagged value of the dependent variable as a regressor.)
 &gt; 
 &gt; 2. Small sample properties of some estimator are extraordinarily difficult to calculate, in which case using asymptotic algebra can provide an indication of what the small-sample properties of this estimator likely to be. ... (e.g., OLS in the simultaneous equations context)
 &gt; 
@@ -5037,7 +5037,7 @@ class: middle
 
 ## Core asymptotic concepts
 
-**&lt;span style=&quot;color:red&quot;&gt;The Week law of large number (WLLN)&lt;/span&gt;**
+**&lt;span style=&quot;color:red&quot;&gt;The week law of large number (WLLN)&lt;/span&gt;**
 
 **&lt;span style=&quot;color:red&quot;&gt;The central limit theorem (CLT)&lt;/span&gt;** 
 
@@ -5052,7 +5052,7 @@ class: middle
 class: middle
 
 .bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
-**&lt;span style=&quot;color:red&quot;&gt;The Week law of large number (WLLN)&lt;/span&gt;**
+**&lt;span style=&quot;color:red&quot;&gt;The week law of large number (WLLN)&lt;/span&gt;**
 
 If `\(X_i\)` are i.i.d. and `\(E|X| &lt; \infty\)`, then `\(\overline{X}_n =\frac{1}{n} \sum_{i=1}^{n} X_i \xrightarrow{p} E[X]\)` as `\(n \rightarrow \infty\)`
 ]
@@ -5163,13 +5163,15 @@ If a function `\(h(u)\)` is continuously differentiable in a neighborhood of `\(
 \sqrt{n}(h(\hat{\theta})-h(\theta)) \xrightarrow{d} N(0, \mathbf{h^{\prime}Vh})
 \end{align*}`
 
-where, `\(\mathbf{h}(u)= \nabla h(u)\)` (the gradient of `\(h\)`, evaluated at `\(\mathbf{\theta}\)`)
+where, `\(\mathbf{h}= \nabla h(\theta)\)` (the gradient of `\(h\)`, evaluated at `\(\mathbf{\theta}\)`)
 
 ]
 
 **Verbally:** Differentiable functions of asymptotically normal random estimators are asymptotically normal. 
 
 ---
+class: middle
+
 ## Exercise Problem (2022 Final Exam)
 
 See &quot;rec6_exercise2.pdf&quot; on Canvas. 
