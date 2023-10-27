@@ -1,0 +1,259 @@
+---
+title: "APEC8211: Recitation 8"
+author: 
+  - "Shunkei Kakimoto" 
+header-includes:
+   - \usepackage{mathtools}
+   - \usepackage{color}
+   - \usepackage{amsmath}
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    css: ../xaringan-themer.css 
+    lib_dir: libs
+    nature: 
+      highlightStyle: github
+      highlightLines: true
+---
+class: middle
+
+```{r, child = '../setup.rmd', cache = FALSE}
+```
+
+```{r xaringan-scribble, echo=FALSE}
+xaringanExtra::use_scribble()
+```
+
+
+```{r setup, include=FALSE, cache = FALSE}
+options(htmltools.dir.version = FALSE)
+
+# /*===== Reference =====*/
+suppressMessages(library(RefManageR))
+
+BibOptions(
+  check.entries = FALSE,
+  bib.style = "authoryear",
+  style = "markdown",
+  hyperlink = FALSE,
+  dashed = TRUE,
+  max.names = 2,
+  longnamesfirst = FALSE
+)
+bib <- ReadBib("cite.bib")
+```
+
+```{r, include = F, cache = FALSE}
+library(data.table)
+library(ggplot2)
+library(dplyr)
+library(gganimate)
+library(gifski)
+library(gganimate)
+# library(learnr)
+```
+
+```{r, include = F, eval=F, cache = FALSE}
+httpgd::hgd()
+httpgd::hgd_browse()
+```
+
+```{r xaringan-tachyons, echo=FALSE}
+xaringanExtra::use_tachyons()
+```
+
+
+.content-box-green[**A Useful tip:**]
+
+hitting letter "o" key will give you a panel view of the slides
+
+---
+class: middle
+
+# Outline
+1. [Practice Delta Method](#delta)
+
+???
++ Okay, today I want to talk about the Delta method. Well, we learned about the delta method in APEC8211, we did not practice how to use it. Also, in this weeks's assignment problem, the delta method is required. 
+
++ More importantly, the Delta method is used to derive the 
+
++ So, let's practice. 
+
+---
+class: middle
+
+Suppose that we want to know the variance of the plug-in estimator $\hat{\beta}=h(\hat{\theta})$.
+
+---
+class: middle
+
+
+.content-box-green[**Case 1: If h is a linear function:**]
+
+Example: $h(u) = a + b \cdot u$
+
+Then 
+$$Var[\hat{\beta}]=Var[h(\hat{\theta})]=Var[a + b \cdot \hat{\theta}]= b^2 Var[\hat{\theta}]$$
+
+
+---
+
+class: middle
+
+.content-box-green[**Case 2: If h is a nonlinear function:**]
+
+Example 1: $\hat{\beta} = h(\hat{\theta}) = \frac{\hat{\theta}_1}{\hat{\theta}_2}$ like an odds ratio. 
+
+<br>
+
+Example 2 assignment 5 Question 3: What is the variance estimator of $\Delta_{D}=\Phi(E[X]^{\prime} \beta + \delta) - \Phi(E[X]^{\prime}\beta)$?
+
+$Var[\hat{\beta}]=$ is difficult to calculate. 
+
+&rarr; Compute the asymptotic variance of $\hat{\beta}=$ using the delta method. 
+
+---
+
+
+class: middle 
+
+<!-- .content-box-green[**Motivation**]
+
+We would like to know about the distribution of the plug-in estimator $\hat{\beta}=h(\hat{\theta})$ using what we know about the moment estimator $\hat{\theta}$.  -->
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+**<span style="color:red">Delta method</span>**
+
+If a function $h(u)$ is continuously differentiable in a neighborhood of $\theta$ and if the standardized sequence $\sqrt{n}(\hat{\theta}-\theta) \xrightarrow{d} N(0, \mathbf{V})$, then as $n \rightarrow \infty$
+
+\begin{align*}
+\sqrt{n}(h(\hat{\theta})-h(\theta)) \xrightarrow{d} N(0, \mathbf{h^{\prime}Vh})
+\end{align*}
+
+where, $\mathbf{h}= \nabla h(\theta)$ (the gradient of $h$, evaluated at $\mathbf{\theta}$)
+
+]
+
+<!-- **Verbally:** Differentiable functions of asymptotically normal random estimators are asymptotically normal.  -->
+
+???
++ 
+
+
+---
+class: middle 
+
+.content-box-green[**Key takeaways**]
+
+1. The Delta method says that continuously differentiable functions of asymptotically normal random estimators are asymptotically normal.
+
+2. <span style="color:blue">We can approximate the asymptotic variance of any nonlinear estimator</span>
+
++ Once you get the asymptotic variance formula, you can derive the plug-in estimator for the variance based on that asymptotic variance formula. 
+
+
+???
++ Okay, as a main point of the delta method, **I wanna stress that you can approximate the asymptotic variance of any nonlinear estimator**. 
++ Without the delta method, the derivation of the formula for variance of a nonlinear estimator is difficult.  
+  * For example, the marginal effect estimator for a probit. 
+
++ In the case where you cannot derive the variance formula for an estimator, you can use 
+
+
++ In the case of linear regression, the derivation of the formulas for the actual variance and the asymptotic  because we can write an OLS estimator as a linear function, it's relatively easy to derive the formula for the actual variance and asymptotic variance. 
+
+
+---
+
+# Exercise 1
+
+For univariate $X$ with finite variance, $\sqrt{n}(\overline{X}_n) \xrightarrow{d} N(0, \sigma^2)$. 
+
+(1) Find the asymptotic variance using the delta method and derive their variance estimator, respectively.  
+
++  $exp(\overline{X}_n)$
++  $log(\overline{X}_n)$
+
+(2) Choose either the plug-in estimator of $exp(\overline{X}_n)$ and $log(\overline{X}_n)$. Let's run Monte Carlo simulations to see whether the the asymptotic variance you just derived is reasonable. (You might want to use large sample size).
+
+
+???
++  The first step is to identify the $h(\cdot)$ function. Then compute the derivative of the $h(\cdot)$ function and evaluate it with the true parameter. 
++ Then, in this case, $X$ is a univariate random variable, so you can derive the asymptotic variance of the estimator 
+
+---
+
+
+```{r}
+library(ggplot2)
+
+B <- 1000
+n <- 1000
+
+mu <- 5
+sigma2 <- 4
+
+k <- 5
+
+for(i in 1:B){
+  X_i <- rchisq(n, df=k)
+  X_mean <- mean(X_i)
+
+}
+
+
+
+```
+
+---
+
+# Exercise 2
+
+Suppose 
+
+
+
+
+???
+
+---
+class: middle
+
+The Delta Method is also used to derive the asymptotic distribution of some test statistics. 
+
+
+.content-box-green[**Question:**] 
+
+What is the asymptotic distribution of t-statistic and the Wald statistic?
+
+$$T(\theta)=\frac{\hat{\theta}-\theta}{s(\hat{\theta})} \xrightarrow{d} ?$$
+
+$$W(\theta)=(\hat{\theta}-\theta)^{\prime}\hat{\mathbf{V}}^{-1}_{\hat{\theta}}(\hat{\theta}-\theta) \xrightarrow{d} ?$$
+
+
+???
+
++ We learned that for hypothetical testing, we need a sampling distribution of test statistics. But we never know the sampling distribution of the test statistic, so we need a asymptotic distribution of the test statistics
+  * another approach that does not depend on the asymptotic distribution is bootstrapping. 
+
+---
+
+class: middle
+
+The consequence of Delta Method is used to derive the asymptotic distribution of some test statistics. 
+
+.content-box-green[**Question:**] 
+
+What is the asymptotic distribution of t-statistic and the Wald statistic?
+
+See E 7.12
+$$T(\theta)=\frac{\hat{\theta}-\theta}{s(\hat{\theta})} \xrightarrow{d} N(0,1)$$
+
+See E 7.16
+$$W(\theta)=(\hat{\theta}-\theta)^{\prime}\hat{\mathbf{V}}^{-1}_{\hat{\theta}}(\hat{\theta}-\theta) \xrightarrow{d} \chi^2_{k}$$
+
+???
++ About t-stat, because $s(\hat{V}_\theta)=\sqrt{\hat{V}_\theta}$, $V_\theta= n V_{\theta}$, and $\sqrt{n}(\hat{\theta}-\theta) \xrightarrow{d} N(0, \V_{\theta})$
+
+---
