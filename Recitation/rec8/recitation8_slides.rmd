@@ -71,30 +71,74 @@ hitting letter "o" key will give you a panel view of the slides
 class: middle
 
 # Outline
-1. [Practice Delta Method](#delta)
+1. Review Delta Method
+2. [Exercise 1](#ex1)
+3. [Exercise 2](#ex2)
 
 ???
-+ Okay, today I want to talk about the Delta method. Well, we learned about the delta method in APEC8211, we did not practice how to use it. Also, in this weeks's assignment problem, the delta method is required. 
++ Okay, today I want to talk about the Delta method.
++ In this week's assignmnet, you need to use the delta method in the last question. It's a simple,  but it might be confusing if you don't know how to use it. 
++ We learned about the delta method in APEC8211, but as long as I remeber, we did not practice how to apply the delta method. So, in this lab session, we practivce how to use delta method. 
 
-+ More importantly, the Delta method is used to derive the 
++ More importantly, for statistical inference, delta method is used to derive the asymptotic distribution of the test statistics. So, it's better to understand how to use it. 
 
-+ So, let's practice. 
+
++ Also, in this weeks's assignment problem, the delta method is required. 
++ Well, we learned about the delta method in APEC8211, we did not practice how to use it. So, let's practice. 
 
 ---
 class: middle
 
-Suppose that we want to know the variance of the plug-in estimator $\hat{\beta}=h(\hat{\theta})$.
+Consider a plug-in estimator $\hat{\beta}=h(\hat{\theta})$. We want to estimate the variacne of the plug-in estimator.
+
+$$Var[\hat{\beta}]?$$
+
+???
+
++ To understand the power of the delta method, let's think about a couple of examples. 
++ Suppose that we want to know the variance of a plug-in estimator which is a function of $\hat{\theta}$. 
 
 ---
 class: middle
-
 
 .content-box-green[**Case 1: If h is a linear function:**]
 
-Example: $h(u) = a + b \cdot u$
+<b>Example </b>: $h(u) = a + b \cdot u$
 
 Then 
 $$Var[\hat{\beta}]=Var[h(\hat{\theta})]=Var[a + b \cdot \hat{\theta}]= b^2 Var[\hat{\theta}]$$
+
+???
++ Suppose that h function is a linear function of a sample moment. In this case, we can directly derive the variance of the plug-in estimator $\hat{beta}$. 
++ Since the inside of the variance is linear, we can use the usaul variance operation and get  $b^2 Var[\hat{\theta}]$. 
+
++ This can be done easily. 
+
+---
+
+class: middle
+
+.content-box-green[**Case 2: If h is a nonlinear function:**]
+
+<b>Example 1</b>
+
+An odds ratio, $\hat{\beta} = h(\hat{\theta}) = \frac{\hat{\theta}_1}{\hat{\theta}_2}$
+
+<br>
+
+<b>Example 2</b> (Assignment 5 Question 3)
+
+The ME estimator for a probit, $\hat{\Delta}_{D}=\Phi(\overline{X}^{\prime} \hat{\beta} + \hat{\delta}) - \Phi(\overline{X}^{\prime}\hat{\beta})$
+
+
+???
++ Okay, next, let's think about the case wherte h function is a nonlinear function.
++ For example, our estimator of interest can be an odds ratio which is a ratio of the two estimator. 
+  *  *The odds ratio is defined as the ratio of the odds of A in the presence of B and the odds of A in the absence of B*
+
++ Or, it can be a marginal effect estimator for a probit like Question 3 in assignment 5.  
++ By the way, what $\Phi()$ means?
+  * Because the logit model assumes that the error is 
 
 
 ---
@@ -103,24 +147,37 @@ class: middle
 
 .content-box-green[**Case 2: If h is a nonlinear function:**]
 
-Example 1: $\hat{\beta} = h(\hat{\theta}) = \frac{\hat{\theta}_1}{\hat{\theta}_2}$ like an odds ratio. 
+<b>Example 1</b>
+
+An odds ratio $\hat{\beta} = h(\hat{\theta}) = \frac{\hat{\theta}_1}{\hat{\theta}_2}$. 
 
 <br>
 
-Example 2 assignment 5 Question 3: What is the variance estimator of $\Delta_{D}=\Phi(E[X]^{\prime} \beta + \delta) - \Phi(E[X]^{\prime}\beta)$?
+<b>Example 2</b> (Assignment 5 Question 3)
 
-$Var[\hat{\beta}]=$ is difficult to calculate. 
+The ME estimator for a probit, $\hat{\Delta}_{D}=\Phi(\overline{X}^{\prime} \hat{\beta} + \hat{\delta}) - \Phi(\overline{X}^{\prime}\hat{\beta})$
 
-&rarr; Compute the asymptotic variance of $\hat{\beta}=$ using the delta method. 
+
+<br>
+
+<span style="color:blue">Direct derivation of $Var[\hat{\beta}]$ and $Var[\hat{\Delta}_{D}]$ are difficult.</span> 
+
+&rarr; Estimate the asymptotic variance of $\hat{\beta}$ and $\hat{\Delta}_{D}$ using <span style="color:red">the delta method</span>. 
+
+???
++ Then, the direct derivation of variance formula is so complicated. 
++ In this case, we can rely on the delta method and estimate the asymptotic variance of the plug-in estimator. 
+
 
 ---
-
 
 class: middle 
 
 <!-- .content-box-green[**Motivation**]
 
 We would like to know about the distribution of the plug-in estimator $\hat{\beta}=h(\hat{\theta})$ using what we know about the moment estimator $\hat{\theta}$.  -->
+
+Consider the plug-in estimator $\hat{\beta}=h(\hat{\theta})$. 
 
 .bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
 **<span style="color:red">Delta method</span>**
@@ -138,19 +195,24 @@ where, $\mathbf{h}= \nabla h(\theta)$ (the gradient of $h$, evaluated at $\mathb
 <!-- **Verbally:** Differentiable functions of asymptotically normal random estimators are asymptotically normal.  -->
 
 ???
-+ 
++ Okay, let's do a quick review of the delta method. 
++ The pug-in estimator $\hat{\beta}$ is a function of another estimator which is $\hat{\theta}$. If $\hat{\theta}$ is asymptotically normal, then the $\hat{\beta}$ is also asymptotically normal. 
++ The most important point in the delta method is that, it tells us the asymptotica variance of the 
++ The big picture here is that differentiable functions of asymptotically normal random estimators are asymptotically normal.
 
++ $h^{\prime}Vh$ is the asymptoric variance of the $\hat{\beta}$. 
 
 ---
 class: middle 
 
 .content-box-green[**Key takeaways**]
 
-1. The Delta method says that continuously differentiable functions of asymptotically normal random estimators are asymptotically normal.
+(1) The Delta method says that continuously differentiable functions of asymptotically normal random estimators are asymptotically normal.
 
-2. <span style="color:blue">We can approximate the asymptotic variance of any nonlinear estimator</span>
 
-+ Once you get the asymptotic variance formula, you can derive the plug-in estimator for the variance based on that asymptotic variance formula. 
+(2) <span style="color:red">With the delta method, we can approximate the asymptotic variance of a nonlinear estimator</span> that otherwise would be very difficult to derive and estimate. (Very cool!)
+
+&rarr; Once you get the asymptotic variance formula by the delta method, you can derive the plug-in estimator for the variance. 
 
 
 ???
@@ -165,14 +227,15 @@ class: middle
 
 
 ---
+class: middle 
 
 # Exercise 1
 
-For univariate $X$ with finite variance, $\sqrt{n}(\overline{X}_n) \xrightarrow{d} N(0, \sigma^2)$. 
+For univariate $X$ with finite variance, $\sqrt{n}(\overline{X}_n - \mu) \xrightarrow{d} N(0, \sigma^2)$. 
 
-(1) Find the asymptotic variance using the delta method and derive their variance estimator, respectively.  
+(1) Find the asymptotic variances for the standardized sequences of the folling plug-in estimators using the delta method, respectively.  
 
-+  $exp(\overline{X}_n)$
++  $(exp(\overline{X}_n))$
 +  $log(\overline{X}_n)$
 
 (2) Choose either the plug-in estimator of $exp(\overline{X}_n)$ and $log(\overline{X}_n)$. Let's run Monte Carlo simulations to see whether the the asymptotic variance you just derived is reasonable. (You might want to use large sample size).
@@ -183,35 +246,15 @@ For univariate $X$ with finite variance, $\sqrt{n}(\overline{X}_n) \xrightarrow{
 + Then, in this case, $X$ is a univariate random variable, so you can derive the asymptotic variance of the estimator 
 
 ---
-
-
-```{r}
-library(ggplot2)
-
-B <- 1000
-n <- 1000
-
-mu <- 5
-sigma2 <- 4
-
-k <- 5
-
-for(i in 1:B){
-  X_i <- rchisq(n, df=k)
-  X_mean <- mean(X_i)
-
-}
-
-
-
-```
-
----
+class: middle 
 
 # Exercise 2
 
 Suppose 
 
+$$ln y_t = \beta_0 + \beta_1 ln y_{t-1} + \beta_2 ln x_t + \varepsilon_t$$
+
+The long-run, or equibrium, elasticity of $y$ with respect to $x$ is $\theta=\frac{\beta_2}{1-\beta_1}$, estimated as $\theta=\frac{\hat{\beta}_2}{1-\hat{\beta}_1}$. Use the delta method to derive the 
 
 
 
@@ -227,6 +270,7 @@ The Delta Method is also used to derive the asymptotic distribution of some test
 
 What is the asymptotic distribution of t-statistic and the Wald statistic?
 
+
 $$T(\theta)=\frac{\hat{\theta}-\theta}{s(\hat{\theta})} \xrightarrow{d} ?$$
 
 $$W(\theta)=(\hat{\theta}-\theta)^{\prime}\hat{\mathbf{V}}^{-1}_{\hat{\theta}}(\hat{\theta}-\theta) \xrightarrow{d} ?$$
@@ -238,11 +282,9 @@ $$W(\theta)=(\hat{\theta}-\theta)^{\prime}\hat{\mathbf{V}}^{-1}_{\hat{\theta}}(\
   * another approach that does not depend on the asymptotic distribution is bootstrapping. 
 
 ---
-
 class: middle
 
-The consequence of Delta Method is used to derive the asymptotic distribution of some test statistics. 
-
+The Delta Method is also used to derive the asymptotic distribution of some test statistics. 
 .content-box-green[**Question:**] 
 
 What is the asymptotic distribution of t-statistic and the Wald statistic?
