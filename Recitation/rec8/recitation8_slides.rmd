@@ -233,7 +233,7 @@ Suppose
 
 $$ln y_t = \beta_0 + \beta_1 ln y_{t-1} + \beta_2 ln x_t + \varepsilon_t$$
 
-The long-run, or equibrium, elasticity of $y$ with respect to $x$ is $\theta=\frac{\beta_2}{1-\beta_1}$, estimated as $\theta=\frac{\hat{\beta}_2}{1-\hat{\beta}_1}$. Use the delta method to derive the asymptotic variance of $\hat{\theta}$.
+The long-run, or equibrium, elasticity of $y$ with respect to $x$ is $\theta=\frac{\beta_2}{1-\beta_1}$, estimated as $\hat{\theta}=\frac{\hat{\beta}_2}{1-\hat{\beta}_1}$. Use the delta method to derive the asymptotic variance of $\hat{\theta}$.
 
 ---
 class: middle
