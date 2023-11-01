@@ -9,7 +9,7 @@
 + Do Boostrap 
 	* it might be interesting to simulate the asymptotic refinement. 
 
-+ Wild bootstrap DGP
++ **Wild bootstrap DGP**
 
 Key words
 + empirical distribution
@@ -19,6 +19,27 @@ Key words
 
 + What is the justification of bootstrapping?
 	* for nonlinear estimator 
+
++ only works in model with additive errors (no probit)
+	* what is additive errors?
+
+
+---
+## Difference between F and the Wald test
++ If we are willing to assume that the error are normally distributed (called normal distribution), both t-statistic and F-statistic have small sample property. That is, t-statistic follows t-distribution (with n-k degree of freedom) and F-statistic follows F-distribution with k degree of freedom.
+
++ Asymptotically, F and the Wald test are equivalent (both asymptotically converge to chi-square distribution.)
+
+
+## Interesting topics
+
++ Power of the test
+	* Nominal size 
++ The connection between standard error estimation and the inference
+
+
+
+---
 
 
 # For recitation 9

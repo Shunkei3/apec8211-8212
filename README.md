@@ -13,4 +13,5 @@ This is the repository for APEC 8211-8212 at the University of Minnesota, where 
 + Week 5 ([slides](https://shunkei3.github.io/apec8211-8212/Recitation/rec5/recitation5_slides.html))
 + Week 6 ([slides](https://shunkei3.github.io/apec8211-8212/Recitation/rec6/recitation6_slides.html))
 + Week 7  ([slides](https://shunkei3.github.io/apec8211-8212/Recitation/rec7/recitation7_slides.html))
-+ Week 8 (([slides](https://shunkei3.github.io/apec8211-8212/Recitation/rec8/recitation8_slides.html)))-->
++ Week 8 (([slides](https://shunkei3.github.io/apec8211-8212/Recitation/rec8/recitation8_slides.html)))
++ Week 9 (([slides](https://shunkei3.github.io/apec8211-8212/Recitation/rec9/recitation9_slides.html)))-->
