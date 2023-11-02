@@ -1,0 +1,374 @@
+---
+title: "Recitation 10"
+author: "Stephen Pitts SJ"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+
+## 1. Bootstrapping.
+Bootstrapping is particularly useful to estimate statistics of samples whose
+distributions we do not know. We will use this distribution of body fat percentages.
+
+```{r}
+setwd("~/Dropbox/umn/ta/fall2022/recitations/recitation10")
+bodyfat <- read.csv("body_fat.csv")
+```
+
+```{r}
+ggplot(bodyfat) + geom_histogram(aes(X.Fat))
+```
+
+We can estimate the population mean and the standard deviation through
+bootstrapping with 500 replicants.
+```{r}
+B <- 500 # number of iteations
+
+# allocate the data frame
+# each row is an iteration
+results <- data.frame(means=rep(NA, B), sds=rep(NA,B))
+
+# for each iteration
+for(b in 1:B) {
+  # iteration B
+  # resample with replacement
+  # this_sample <- rnorm(length($X.Fat))
+  
+  this_sample <- sample(bodyfat$X.Fat, length(bodyfat$X.Fat), replace=TRUE)
+  
+  # compute and save mean and standard deviation
+  results[b,] <- c(mean(this_sample), sd(this_sample))
+}
+
+mean.bs <- mean(results$means)
+```
+
+What is the difference between this code
+and Monte Carlo simulation code?
+
+Here are the bootstrapped means.
+```{r}
+ggplot(results) + geom_density(aes(means))
+```
+
+Using these means, we can generate a 95% confidence interval for the population mean.
+We do this without a distributional assumption.
+
+```{r}
+pm.conf_interval <- quantile(results$means, probs=c(0.025,0.975))
+```
+
+```{r}
+pm.conf_interval
+```
+
+```{r}
+ggplot(bodyfat) + geom_density(aes(X.Fat)) + geom_vline(xintercept=mean.bs, color="red") +
+  geom_vline(xintercept=pm.conf_interval[1], color="blue") +
+  geom_vline(xintercept=pm.conf_interval[2], color="blue")
+```
+
+Here is the bootstrapped standard deviation.
+```{r}
+ggplot(results) + geom_density(aes(sds))
+```
+
+Once again, we can generate a 95% confidence interval for the population standard deviation. We can do this without a distributional assumption.
+
+```{r}
+psd.conf_interval <- quantile(results$sds, probs=c(0.025,0.975))
+```
+
+```{r}
+smean <- mean(bodyfat$X.Fat)
+sd.bs <- mean(results$sds)
+ggplot(bodyfat) + geom_density(aes(X.Fat)) + 
+  geom_vline(xintercept=smean+sd.bs, color="red") +
+  geom_vline(xintercept=smean-sd.bs, color="red") 
+#  geom_vline(xintercept=psd.conf_interval[1], color="blue") +
+#  geom_vline(xintercept=psd.conf_interval[2], color="blue")
+```
+
+## Omitted Variables
+
+2. We will generate some data that's related to wages using a simple Mincer-esque model. Imagine an industry where everyone has the same education level. We suppress
+education. 
+
+$$ln(\text{wage}) = \beta_0 + \beta_1 exp + \beta_2 exp^2 + \beta_3 female $$
+a. Write a function to generate a data matrix with $n$ samples. 
+Experience is uniformly distributed from $[0,30]$. Female follows a Bernoulli distribution with
+equal probabilities for each gender. Experience and gender are not correlated. 
+
+We see discrimination in this labor market.
+Let the starting salary be \$40,000 for men and \$45,000 for women. For each
+year of employment, employees get a raise. The baseline raise is $1000 plus
+$50 per year of service. 
+
+Based on these parameters, how would you choose the $\beta_0, \beta_1, \beta_2, \beta_3$
+coefficients in the model? Factoring out $\exp$ above helped me understand how 
+the model works. 
+
+```{r}
+generate_sample <- function(n) {
+  exp <- round(runif(n, 0, 30))
+  exp2 <- exp*exp
+  female <- rbinom(n, 1, 0.5)
+  
+  b0 <- 40000
+  b1 <- 1000
+  b2 <- 25
+  b3 <- -5000
+  
+  wage <- b0 + b1*exp + b2*exp2 + b3*female + rnorm(n, 0, 5000)
+  
+  data.frame(wage=wage, exp=exp, exp2=exp2, female=female)
+}
+```
+
+b. Run these two regressions for three sample sizes: n = 100, 1000, and 10000.
+* Restricted model (with $exp$ and $exp^2$) 
+* Full model: (with $exp$, $exp^2$, and $female$).
+```{r}
+sample1 <- generate_sample(100)
+sample2 <- generate_sample(1000)
+sample3 <- generate_sample(10000)
+sample4 <- generate_sample(100000)
+```
+
+```{r}
+model1 <- wage ~ exp + exp2
+model2 <- wage ~ exp + exp2 + female
+m1.s1 <- lm(model1, data=sample1)
+m1.s2 <- lm(model1, data=sample2)
+m1.s3 <- lm(model1, data=sample3)
+m1.s4 <- lm(model1, data=sample4)
+library(stargazer)
+stargazer(type="text", m1.s2, m1.s3, m1.s4)
+```
+
+```{r}
+m2.s1 <- lm(model2, data=sample1)
+m2.s2 <- lm(model2, data=sample2)
+m2.s3 <- lm(model2, data=sample3)
+m2.s4 <- lm(model2, data=sample4)
+stargazer(type="text", m2.s2, m2.s3, m2.s4)
+```
+
+Arrange the coefficients in a matrix (hint: use the `coef` function). Comment
+on what happens in terms of consistency and bias as $n$ increases. 
+
+c. Apply this example to the situation described in the homework problem.
+
+Problem 7.1 from Econometrics with some changes. 
+Take the model $Y = X'\beta + \delta W + e$ 
+with $E[Xe] = E[We] = 0$. $X$ and $\beta$ are vectors 
+(including the constant term and $\beta_0$, respectively), while $W$ and $\delta$
+are scalars. Suppose that $\beta$ is estimated by 
+regressing Y on X only (assume X includes the constant
+(intercept) term). Find the probability limit of this estimator. 
+In general, is it consistent for $\beta$? If not,
+under what conditions is this estimator consistent for $\beta$?
+
+
+What is the $X$ and what is the $W$ here? Does this example with fake
+data give you insight into how the model works? 
+
+In this example, X - base salary, experience, experience^2
+W - female
+
+We can omit female from the regression so long as it is uncorrelated
+with experience and get consistent estimates of experience and base salary.
+
+d. Now change the labor market slightly. 
+Women did not enter the labor force at the same rate in 
+previous generations as the current generation.
+For simplicity, we will assume a sharp cutoff at 15 years ago. 
+There are no women with more than 15 years of experience in the labor market. 
+Gender and experience are correlated here. 
+
+```{r}
+generate_sample_2 <- function(n) {
+  exp <- round(runif(n, 0, 30))
+  exp2 <- exp*exp
+  female <- ifelse(exp > 15, 0, rbinom(n, 1, 0.5))
+  
+  b0 <- 40000
+  b1 <- 1000
+  b2 <- 25
+  b3 <- -5000
+  
+  wage <- b0 + b1*exp + b2*exp2 + b3*female + rnorm(n, 0, 5000)
+  
+  data.frame(wage=wage, exp=exp, exp2=exp2, female=female)
+}
+```
+
+```{r}
+fsample1 <- generate_sample_2(100)
+```
+
+
+
+Convince yourself that this is a case where $E[X]E[W] \ne E[XW]$ and therefore
+$cov(X,W) \ne 0$. 
+
+Use the skeleton code below to plot gender versus experience for a sample
+from the first and second function.
+
+```{r}
+ggplot(fsample1) + geom_histogram(aes(exp, fill=factor(female)))
+```
+
+e. Run the same six regressions as in (b). Arrange the coefficients in a table.
+What do you see? For good measure, run both models one more time for $n = 100000$. 
+
+```{r}
+fsample1 <- generate_sample_2(100)
+fsample2 <- generate_sample_2(1000)
+fsample3 <- generate_sample_2(10000)
+```
+
+```{r}
+m1.s1 <- lm(model1, data=fsample1)
+m1.s2 <- lm(model1, data=fsample2)
+m1.s3 <- lm(model1, data=fsample3)
+m2.s1 <- lm(model2, data=fsample1)
+m2.s2 <- lm(model2, data=fsample2)
+m2.s3 <- lm(model2, data=fsample3)
+```
+
+```{r}
+stargazer(type="text", m1.s1, m1.s2, m1.s3)
+```
+
+f. What is the lesson here? 
+Think about the difference in b and e in the relationship
+between the omitted variable and the 
+difference in the two outcomes. 
+
+```{r}
+stargazer(type="text", m2.s1, m2.s2, m2.s3)
+```
+
+## Randomization Inference
+3. This problem is borrowed from *Field Experiments* by Gerber and Green.
+Chapter 3 is a great example of randomization inference. 
+
+Consider the following potential outcomes for local budgets when
+village council heads are men (control) or women (treatment). The outcome
+is budget share directed towards sanitation.
+
+```{r}
+out.control <- c(10,15,20,20,10,15,15)
+out.treat <- c(15,15,30,15,20,15,30)
+```
+
+The notation $Y_i(0)$ refers to the budget share directed toward
+sanitation of a village with a male head. The notation $Y_i(1)$ refers
+to the budget share directed toward sanitation of a village with a 
+female head. We would like to estimate $\tau$: the average
+effect of having a female village head.
+
+a. Find the true value of $\tau$. The average treatment effect if we know
+both outcomes for all students. 
+
+```{r}
+# your code goes here
+
+```
+
+b. Suppose villages 1 and 7 are randomly assigned to treatment. Find the 
+value of $\hat{\tau}$. There are two ways to do this, depending on the
+type of indexing.
+
+We can use integer indexing
+
+```{r}
+# create vectors assigning to treatment and control
+t.villages1 <- c(1,7)
+c.villages1 <- c(2,3,4,5,6)
+
+# now we use integer indexing
+outcome1t <- out.treat[t.villages1]
+outcome1c <- out.control[c.villages1]
+
+tau1 <- mean(outcome1t) - mean(outcome1c)
+tau1
+```
+
+or binary indexing
+
+```{r}
+# create vectors assigning to treatment and control
+t.villages1 <- c(TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE)
+c.villages1 <- !t.villages1
+
+# note how the binary indexing works in R
+outcome1t <- out.treat[t.villages1]
+outcome1c <- out.control[!t.villages1]
+
+tau1 <- mean(outcome1t) - mean(outcome1c)
+tau1
+```
+
+c. Now we use randomization inference to estimate $\hat{\tau}$. We will need
+the "sharp null" hypothesis of $Y_i(0) = Y_i(1)$. What does this mean?
+
+```{r}
+# The observed outcome. Take a moment and understand the R syntax.
+outcome <- t.villages1 * out.treat + (!t.villages1) * out.control
+```
+
+We calculated $\hat{\tau}$ above. Now we randomize the treatment to generate
+the randomization distribution of $\tau$. Program this in R. 
+
+Two hints:
+i. The function `combn(7,2)` will give you all possible ways to assign
+2 villages out of 7 to treatment.
+ii. Integer indexing will then let you generate a $\tau$ for a particular
+assignment.
+
+```{r}
+assignments <- combn(7,2)
+taus <- rep(NA, length(assignments))
+
+for(i in seq(length(assignments))) {
+  assignment <- assignments[i]
+  
+  # build a binary index
+  treatment <- rep(FALSE, 7)
+  
+  # update treatment with the results of assignment
+  # your code goes here
+  
+  # use binary indexing on outcome above to generate 
+  # the tau for this possible treatment
+  # your code goes here
+  
+  taus[i] <- tau 
+}
+```
+
+e. Graph the distribution of $\tau$.
+```{r}
+taus.df <- data.frame(taus=taus)
+ggplot(taus.df) + geom_histogram(aes(taus), binwidth=1)
+```
+
+Also, graph the empirical CDF of $\tau$.
+```{r}
+ggplot(taus.df) + stat_ecdf(aes(taus))
+```
+
+Compute a p-value for $\tau$. What does this mean graphically?
+
+```{r}
+ecdf(taus)(tau1)
+```
+
+Is $\hat{\tau}$ statistically significant? Justify your answer. 

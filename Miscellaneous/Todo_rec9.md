@@ -23,6 +23,11 @@ Key words
 + only works in model with additive errors (no probit)
 	* what is additive errors?
 
+# main focus
+
++ **Wald statistics**
++ 
+
 
 ---
 ## Difference between F and the Wald test

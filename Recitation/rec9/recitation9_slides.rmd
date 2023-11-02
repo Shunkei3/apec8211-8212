@@ -94,26 +94,69 @@ class: middle
 
 # Hypothesis testing: Basics
 
-Lecture note 11 p7
+From Lecture note 11, p7
+
+```{r, echo=F, out.width = "40%"}
+knitr::include_graphics("type.png")
+```
+
+<br>
+
+<b><span style="color:red">size of a hypothesis test = Pr(Type I error)</span></b>
+
+**verbally**: The probability that we will falsely reject the null hypothesis
+
+<b><span style="color:red">power of a test =1-Pr(Type II error)</span></b>
+
+**verbally**: The probability that we will correctly reject the null hypothesis
 
 
+We set the size of the test (called *significance level* $\alpha$) to 
 
-
-.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+<!-- .bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
 **<span style="color:red">Type I error</span>**
 
-A false rejection of the hull hypothesis
 ]
+ -->
+???
 
-.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
-**<span style="color:red">Type II error</span>**
++ Type I: a false rejection of $H_0$ when $H_0$ is true
++ Type II: a false acceptance of $H_0$ when $H_1$ is true
 
-A false acceptance of of the hull hypothesis
-]
-
-
++ We have two types of error 
++ To evaluate these two types of errors in terms of probability. 
 
 
+---
+
+# t-test
+
+$$
+T = \frac{\hat{\theta}-\theta_0}{\sqrt{Var(\hat{\theta})}}
+$$
+
+**Verbally**: t-statistic measures the distance between the estimates 
+
+Remember, t-statistic is a random variable, meaning it has a sampling distribution.  
+
+
+???
++ We learned t-test in undergrad level of statistic or econometrics. Under the assumption that regression error is normally distributed, t-statistics follows t-distribution. But that's not what we should do in graduate level econometrics. Usually, we don't say anything about the distribution of the error. Instead of using the finite sample property of t-statics which heavily rely on the unrealistic assumption, we use a asymptotic theory. 
++ That is, 
+
+
+---
+class: middle
+
+.content-box-red[**t-test**]
+
+
+
+$$T(\theta)=\frac{\hat{\theta}-\theta}{s(\hat{\theta})} \xrightarrow{d} $$
+
+.content-box-green[**Question**]
+
+Which asymptotic theory is used for this?
 
 ---
 
@@ -139,18 +182,7 @@ class: middle
 The nominal (intended) size of the test and the actual size of the test can be different. Why?
 
 
----
-class: middle
 
-.content-box-red[**t-test**]
-
-
-
-$$T(\theta)=\frac{\hat{\theta}-\theta}{s(\hat{\theta})} \xrightarrow{d} $$
-
-.content-box-green[**Question**]
-
-Which asymptotic theory is used for this?
 
 
 ---
