@@ -72,11 +72,15 @@ hitting letter "o" key will give you a panel view of the slides
 class: middle
 
 # Outline
-1.t-test, Wald test 
+1.Review t-test
+
++ Exercise Problem 1
++ Exercise Problem 2 
+
+2.Review Wald test  
+
   * t-statistic - distance between the two scalers
-  * Wald statistic - distance between  the two vectors (the length of the vector $\hat{\theta}-\theta_0$: the discrepancy between the estimator $\hat{\theta}=r(\hat{\beta})$ and the hypothesized value $\theta_0$.)
-  * connection? Think about the case where $\hat{\theta}$ and $\theta$ takes a scaler not a vector.
-    - t-values are the square root of a W test
+  * Wald statistic - distance between  the two vectors 
 
 2.Application of the Wald Test
 + Exercise Problem 
@@ -88,6 +92,9 @@ class: middle
 + If the restrictions are nonlinear 
   * Wald tests of nonlinear hypothesis, though asymptotically valid, can be unreliable even in fairly large samples (E 9.18)
   * Instead, for nonlinear hypothesis, use the minimum distance statistic. 
+
+???
+
 
 
 ---
@@ -102,16 +109,17 @@ knitr::include_graphics("type.png")
 
 <br>
 
-<b><span style="color:red">size of a hypothesis test = Pr(Type I error)</span></b>
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+<b>size of a hypothesis test = Pr(Type I error)</b>
 
-**verbally**: The probability that we will falsely reject the null hypothesis
+**Verbally**: The probability that we will falsely reject the null hypothesis
 
-<b><span style="color:red">power of a test =1-Pr(Type II error)</span></b>
+<b>power of a test =1-Pr(Type II error)</b>
 
-**verbally**: The probability that we will correctly reject the null hypothesis
+**Verbally**: The probability that we will correctly reject the null hypothesis
+]
 
-
-We set the size of the test (called *significance level* $\alpha$) to 
+<!-- We set the size of the test (called *significance level* $\alpha$) to  -->
 
 <!-- .bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
 **<span style="color:red">Type I error</span>**
@@ -126,69 +134,196 @@ We set the size of the test (called *significance level* $\alpha$) to
 + We have two types of error 
 + To evaluate these two types of errors in terms of probability. 
 
-
 ---
+class: inverse, center, middle
+name: intro
 
-# t-test
+# t-tests
 
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+---
+class: middle
+
+Suppose 
+$$\begin{align*}
+H_0:&\, \theta= \theta_0 \\
+H_1:&\, \theta \neq \theta_0
+\end{align*}$$
+
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+<b>t-statistic</b>
 $$
-T = \frac{\hat{\theta}-\theta_0}{\sqrt{Var(\hat{\theta})}}
+T = \frac{\hat{\theta}-\theta_0}{s(\hat{\theta})}
 $$
+**Verbally**: a t-statistic measures how much an estimate $(\hat{\theta})$ of the parameter far away from the parameter value under the null hypothesis $(\theta_0)$ (measured by units of the estimated standard error).
+]
 
-**Verbally**: t-statistic measures the distance between the estimates 
-
-Remember, t-statistic is a random variable, meaning it has a sampling distribution.  
+.content-box-green[**NOTE:**]
++ $\theta$ is a scalar $(H_0:\, \theta= \theta_0 \in \mathbb{R})$. 
+  * it could be $\beta_j$ or any single linear constraint (e.g., $H_0:\beta_1+\beta_2=0$)
 
 
 ???
-+ We learned t-test in undergrad level of statistic or econometrics. Under the assumption that regression error is normally distributed, t-statistics follows t-distribution. But that's not what we should do in graduate level econometrics. Usually, we don't say anything about the distribution of the error. Instead of using the finite sample property of t-statics which heavily rely on the unrealistic assumption, we use a asymptotic theory. 
-+ That is, 
-
++ The concept of t-test is straightforward. 
++ We use a measurement called t-statistic. t-statistic measures how much the estimate we get far away from the parameter value under the null hypothesis. 
++ Then, under the null hypothesis (that is if the null hypothesis is true), we should expect that our estimate should be not so much different from the hypothesized value. So, we should expect that t-value should be small. 
++ But if t-value is larger than a critical value, then we regard it as an evidence showing the null hypothesis is not likely true, so we reject the null hypothesis. 
 
 ---
 class: middle
 
-.content-box-red[**t-test**]
+A t-statistic is a random variable. Therefore it has a sampling distribution. But we don't know the actual sampling distribution of *t*-statistics (unless we rely on an unrealistic assumption such as the regression error is normally distributed). 
 
+So, we rely on the asymptotic property of t-statistics. 
 
+<!-- + If we assume normality of the regression error (nor realistic), t-statistic has follows a t-distribution (n-k-1 degree of freedom) as a finite sample property -->
+???
++ To determine whether t-value is larger than some criteria or not, we need a distribution of a t-statistics. 
++ t-statistic is a random variable, so it has a sampling distribution. but as usual, we don't know the actual sampling distribution. 
++ So, we rely of the asymptotic distribution of a t-statistics. 
 
-$$T(\theta)=\frac{\hat{\theta}-\theta}{s(\hat{\theta})} \xrightarrow{d} $$
-
-.content-box-green[**Question**]
-
-Which asymptotic theory is used for this?
 
 ---
+class: middle
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+<b>Asymptotic distribution of t-statistic</b>
 
-# The size and power of a hypothesis test
+$$T=\frac{\hat{\theta}-\theta_0}{s(\hat{\theta})} \xrightarrow{d} N(0,1) \quad \text{ as } n\rightarrow \infty$$
+]
 
+A t-statistic is an <span style="color:blue">asymptotically pivotal statistic</span> (that is, Asymptotic distribution of a t-static does not depend on parameter being estimated!) 
 
-
-
+&rarr; The bootstrap distribution gives better approximation of the sampling distribution of t-statistics than the asymptotic distribution (<span style="color:blue">asymptotic refinement</span>) when sample size is small. 
 
 ???
-+ Have you had a chance to review
-+ 
++ As you know, the asymptotic distribution of a t-statistic is standard normal. 
++ Maybe, an important thing that you might want to remember here is that the asymptotic distribution of the t-statistic does not depend on any parameter we need to estimate. 
++ That is, t-statistic is one of the asymptotically pivotal statistics, and we can obtain take advantage of asymptotic refinements of bootstrapping. 
+
 ---
+class: middle
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+<b>Asymptotic distribution of t-statistic</b>
 
-.content-box-red[**Question**]
+$$T=\frac{\hat{\theta}-\theta_0}{s(\hat{\theta})} \xrightarrow{d} N(0,1) \quad \text{ as } n\rightarrow \infty$$
+]
 
+A t-statistic is an <span style="color:blue">asymptotically pivotal statistic</span> (that is, Asymptotic distribution of a t-static does not depend on parameter being estimated!) 
+
+&rarr; The bootstrap distribution gives better approximation of the sampling distribution of t-statistics than the asymptotic distribution (<span style="color:blue">asymptotic refinement</span>) when sample size is small. 
+
+&rarr; Really? (Let's do in the next Lab when we review resampling inference)
 
 ---
 class: middle 
 
+Proof (More detailed version of E 7.12)
+.small[
+
+$$\begin{align*}
+T 
+  &= \frac{\hat{\theta}-\theta_0}{s(\hat{\theta})}\\
+  &= \frac{\hat{\theta}-\theta_0}{\sqrt{\hat{V}_{\hat{\theta}}}} \qquad (\because s(\hat{\theta})=\sqrt{\hat{V}_{\hat{\theta}}})\\
+  &= \frac{\hat{\theta}-\theta_0}{\sqrt{\hat{V}_{\theta}/n}} \qquad (\because n \hat{V}_{\hat{\theta}}=\hat{V}_{\theta})\\
+  &= \frac{\sqrt{n} (\hat{\theta}-\theta_0)}{\sqrt{\hat{V}_{\theta}}} \\
+  &\xrightarrow{d} \frac{N(0, V_{\theta})}{\sqrt{V_{\theta}}} = N(0,1) \qquad (\because \text{the Slutsky's theorem})
+\end{align*}$$
+
+.content-box-green[**NOTE:**]
++ $V_{\theta}$ is the asymptotic variance of $\sqrt{n}(\hat{\theta}-\theta)$ $(\sqrt{n}(\hat{\theta}-\theta) \xrightarrow{d} N(0, V_{\theta}))$.
++ $\hat{V}_{\theta}$ is an estimator of $V_{\theta}$ and $\hat{V}_{\theta} \xrightarrow{p} V_{\theta}$.
++ $\hat{V}_{\hat{\theta}}$ is an estimator of $V_{\hat{\theta}}$ (the actual variance of $\hat{\theta}$).
+]
+
+---
+
+class: middle
+# Interval estimation (confidence interval) E 7.13
+
+The asymptotic $95\%$ confidence interval for $\hat{\theta}$ is
+
+$$\hat{C} = [\hat{\theta}-1.96 s(\hat{\theta}), \hat{\theta}+1.96 s(\hat{\theta})]$$
+
+
+.content-box-green[**NOTE:**]
++ Review E 7.13, 9.20, PSE 14.2
++ Intended (nominal) coverage probability and the actual coverage probability could be different. Why?
+
+---
+class: middle
+
+## Example (Lecture note 11, p21 (modified))
+.small[
+Suppose you have  
+$$Y=\beta_0+\hat{\beta}_1 X_1+ \hat{\beta}_2 X_2 + \hat{\beta_3} X_3 + e$$
+, and the estimate of covariance matrix is 
+$$\hat{\mathbf{V}}_{\hat{\beta}}=
+\begin{bmatrix}
+[\hat{V}_{\hat{\beta}}]_{11} & [\hat{V}_{\hat{\beta}}]_{12} & [\hat{V}_{\hat{\beta}}]_{13} \\
+[\hat{V}_{\hat{\beta}}]_{21} & [\hat{V}_{\hat{\beta}}]_{22} & [\hat{V}_{\hat{\beta}}]_{23} \\
+[\hat{V}_{\hat{\beta}}]_{31} & [\hat{V}_{\hat{\beta}}]_{32} & [\hat{V}_{\hat{\beta}}]_{33}
+\end{bmatrix}$$
+
+$[\hat{V}_{\hat{\beta}}]_{ij}$ means the $(i,j)$ element of $\hat{\mathbf{V}}_{\hat{\beta}}$.
+
+we want to conduct a t-test where $H_0:\beta_1+\beta_2=0$ and $H_1:\beta_1+\beta_2 \neq 0$.
+
+Then, The t-value is defined as
+
+$$T=\frac{\hat{\beta_1}+\hat{\beta}_2}{s(\hat{\beta_1}+\hat{\beta}_2)}$$.
+
+]
+
 .content-box-green[**Question**]
 
-The nominal (intended) size of the test and the actual size of the test can be different. Why?
++ <span style="color:blue">How to derive $s(\hat{\beta}_1+\hat{\beta}_2) = \sqrt{\widehat{Var}(\hat{\beta}_1+\hat{\beta}_2)}$?</span>
 
 
 
+???
++ By the way, there is a pretty similar problem in this week's assignment. 
+
+---
+class: middle
+
+<b> There are two ways to derive $s(\hat{\beta}_1+\hat{\beta}_2)$ in this case. </b>
+
+Let $\hat{\theta}=\hat{\beta}_1+\hat{\beta}_2$.
+
+.content-box-red[**Approach 1**]: Because $\hat{\beta}_1+\hat{\beta}_2$ is linear, we can simply apply the variance formula. 
+
+$$\begin{align*}
+\hat{V}_{\hat{\theta}}
+  &= \widehat{Var}[\hat{\beta}_1+\hat{\beta}_2]\\
+  &= \widehat{Var}[\hat{\beta}_1]+\widehat{Var}[\hat{\beta}_2]+\widehat{Cov}(\hat{\beta}_1, \hat{\beta}_1)\\
+  &= [\hat{V}_{\hat{\beta}}]_{11}+[\hat{V}_{\hat{\beta}}]_{22}+2[\hat{V}_{\hat{\beta}}]_{12}
+\end{align*}$$
 
 
 ---
 class: middle
 
-# Exercise 1: 2022 Final Test Problem 1 (a)
+.content-box-red[**Approach 2**]:
+
+$$\hat{\theta} =\hat{\beta}_1+\hat{\beta}_2 =\begin{bmatrix} 1 & 1 & 0 \end{bmatrix} \begin{bmatrix} \hat{\beta}_1 \\ \hat{\beta}_2 \\ \hat{\beta}_3 \end{bmatrix} = \hat{\mathbf{R}}^{\prime} \hat{\beta} \quad \text{(This is great!)}$$ 
+
+With this, we can easily calculate $\hat{V}_{\hat{\theta}}$ like
+$$\hat{V}_{\hat{\theta}}=\widehat{Var}[\hat{\mathbf{R}}^{\prime} \hat{\beta}]=\hat{\mathbf{R}}^{\prime}\hat{V}_{\hat{\beta}}\hat{\mathbf{R}} = ...$$
+
+
+.content-box-green[**NOTE**]
+
++ More general approach to obtain $\hat{\mathbf{R}}$ is to calculate $\hat{\mathbf{R}}=\frac{\partial}{\partial \beta} r(\hat{\beta})$, where $r(\hat{\beta})=\hat{\beta}_1+\hat{\beta}_2$.
+  + <span style="color:blue">This approach is used in calculating the <b>Wald statistic</b> which takes care of multiple restrictions (i.e. $\theta \in \mathbb{R}^{k}$).</span>
+
+???
++ Explain the behind logic
+
+---
+class: middle
+
+## Exercise 1: 2022 Final Test Problem 1 (a)
 
 If a standard error is biased toward zero, how does that affect the outcome of a *t*-test that uses a $5\%$ significance level (nominal size)? What about a $95 \%$ confidence interval based on it?
 
@@ -198,82 +333,93 @@ By "how does that affect the outcome" I mean: Does the test reject the right fun
 ---
 class: middle
 
-# Exercise 2: 2022 Final Test Problem 2 (b)
-
-Hansen and Mackinnon, Nielsen, and Webb note that the HC3 and CV3 variance estimators are “conservative.” What does that mean for a t-test that uses a 5% significance level?
-
-
-
----
-class: middle
-
-# Exercise 3: 2022 Final Test Problem 1 (c)
+## Exercise 2: 2022 Final Test Problem 1 (c)
 
 Another problem is using the wrong approximation for the sampling distribution
-of a $t$-statistic. Suppose the situation is a shown in the diagram below. The researcher doesn't know the actual sampling distribution of her $t$-statistics (red), so she assumes they are well approximated by the standard normal distribution. How does that affect the outcome of a $t$-test that uses a $5 \%$ significance level?
+of a $t$-statistic. 
+
+Suppose the situation is a shown in the diagram below. The researcher doesn't know the actual sampling distribution of her $t$-statistics (red), so she assumes they are well approximated by the standard normal distribution. How does that affect the outcome of a $t$-test that uses a $5 \%$ significance level?
+
+```{r, echo=F, out.width = "40%"}
+knitr::include_graphics("exercise3.png")
+```
+
+---
+class: inverse, center, middle
+name: intro
+
+# Wald Tests
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+---
+
+class: middle
+
+Suppose 
+$$\begin{align*}
+H_0:&\, \theta= \theta_0 \\
+H_1:&\, \theta \neq \theta_0
+\end{align*}$$
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+<b>Wald statistics</b>
+
+$$
+W =(\hat{\theta}-\theta)^{\prime}\hat{\mathbf{V}}^{-1}_{\hat{\theta}}(\hat{\theta}-\theta)
+$$
+
+**Verbally**: a Wald statistic measures a (weighted) Euclidean distance between $\hat{\theta}$ and $\theta_0$.
+]
+
+.content-box-green[**NOTE:**]
++ $\theta$ is a vector $(H_0: \, \theta= \theta_0 \in \mathbb{R}^k)$ 
+  * e.g., $\theta = [\beta_1, \, \beta_2]^{\prime}$
+
+???
++ (the length of the vector $\hat{\theta}-\theta_0$: the discrepancy between the estimator $\hat{\theta}=r(\hat{\beta})$ and the hypothesized value $\theta_0$.)
+  * connection? Think about the case where $\hat{\theta}$ and $\theta$ takes a scaler not a vector.
+    - t-values are the square root of a W test
+
+???
++ Like a t-statistic, a wald-statistic measures a weighted distance between a vector of coefficient estimates you want to test  estim
+
+
+---
+class: middle
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+<b>Asymptotic distribution of Wald statistic</b>
+
+$$W=(\hat{\theta}-\theta)^{\prime}\hat{\mathbf{V}}^{-1}_{\hat{\theta}}(\hat{\theta}-\theta) \xrightarrow{d} \chi^2_q \quad \text{ as } n\rightarrow \infty$$
+
+$q$: the number of restrictions. 
+]
+
+A t-statistic is an <span style="color:blue">asymptotically pivotal statistic</span> (that is, Asymptotic distribution of a t-static does not depend on parameter being estimated!)
 
 
 ---
 class: middle
 
-.content-box-green[**The Wald test**]
+## Exercise 3: 2022 Final Test Problem 4 (modified)
+.small[
+Suppose $Y=\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + e$.
 
+We studied Wald tests about multiple regression coefficients. Suppose $H_0: \, \beta_1=\beta_2=\beta_3=0$.
 
+(a) After running the regression, what are the steps involved in calculating the Wald statistic? You can write down a version of the Wald statistic and describe how you get the various parts.)
 
-
----
-
-
-# Exercise 3: 2022 Final Test Problem 4 (modified)
-
-We studied Wald tests about multiple regression coefficients, for example $H_0: \beta_1=\beta_2=\beta_3=0$.
-
-(a) After running the regression, what are the steps involved in calculating the Wald statistic? (You can write down a version of the Wald statistic and describe how you ge the various parts.)
+<span style="color:blue">Hint:</span>
++ Wald statistic: $W =(\hat{\theta}-\theta)^{\prime}\hat{\mathbf{V}}^{-1}_{\hat{\theta}}(\hat{\theta}-\theta)$
+  * What are $\hat{\theta}$ and $\theta$ in this case?
+  * How to obtain $\hat{V}_{\hat{\theta}}$? Note that we know the estimated covariance matrix of $\hat{\beta}$ (i.e. $\hat{V}_{\hat{\beta}}$) from the regression result. 
 
 
 (b) Now that you have your Wald statistic, what should you do with it to determine whether to reject the null hypothesis? (Assume a regression where clustering is not an issue.)
 
+]
 
 
 
 
 
----
-class: middle
 
-The Delta Method is also used to derive the asymptotic distribution of some test statistics. 
-
-.content-box-green[**Question:**] 
-
-What is the asymptotic distribution of t-statistic and the Wald statistic?
-
-
-
-
-$$W(\theta)=(\hat{\theta}-\theta)^{\prime}\hat{\mathbf{V}}^{-1}_{\hat{\theta}}(\hat{\theta}-\theta) \xrightarrow{d} ?$$
-
-
-???
-
-+ We learned that for hypothetical testing, we need a sampling distribution of test statistics. But we never know the sampling distribution of the test statistic, so we need a asymptotic distribution of the test statistics
-  * another approach that does not depend on the asymptotic distribution is bootstrapping. 
-
----
-class: middle
-
-The Delta Method is also used to derive the asymptotic distribution of some test statistics. 
-
-<br>
-
-.content-box-green[**Question:**] 
-
-What is the asymptotic distribution of t-statistic and the Wald statistic?
-
-See E 7.12
-$$T(\theta)=\frac{\hat{\theta}-\theta}{s(\hat{\theta})} \xrightarrow{d} N(0,1)$$
-
-See E 7.16
-$$W(\theta)=(\hat{\theta}-\theta)^{\prime}\hat{\mathbf{V}}^{-1}_{\hat{\theta}}(\hat{\theta}-\theta) \xrightarrow{d} \chi^2_{k}$$
-
-???
-+ About t-stat, because $s(\hat{V}_\theta)=\sqrt{\hat{V}_\theta}$, $V_\theta= n V_{\theta}$, and $\sqrt{n}(\hat{\theta}-\theta) \xrightarrow{d} N(0, \V_{\theta})$
