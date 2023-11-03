@@ -89,18 +89,6 @@ class: middle
   * Wald tests of nonlinear hypothesis, though asymptotically valid, can be unreliable even in fairly large samples (E 9.18)
   * Instead, for nonlinear hypothesis, use the minimum distance statistic. 
  -->
-
-???
-+ For statistical inference, we mainly covered two approaches in the class, which are t-tests and wald-tests. 
-
-+ The t-test is used for one dimensional hypothesis like $\beta_1=0$
-  * the t-test is appropriate when the null hypothesis is a real-valued restriction
-
-+ Meanwhile, the wald-test is used for multi-dimentional hypothesis such as the coefficients of education and age are zero. 
-
-+ But the process is are similar. 
-+ For example, t-test use a t-statistic to measures a distance between the two scalars and the Wald test uses a wald statistic to distance between the two vectors, and we judge whether the observed difference is extreme or not relative to their asymptotic distribution.
-
 ---
 class: inverse, center, middle
 name: intro
@@ -108,10 +96,6 @@ name: intro
 # t-tests
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
-
-???
-
-+ okay, let's start with t-test. 
 
 ---
 class: middle
@@ -136,12 +120,6 @@ $$
   * it could be $\beta_j$ or any single linear constraint (e.g., $H_0:\beta_1+\beta_2=0$)
 
 
-???
-+ The concept of t-test is straightforward. 
-+ We use a measurement called t-statistic. t-statistic measures how much the estimate we get far away from the parameter value under the null hypothesis. 
-+ Then, under the null hypothesis (that is if the null hypothesis is true), we should expect that our estimate should be not so much different from the hypothesized value. So, we should expect that t-value should be small. 
-+ But if t-value is larger than a critical value, then we regard it as an evidence showing the null hypothesis is not likely true, so we reject the null hypothesis. 
-
 ---
 class: middle
 
@@ -150,10 +128,6 @@ A t-statistic is a random variable. Therefore it has a sampling distribution. Bu
 So, we rely on the asymptotic property of t-statistics. 
 
 <!-- + If we assume normality of the regression error (nor realistic), t-statistic has follows a t-distribution (n-k-1 degree of freedom) as a finite sample property -->
-???
-+ To determine whether t-value is larger than some criteria or not, we need a distribution of a t-statistics. 
-+ t-statistic is a random variable, so it has a sampling distribution. but as usual, we don't know the actual sampling distribution. 
-+ So, we rely of the asymptotic distribution of a t-statistics. 
 
 
 ---
@@ -169,12 +143,6 @@ A t-statistic is an <span style="color:blue">asymptotically pivotal statistic</s
 <!-- (that is, Asymptotic distribution of a t-static does not depend on parameter being estimated!)  -->
 
 &rarr; The bootstrap distribution gives better approximation of the sampling distribution of t-statistics than the asymptotic distribution (<span style="color:blue">asymptotic refinement</span>). 
-
-???
-+ As you know, the asymptotic distribution of a t-statistic is standard normal. 
-+ Maybe, an important thing that you might want to remember here is that t-statistic is a asymptotically pivotal statistic, that is, the asymptotic distribution of the t-statistic does not depend on any parameter we need to estimate. 
-
-+ we can obtain take advantage of asymptotic refinements of bootstrapping. 
 
 ---
 class: middle
@@ -253,11 +221,7 @@ $$T=\frac{\hat{\beta_1}+\hat{\beta}_2}{s(\hat{\beta_1}+\hat{\beta}_2)}$$.
 .content-box-green[**Question**]
 
 + <span style="color:blue">How to derive $s(\hat{\beta}_1+\hat{\beta}_2) = \sqrt{\widehat{Var}(\hat{\beta}_1+\hat{\beta}_2)}$?</span>
-
-
-
-???
-+ By the way, there is a pretty similar problem in this week's assignment. 
+ 
 
 ---
 class: middle
@@ -291,9 +255,6 @@ $$\hat{V}_{\hat{\theta}}=\widehat{Var}[\hat{\mathbf{R}}^{\prime} \hat{\beta}]=\h
 
 + More general approach to obtain $\hat{\mathbf{R}}$ is to calculate $\hat{\mathbf{R}}=\frac{\partial}{\partial \beta} r(\hat{\beta})$, where $r(\hat{\beta})=\hat{\beta}_1+\hat{\beta}_2$.
   + <span style="color:blue">This approach is used in calculating the <b>Wald statistic</b> which takes care of multiple restrictions (i.e. $\theta \in \mathbb{R}^{k}$).</span>
-
-???
-+ Explain the behind logic
 
 ---
 class: middle
@@ -358,14 +319,6 @@ $$
 .content-box-green[**NOTE:**]
 + $\theta$ is a vector $(H_0: \, \theta= \theta_0 \in \mathbb{R}^k)$ 
   * e.g., $\theta = [\beta_1, \, \beta_2]^{\prime}$
-
-???
-+ (the length of the vector $\hat{\theta}-\theta_0$: the discrepancy between the estimator $\hat{\theta}=r(\hat{\beta})$ and the hypothesized value $\theta_0$.)
-  * connection? Think about the case where $\hat{\theta}$ and $\theta$ takes a scaler not a vector.
-    - t-values are the square root of a W test
-
-???
-+ Like a t-statistic, a wald-statistic measures a weighted distance between a vector of coefficient estimates you want to test  estim
 
 
 ---
