@@ -156,7 +156,7 @@ A t-statistic is an <span style="color:blue">asymptotically pivotal statistic</s
 
 &rarr; The bootstrap distribution gives better approximation of the sampling distribution of t-statistics than the asymptotic distribution (<span style="color:blue">asymptotic refinement</span>) when sample size is small. 
 
-&rarr; Really? (Let's do in the next Lab when we review resampling inference)
+&rarr; Really? (maybe we do in the next Lab when we review resampling inference)
 
 ---
 class: middle 
