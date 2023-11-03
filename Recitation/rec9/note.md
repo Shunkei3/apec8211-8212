@@ -158,3 +158,39 @@ quantile(tStats$t_value_X0)
 qnorm(p=c(0.25))
 ```
 
+---
+
+# Hypothesis testing: Basics
+
+From Lecture note 11, p7
+
+```{r, echo=F, out.width = "40%"}
+knitr::include_graphics("type.png")
+```
+
+<br>
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+<b>size of a hypothesis test = Pr(Type I error)</b>
+
+**Verbally**: The probability that we will falsely reject the null hypothesis
+
+<b>power of a test =1-Pr(Type II error)</b>
+
+**Verbally**: The probability that we will correctly reject the null hypothesis
+]
+
+<!-- We set the size of the test (called *significance level* $\alpha$) to  -->
+
+<!-- .bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+**<span style="color:red">Type I error</span>**
+
+]
+ -->
+???
+
++ Type I: a false rejection of $H_0$ when $H_0$ is true
++ Type II: a false acceptance of $H_0$ when $H_1$ is true
+
++ We have two types of error 
++ To evaluate these two types of errors in terms of probability. 

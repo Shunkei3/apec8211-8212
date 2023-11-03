@@ -72,67 +72,34 @@ hitting letter "o" key will give you a panel view of the slides
 class: middle
 
 # Outline
-1.Review t-test
+1.[Review t-tests](#t)
 
-+ Exercise Problem 1
-+ Exercise Problem 2 
++ [Short Exercise problem 1](#Ex1) 
++ [Short Exercise problem 2](#Ex2) 
++ [Short Exercise problem 3](#Ex3) 
 
-2.Review Wald test  
+2.[Review Wald tests](#wald)
 
-  * t-statistic - distance between the two scalers
-  * Wald statistic - distance between  the two vectors 
++ [Exercise Problem 3](#Ex4)
 
-2.Application of the Wald Test
-+ Exercise Problem 
-
-3.Confidence interval calculation
-
+<!-- 
 3.Other test statistics
 
 + If the restrictions are nonlinear 
   * Wald tests of nonlinear hypothesis, though asymptotically valid, can be unreliable even in fairly large samples (E 9.18)
   * Instead, for nonlinear hypothesis, use the minimum distance statistic. 
-
-???
-
-
-
----
-
-# Hypothesis testing: Basics
-
-From Lecture note 11, p7
-
-```{r, echo=F, out.width = "40%"}
-knitr::include_graphics("type.png")
-```
-
-<br>
-
-.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
-<b>size of a hypothesis test = Pr(Type I error)</b>
-
-**Verbally**: The probability that we will falsely reject the null hypothesis
-
-<b>power of a test =1-Pr(Type II error)</b>
-
-**Verbally**: The probability that we will correctly reject the null hypothesis
-]
-
-<!-- We set the size of the test (called *significance level* $\alpha$) to  -->
-
-<!-- .bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
-**<span style="color:red">Type I error</span>**
-
-]
  -->
+
 ???
++ For statistical inference, we mainly covered two approaches in the class, which are t-tests and wald-tests. 
 
-+ Type I: a false rejection of $H_0$ when $H_0$ is true
-+ Type II: a false acceptance of $H_0$ when $H_1$ is true
++ The t-test is used for one dimensional hypothesis like $\beta_1=0$
+  * the t-test is appropriate when the null hypothesis is a real-valued restriction
 
-+ We have two types of error 
-+ To evaluate these two types of errors in terms of probability. 
++ Meanwhile, the wald-test is used for multi-dimentional hypothesis such as the coefficients of education and age are zero. 
+
++ But the process is are similar. 
++ For example, t-test use a t-statistic to measures a distance between the two scalars and the Wald test uses a wald statistic to distance between the two vectors, and we judge whether the observed difference is extreme or not relative to their asymptotic distribution.
 
 ---
 class: inverse, center, middle
@@ -141,6 +108,11 @@ name: intro
 # t-tests
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+???
+
++ okay, let's start with t-test. 
+
 ---
 class: middle
 
@@ -192,14 +164,17 @@ class: middle
 $$T=\frac{\hat{\theta}-\theta_0}{s(\hat{\theta})} \xrightarrow{d} N(0,1) \quad \text{ as } n\rightarrow \infty$$
 ]
 
-A t-statistic is an <span style="color:blue">asymptotically pivotal statistic</span> (that is, Asymptotic distribution of a t-static does not depend on parameter being estimated!) 
+A t-statistic is an <span style="color:blue">asymptotically pivotal statistic</span> 
 
-&rarr; The bootstrap distribution gives better approximation of the sampling distribution of t-statistics than the asymptotic distribution (<span style="color:blue">asymptotic refinement</span>) when sample size is small. 
+<!-- (that is, Asymptotic distribution of a t-static does not depend on parameter being estimated!)  -->
+
+&rarr; The bootstrap distribution gives better approximation of the sampling distribution of t-statistics than the asymptotic distribution (<span style="color:blue">asymptotic refinement</span>). 
 
 ???
 + As you know, the asymptotic distribution of a t-statistic is standard normal. 
-+ Maybe, an important thing that you might want to remember here is that the asymptotic distribution of the t-statistic does not depend on any parameter we need to estimate. 
-+ That is, t-statistic is one of the asymptotically pivotal statistics, and we can obtain take advantage of asymptotic refinements of bootstrapping. 
++ Maybe, an important thing that you might want to remember here is that t-statistic is a asymptotically pivotal statistic, that is, the asymptotic distribution of the t-statistic does not depend on any parameter we need to estimate. 
+
++ we can obtain take advantage of asymptotic refinements of bootstrapping. 
 
 ---
 class: middle
@@ -296,7 +271,7 @@ Let $\hat{\theta}=\hat{\beta}_1+\hat{\beta}_2$.
 $$\begin{align*}
 \hat{V}_{\hat{\theta}}
   &= \widehat{Var}[\hat{\beta}_1+\hat{\beta}_2]\\
-  &= \widehat{Var}[\hat{\beta}_1]+\widehat{Var}[\hat{\beta}_2]+\widehat{Cov}(\hat{\beta}_1, \hat{\beta}_1)\\
+  &= \widehat{Var}[\hat{\beta}_1]+\widehat{Var}[\hat{\beta}_2]+2\widehat{Cov}(\hat{\beta}_1, \hat{\beta}_1)\\
   &= [\hat{V}_{\hat{\beta}}]_{11}+[\hat{V}_{\hat{\beta}}]_{22}+2[\hat{V}_{\hat{\beta}}]_{12}
 \end{align*}$$
 
@@ -304,9 +279,9 @@ $$\begin{align*}
 ---
 class: middle
 
-.content-box-red[**Approach 2**]:
+.content-box-red[**Approach 2**]: 
 
-$$\hat{\theta} =\hat{\beta}_1+\hat{\beta}_2 =\begin{bmatrix} 1 & 1 & 0 \end{bmatrix} \begin{bmatrix} \hat{\beta}_1 \\ \hat{\beta}_2 \\ \hat{\beta}_3 \end{bmatrix} = \hat{\mathbf{R}}^{\prime} \hat{\beta} \quad \text{(This is great!)}$$ 
+$$\hat{\theta} =\hat{\beta}_1+\hat{\beta}_2 =\begin{bmatrix} 1 & 1 & 0 \end{bmatrix} \begin{bmatrix} \hat{\beta}_1 \\ \hat{\beta}_2 \\ \hat{\beta}_3 \end{bmatrix} = \hat{\mathbf{R}}^{\prime} \hat{\beta}$$ 
 
 With this, we can easily calculate $\hat{V}_{\hat{\theta}}$ like
 $$\hat{V}_{\hat{\theta}}=\widehat{Var}[\hat{\mathbf{R}}^{\prime} \hat{\beta}]=\hat{\mathbf{R}}^{\prime}\hat{V}_{\hat{\beta}}\hat{\mathbf{R}} = ...$$
@@ -322,6 +297,7 @@ $$\hat{V}_{\hat{\theta}}=\widehat{Var}[\hat{\mathbf{R}}^{\prime} \hat{\beta}]=\h
 
 ---
 class: middle
+name: Ex1
 
 ## Exercise 1: 2022 Final Test Problem 1 (a)
 
@@ -329,11 +305,19 @@ If a standard error is biased toward zero, how does that affect the outcome of a
 
 By "how does that affect the outcome" I mean: Does the test reject the right function of the time, too often, or not often enough? Are confidence intervals too long, too short, or just right?
 
+---
+class: middle
+name: Ex2
+
+## Exercise 2: 2022 Final Test Problem 2 (b) (optional)
+
+Hansen and Mackinnon, Nielsen, and Webb note that the HC3 and CV3 variance estimators are “conservative.” What does that mean for a t-test that uses a 5% significance level?
 
 ---
 class: middle
+name: Ex3
 
-## Exercise 2: 2022 Final Test Problem 1 (c)
+## Exercise 3: 2022 Final Test Problem 1 (c)
 
 Another problem is using the wrong approximation for the sampling distribution
 of a $t$-statistic. 
@@ -396,11 +380,44 @@ $q$: the number of restrictions.
 
 A t-statistic is an <span style="color:blue">asymptotically pivotal statistic</span> (that is, Asymptotic distribution of a t-static does not depend on parameter being estimated!)
 
-
 ---
 class: middle
 
-## Exercise 3: 2022 Final Test Problem 4 (modified)
+## Wald tests: R implementation
+
+`linearHypothesis` function [[here](https://www.rdocumentation.org/packages/car/versions/3.1-2/topics/linearHypothesis)] from `car` package.
+
+.medium[
+.content-box-green[**General Syntax**]
+
+```{r, eval=F}
+linearHypothesis(
+    regression result, # <- the object from lm()
+    restriction, # <- the linear restriction you want to test 
+    test="Chisq", vcov=sandwich::vcovHC
+    )
+```
+
+.content-box-green[**Example**]
+
+```{r, eval=F}
+library(car)
+reg <- lm(prestige ~ income + education, data=Duncan)
+
+# Wald test: Example 
+restriction <- c("income = 0", "education = 0")
+linearHypothesis(reg, restriction, test="Chisq", vcov=sandwich::vcovHC)
+```
+]
+
+<!-- + or you can use `waldtest` function from `lmtest` package. Its syntax is almost the same.  -->
+
++ Look at the section of "WALD TEST FUNCTION" in `wildBootstrap.r` file being uploaded on Canvas. 
+
+---
+class: middle
+name: Ex4
+## Exercise 4: 2022 Final Test Problem 4 (modified)
 .small[
 Suppose $Y=\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + e$.
 

@@ -26,7 +26,12 @@ Key words
 # main focus
 
 + **Wald statistics**
++ **t-test**
+	* asymptotic 
+
++ Jackknife, bootstrap, and randomize inference
 + 
+
 
 
 ---
