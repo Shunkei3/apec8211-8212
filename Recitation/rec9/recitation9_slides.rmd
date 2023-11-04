@@ -199,16 +199,21 @@ class: middle
 ## Example (Lecture note 11, p21 (modified))
 .small[
 Suppose you have  
-$$Y=\beta_0+\hat{\beta}_1 X_1+ \hat{\beta}_2 X_2 + \hat{\beta_3} X_3 + e$$
+$$Y=\hat{\beta_0}+\hat{\beta}_1 X_1+ \hat{\beta}_2 X_2 + \hat{\beta_3} X_3 + e$$
 , and the estimate of covariance matrix is 
 $$\hat{\mathbf{V}}_{\hat{\beta}}=
+\widehat{Var}\left(\begin{bmatrix}
+\hat{\beta_0} \\ \hat{\beta_1} \\ \hat{\beta_2} \\ \hat{\beta_3} 
+\end{bmatrix}\right)
+=
 \begin{bmatrix}
-[\hat{V}_{\hat{\beta}}]_{11} & [\hat{V}_{\hat{\beta}}]_{12} & [\hat{V}_{\hat{\beta}}]_{13} \\
-[\hat{V}_{\hat{\beta}}]_{21} & [\hat{V}_{\hat{\beta}}]_{22} & [\hat{V}_{\hat{\beta}}]_{23} \\
-[\hat{V}_{\hat{\beta}}]_{31} & [\hat{V}_{\hat{\beta}}]_{32} & [\hat{V}_{\hat{\beta}}]_{33}
-\end{bmatrix}$$
+[\hat{V}_{\hat{\beta}}]_{11} & [\hat{V}_{\hat{\beta}}]_{12} & [\hat{V}_{\hat{\beta}}]_{13} & [\hat{V}_{\hat{\beta}}]_{14} \\
+[\hat{V}_{\hat{\beta}}]_{21} & [\hat{V}_{\hat{\beta}}]_{22} & [\hat{V}_{\hat{\beta}}]_{23} & [\hat{V}_{\hat{\beta}}]_{24}\\
+[\hat{V}_{\hat{\beta}}]_{31} & [\hat{V}_{\hat{\beta}}]_{32} & [\hat{V}_{\hat{\beta}}]_{33} & [\hat{V}_{\hat{\beta}}]_{34}\\
+[\hat{V}_{\hat{\beta}}]_{41} & [\hat{V}_{\hat{\beta}}]_{42} & [\hat{V}_{\hat{\beta}}]_{43} & [\hat{V}_{\hat{\beta}}]_{44}
+\end{bmatrix}.$$
 
-$[\hat{V}_{\hat{\beta}}]_{ij}$ means the $(i,j)$ element of $\hat{\mathbf{V}}_{\hat{\beta}}$.
+$[\hat{V}_{\hat{\beta}}]_{ij}$ means $(i,j)$ element of $\hat{\mathbf{V}}_{\hat{\beta}}$.
 
 we want to conduct a t-test where $H_0:\beta_1+\beta_2=0$ and $H_1:\beta_1+\beta_2 \neq 0$.
 
@@ -220,13 +225,15 @@ $$T=\frac{\hat{\beta_1}+\hat{\beta}_2}{s(\hat{\beta_1}+\hat{\beta}_2)}$$.
 
 .content-box-green[**Question**]
 
-+ <span style="color:blue">How to derive $s(\hat{\beta}_1+\hat{\beta}_2) = \sqrt{\widehat{Var}(\hat{\beta}_1+\hat{\beta}_2)}$?</span>
++ <span style="color:blue">How to calculate $s(\hat{\beta}_1+\hat{\beta}_2)$?</span>
  
 
 ---
 class: middle
 
-<b> There are two ways to derive $s(\hat{\beta}_1+\hat{\beta}_2)$ in this case. </b>
+$s(\hat{\beta}_1+\hat{\beta}_2) = \sqrt{\widehat{Var}(\hat{\beta}_1+\hat{\beta}_2)}$. So we need to get $\widehat{Var}(\hat{\beta}_1+\hat{\beta}_2)$
+
+<b> There are two ways to calculate $\widehat{Var}(\hat{\beta}_1+\hat{\beta}_2)$</b>
 
 Let $\hat{\theta}=\hat{\beta}_1+\hat{\beta}_2$.
 
@@ -236,20 +243,27 @@ $$\begin{align*}
 \hat{V}_{\hat{\theta}}
   &= \widehat{Var}[\hat{\beta}_1+\hat{\beta}_2]\\
   &= \widehat{Var}[\hat{\beta}_1]+\widehat{Var}[\hat{\beta}_2]+2\widehat{Cov}(\hat{\beta}_1, \hat{\beta}_1)\\
-  &= [\hat{V}_{\hat{\beta}}]_{11}+[\hat{V}_{\hat{\beta}}]_{22}+2[\hat{V}_{\hat{\beta}}]_{12}
+  &= [\hat{V}_{\hat{\beta}}]_{22}+[\hat{V}_{\hat{\beta}}]_{33}+2[\hat{V}_{\hat{\beta}}]_{23}
 \end{align*}$$
 
+.small[
+NOTE: According to the notation of $\hat{V}_{\hat{\beta}}$, for example, $\widehat{Var}[\hat{\beta}_1]$ corresponds to $(2,2)$ element of $\hat{\mathbf{V}}_{\hat{\beta}}$.
+]
 
 ---
 class: middle
 
 .content-box-red[**Approach 2**]: 
 
-$$\hat{\theta} =\hat{\beta}_1+\hat{\beta}_2 =\begin{bmatrix} 1 & 1 & 0 \end{bmatrix} \begin{bmatrix} \hat{\beta}_1 \\ \hat{\beta}_2 \\ \hat{\beta}_3 \end{bmatrix} = \hat{\mathbf{R}}^{\prime} \hat{\beta}$$ 
+Using $\hat{\beta}$, $\hat{\theta}$ can be written as
+$$\hat{\theta} =\hat{\beta}_1+\hat{\beta}_2 =\begin{bmatrix} 0 & 1 & 1 & 0 \end{bmatrix} \begin{bmatrix} \hat{\beta}_0 \\ \hat{\beta}_1 \\ \hat{\beta}_2 \\ \hat{\beta}_3 \end{bmatrix} = \hat{\mathbf{R}}^{\prime} \hat{\beta}$$ 
 
 With this, we can easily calculate $\hat{V}_{\hat{\theta}}$ like
 $$\hat{V}_{\hat{\theta}}=\widehat{Var}[\hat{\mathbf{R}}^{\prime} \hat{\beta}]=\hat{\mathbf{R}}^{\prime}\hat{V}_{\hat{\beta}}\hat{\mathbf{R}} = ...$$
 
+.small[
+NOTE: We already know $\hat{V}_{\hat{\beta}}$.
+]
 
 .content-box-green[**NOTE**]
 
