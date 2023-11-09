@@ -198,24 +198,38 @@ class: middle
 
 ## Example (Lecture note 11, p21 (modified))
 .small[
-Suppose you have  
-$$Y=\hat{\beta_0}+\hat{\beta}_1 X_1+ \hat{\beta}_2 X_2 + \hat{\beta_3} X_3 + e$$
-, and the estimate of covariance matrix is 
+Suppose you have
+$$Y=\hat{\beta_0}+\hat{\beta}_1 X_1+ \hat{\beta}_2 X_2 + \hat{\beta_3} X_3.$$
+Also, you have the estimate of covariance matrix
 $$\hat{\mathbf{V}}_{\hat{\beta}}=
 \widehat{Var}\left(\begin{bmatrix}
 \hat{\beta_0} \\ \hat{\beta_1} \\ \hat{\beta_2} \\ \hat{\beta_3} 
 \end{bmatrix}\right)
 =
 \begin{bmatrix}
-[\hat{V}_{\hat{\beta}}]_{11} & [\hat{V}_{\hat{\beta}}]_{12} & [\hat{V}_{\hat{\beta}}]_{13} & [\hat{V}_{\hat{\beta}}]_{14} \\
-[\hat{V}_{\hat{\beta}}]_{21} & [\hat{V}_{\hat{\beta}}]_{22} & [\hat{V}_{\hat{\beta}}]_{23} & [\hat{V}_{\hat{\beta}}]_{24}\\
-[\hat{V}_{\hat{\beta}}]_{31} & [\hat{V}_{\hat{\beta}}]_{32} & [\hat{V}_{\hat{\beta}}]_{33} & [\hat{V}_{\hat{\beta}}]_{34}\\
-[\hat{V}_{\hat{\beta}}]_{41} & [\hat{V}_{\hat{\beta}}]_{42} & [\hat{V}_{\hat{\beta}}]_{43} & [\hat{V}_{\hat{\beta}}]_{44}
-\end{bmatrix}.$$
+    \hat{V}_{(\hat{\beta}_0,\hat{\beta}_0)} 
+  & \hat{V}_{(\hat{\beta}_0,\hat{\beta}_1)} 
+  & \hat{V}_{(\hat{\beta}_0, \hat{\beta}_2)}
+  & \hat{V}_{(\hat{\beta}_0, \hat{\beta}_3)} \\
+    \hat{V}_{(\hat{\beta}_1, \hat{\beta}_0)} 
+  & \hat{V}_{(\hat{\beta}_1, \hat{\beta}_1)}
+  & \hat{V}_{(\hat{\beta}_1, \hat{\beta}_2)}
+  & \hat{V}_{(\hat{\beta}_1, \hat{\beta}_3)} \\
+    \hat{V}_{(\hat{\beta}_2, \hat{\beta}_0)} 
+  & \hat{V}_{(\hat{\beta}_2, \hat{\beta}_1)}
+  & \hat{V}_{(\hat{\beta}_2, \hat{\beta}_2)}
+  & \hat{V}_{(\hat{\beta}_2, \hat{\beta}_3)} \\
+    \hat{V}_{(\hat{\beta}_3, \hat{\beta}_0)} 
+  & \hat{V}_{(\hat{\beta}_3, \hat{\beta}_1)}
+  & \hat{V}_{(\hat{\beta}_3, \hat{\beta}_2)}
+  & \hat{V}_{(\hat{\beta}_3, \hat{\beta}_3)} \\
+\end{bmatrix}$$
 
-$[\hat{V}_{\hat{\beta}}]_{ij}$ means $(i,j)$ element of $\hat{\mathbf{V}}_{\hat{\beta}}$.
+, where $\hat{V}_{(\hat{\beta}_i, \hat{\beta}_j)}=\widehat{Cov}(\hat{\beta}_i, \hat{\beta}_j)$.
 
-we want to conduct a t-test where $H_0:\beta_1+\beta_2=0$ and $H_1:\beta_1+\beta_2 \neq 0$.
+<!-- , where $\hat{V}_{(\hat{\beta}_i, \hat{\beta}_j)}$ means $(i,j)$ element of $\hat{\mathbf{V}}_{\hat{\beta}}$ which is $\widehat{Cov}(\hat{\beta}_i, \hat{\beta}_j)$. -->
+
+We want to conduct a t-test where $H_0:\beta_1+\beta_2=0$ and $H_1:\beta_1+\beta_2 \neq 0$.
 
 Then, The t-value is defined as
 
@@ -233,6 +247,9 @@ class: middle
 
 $s(\hat{\beta}_1+\hat{\beta}_2) = \sqrt{\widehat{Var}(\hat{\beta}_1+\hat{\beta}_2)}$. So we need to get $\widehat{Var}(\hat{\beta}_1+\hat{\beta}_2)$
 
+---
+class: middle
+
 <b> There are two ways to calculate $\widehat{Var}(\hat{\beta}_1+\hat{\beta}_2)$</b>
 
 Let $\hat{\theta}=\hat{\beta}_1+\hat{\beta}_2$.
@@ -242,13 +259,9 @@ Let $\hat{\theta}=\hat{\beta}_1+\hat{\beta}_2$.
 $$\begin{align*}
 \hat{V}_{\hat{\theta}}
   &= \widehat{Var}[\hat{\beta}_1+\hat{\beta}_2]\\
-  &= \widehat{Var}[\hat{\beta}_1]+\widehat{Var}[\hat{\beta}_2]+2\widehat{Cov}(\hat{\beta}_1, \hat{\beta}_1)\\
-  &= [\hat{V}_{\hat{\beta}}]_{22}+[\hat{V}_{\hat{\beta}}]_{33}+2[\hat{V}_{\hat{\beta}}]_{23}
+  &= \widehat{Var}[\hat{\beta}_1]+\widehat{Var}[\hat{\beta}_2]+2\widehat{Cov}(\hat{\beta}_1, \hat{\beta}_2)\\
+  &= \hat{V}_{(\hat{\beta}_1, \hat{\beta}_1)} + \hat{V}_{(\hat{\beta}_2, \hat{\beta}_2)} + 2 \hat{V}_{(\hat{\beta}_1, \hat{\beta}_2)}
 \end{align*}$$
-
-.small[
-NOTE: According to the notation of $\hat{V}_{\hat{\beta}}$, for example, $\widehat{Var}[\hat{\beta}_1]$ corresponds to $(2,2)$ element of $\hat{\mathbf{V}}_{\hat{\beta}}$.
-]
 
 ---
 class: middle
@@ -266,9 +279,9 @@ NOTE: We already know $\hat{V}_{\hat{\beta}}$.
 ]
 
 .content-box-green[**NOTE**]
-
++  <span style="color:blue">This approach is used in calculating the <b>Wald statistic</b> which takes care of multiple restrictions (i.e. $\theta \in \mathbb{R}^{k}$).</span>
 + More general approach to obtain $\hat{\mathbf{R}}$ is to calculate $\hat{\mathbf{R}}=\frac{\partial}{\partial \beta} r(\hat{\beta})$, where $r(\hat{\beta})=\hat{\beta}_1+\hat{\beta}_2$.
-  + <span style="color:blue">This approach is used in calculating the <b>Wald statistic</b> which takes care of multiple restrictions (i.e. $\theta \in \mathbb{R}^{k}$).</span>
+
 
 ---
 class: middle
@@ -333,6 +346,7 @@ $$
 .content-box-green[**NOTE:**]
 + $\theta$ is a vector $(H_0: \, \theta= \theta_0 \in \mathbb{R}^k)$ 
   * e.g., $\theta = [\beta_1, \, \beta_2]^{\prime}$
+  * When $H_0: \, \theta= \theta_0 \in \mathbb{R}$, the Wald statistic will be equal to the square of the t-statistic (i.e., $W=t^2$).
 
 
 ---
@@ -345,7 +359,7 @@ $$W=(\hat{\theta}-\theta)^{\prime}\hat{\mathbf{V}}^{-1}_{\hat{\theta}}(\hat{\the
 $q$: the number of restrictions. 
 ]
 
-A t-statistic is an <span style="color:blue">asymptotically pivotal statistic</span> (that is, Asymptotic distribution of a t-static does not depend on parameter being estimated!)
+A t-statistic is an <span style="color:blue">asymptotically pivotal statistic</span> (that is, Asymptotic distribution of the Wald statistic does not depend on parameter being estimated!)
 
 ---
 class: middle
