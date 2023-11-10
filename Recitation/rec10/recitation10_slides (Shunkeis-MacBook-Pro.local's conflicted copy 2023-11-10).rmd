@@ -85,9 +85,6 @@ class: middle
 
 # Outline
 1.[Review Resampling methods](#Resampling)
-
-+ [Exercise problem](#ex)
-
 2. [Code review for assignment 7](#code)
 
 ---
@@ -188,6 +185,143 @@ class: middle
 
 
 ---
+
+
+
+```{r}
+# paired, wild, and asymptotic bootstrap
+
+library(sandwich)
+library(car)
+library(dplyr)
+library(foreach)
+library(data.table)
+library(car)
+
+gen_data <- function(n){
+  # n=100
+  X1 <- rchisq(n, df=10)
+  X2 <- rnorm(n, mean=3, sd=2)
+  X3 <- rbinom(n, size=1, 0.5)
+  T <- rbinom(n, size=1, 0.5)
+  e <- rnorm(n, mean=1, sd=2+2*T+X3)
+
+  data <- 
+    data.table(
+      X1 = X1,
+      X2 = X2,
+      X3 = X3,
+      T = T, 
+      Y =  3*X1 + 0.2*X2 + 1*T + 0.5*T*X3 + e 
+    )
+  }
+
+
+boot_paired <- function(.){
+  paired_w <- 
+    foreach(b=1:B, .combine="c")%do%{
+    # === Resampling === #
+    rendomRows <- sample(n, replace=TRUE)
+    regData_p <- regData[rendomRows,]
+    # === Run a regression === #
+    reg_p <- 
+      lm(original_fomula, data=regData_p)
+    # === t test === #
+    Wp_test <- 
+      linearHypothesis(reg_p, restrict, test="Chisq", vcov=sandwich::vcovHC)
+    # the derived value of the Wald statistic is saved
+    Wp_test[["Chisq"]][[2]]
+    }
+  # === return rejection rate === #
+  return(paired_w)
+}
+
+wild_boot <- function(.){
+  # --- Run a regression with restriction  --- #
+  rest_x_bar <- x_var[!(grepl(var_test, x_var))]
+  restrict_formula <- as.formula(paste0("Y~", paste0(rest_x_bar, collapse = "+")))
+  restrict_reg <- lm(restrict_formula, data=regData)
+  # --- save the residual  --- #
+  ehat <- resid(restrict_reg)
+  # --- fitted values derived from the restricted regression --- #
+  yhat <- fitted(restrict_reg)
+
+  # --- Preparation for wild bootstrap: Update a model --- #
+  # note: y_b is defined with yhat and new residuals
+  wild_formula <- formula(reg)             
+  wild_formula <- update(wild_formula, y_b ~ .)
+
+  wild_w <- 
+    foreach (b = 1:B, .combine="c") %do% {
+    # --- create bootstrap residual --- #
+    z_b <- sample(c(-1,1), length(ehat), prob=c(0.5,0.5), replace=TRUE)
+    e_b <- ehat*z_b 
+    # --- Then, define synthetic dependent variable --- #
+    regData$y_b <- yhat + e_b
+    # --- Then, estimate coefficients with the original model --- #
+    reg_b <- lm(wild_formula, data=regData)
+    # --- Wald test --- #
+    Wb_test <- 
+      linearHypothesis(reg_b, restrict, test="Chisq", vcov=sandwich::vcovHC)
+    # the derived value of the Wald statistic is saved
+    Wb_test$Chisq[2]
+    }
+  return(wild_w)
+}
+
+sim_boot <- function(n, x_var, var_test){
+  # n=100
+  # x_var = c("X1", "T", "I(T*X3)"); var_test = "T"
+  regData <- gen_data(n)
+  original_fomula <- as.formula(paste("Y~", paste0(x_var, collapse = "+")))
+  reg <- lm(original_fomula, data=regData)
+  
+  beta_names <- names(coef(reg))
+  restrict <- paste0(beta_names[grep(var_test, beta_names)],"=0")
+  
+  # === Asymptotic inference === #
+  w_test <- linearHypothesis(reg, restrict, test="Chisq", vcov=sandwich::vcovHC)
+  w <- w_test[["Chisq"]][[2]] 
+  reject_gaussian <- w > qchisq(p=.95, df=length(restrict)) 
+
+  # === Paired bootstrap === #
+  paired_w <- boot_paired(.)
+  reject_paired <- w > quantile(paired_w, probs=0.95)[[1]]
+
+  # === Wild bootstrap === #
+  wild_w <- wild_boot(.)
+  reject_wild <- w > quantile(wild_w, probs=0.95)[[1]]
+  
+  return(
+    data.table(
+      size=n,
+      reject_gaussian = reject_gaussian,
+      reject_paired=reject_paired,
+      reject_wild = reject_wild
+      )
+    )
+}
+
+# library(parallel)
+
+B=4999
+test <- sim_boot(n=100, x_var = c("X1", "T", "I(T*X3)"), var_test = "T")
+
+
+
+test <- foreach(i=1:1000, .combine="rbind")%dopar%{
+  sim_boot(n=100, x_formula="X1+T+I(T*X3)", var_test = "T")
+}
+
+sapply(test, function(x) sum(x)/1000)
+
+```
+
+
+
+
+
+---
 class: middle 
 
 ## Wild bootstrap: R implementation
@@ -206,48 +340,6 @@ boottest(
 )
 ```
 
-But, `boottest()` is currently not supported for hypotheses about more than one parameter.
-
----
-class: middle
-name: Ex4
-## Exercise 4: 2022 Final Test Problem 4 (modified)
-.small[
-Suppose $Y=\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + e$.
-
-We studied Wald tests about multiple regression coefficients. Suppose $H_0: \, \beta_1=\beta_2=\beta_3=0$.
-
-(a) After running the regression, what are the steps involved in calculating the Wald statistic? You can write down a version of the Wald statistic and describe how you get the various parts.)
-
-<span style="color:blue">Hint:</span>
-+ Wald statistic: $W =(\hat{\theta}-\theta)^{\prime}\hat{\mathbf{V}}^{-1}_{\hat{\theta}}(\hat{\theta}-\theta)$
-  * What are $\hat{\theta}$ and $\theta$ in this case?
-  * How to obtain $\hat{V}_{\hat{\theta}}$? Note that we know the estimated covariance matrix of $\hat{\beta}$ (i.e. $\hat{V}_{\hat{\beta}}$) from the regression result. 
-
-
-(b) Now that you have your Wald statistic, what should you do with it to determine whether to reject the null hypothesis? (Assume a regression where clustering is not an issue.)
-]
-
----
-class: middle
-name: Ex4
-## Exercise 4: 2022 Final Test Problem 4 (modified)
-.small[
-Suppose $Y=\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + e$.
-
-We studied Wald tests about multiple regression coefficients. Suppose $H_0: \, \beta_1=\beta_2=\beta_3=0$.
-
-(a) After running the regression, what are the steps involved in calculating the Wald statistic? You can write down a version of the Wald statistic and describe how you get the various parts.)
-
-<span style="color:blue">Hint:</span>
-+ Wald statistic: $W =(\hat{\theta}-\theta)^{\prime}\hat{\mathbf{V}}^{-1}_{\hat{\theta}}(\hat{\theta}-\theta)$
-  * What are $\hat{\theta}$ and $\theta$ in this case?
-  * How to obtain $\hat{V}_{\hat{\theta}}$? Note that we know the estimated covariance matrix of $\hat{\beta}$ (i.e. $\hat{V}_{\hat{\beta}}$) from the regression result. 
-
-
-(b) Now that you have your Wald statistic, what should you do with it to determine whether to reject the null hypothesis? (Assume a regression where clustering is not an issue.)
-
-]
 
 ---
 
@@ -260,12 +352,16 @@ name: code
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
 
 <!-- https://cran.r-project.org/web/packages/foreach/vignettes/foreach.html -->
+
+
 ---
 class: middle
 
 ## `foreach()` from `foreach` package
 
 `foreach()` function is another way of doing loop.
+
+<br>
 
 .content-box-green[**Basic syntax**]
 
@@ -287,9 +383,8 @@ The syntax of `for each` function looks alike `for loop` function, but it's diff
 ---
 class: middle
 
-Let's see the difference between `foreach` and `for loop`.
-
 .content-box-green[**Example**] Compute $\sqrt{x}$ for $x=\{1,2,3\}$.
+
 
 .left5[
 .content-box-blue[`foreach` way]
@@ -326,8 +421,12 @@ result
 .content-box-green[**NOTE 2**:]
 
 `foreach()` returns the results in a list (by default).
-  * the format of output can be specified with  `.combine`.
-  * So, unlike `for loop`, you don't need to create a storage object! 
+  * the output can be you can  `.combine` to specify 
+  * 
++ note that you need to create an object to store results before starting `for loop`!!
+
+
+So, unlike `for loop`, you don't need to create a storage object in using `foreach`. 
 
 ???
 + `foreach()` is different from `for loop` function in that `foreach()` returns 
@@ -335,35 +434,13 @@ result
 ---
 ## Parallel computing using `foreach` package
 
-Another difference from `for loop` is that `foreach()` can do with 
+`foreach()` can do with 
 
-<!-- + https://ethen8181.github.io/Business-Analytics/R/efficient_looping/efficient_looping.html -->
++ https://ethen8181.github.io/Business-Analytics/R/efficient_looping/efficient_looping.html
 
-.content-box-green[**step1:Tell R to do parallel processing**]
-```{r, eval=F}
-# === Preparation === #
-library(foreach)
-library(future)
-library(doFuture)
-# Tells future package to use multiple cores on your computer.
-plan(multisession, workers=availableCores()-1) 
+```{r}
 
-# For reproducibility, use random number generator for parallel processing
-library(doRNG)
-registerDoFuture()
-registerDoRNG(seed=580724) 
 ```
-
-.content-box-green[**step2: Run `foreach()` function using `%dopar%`**]
-For example,
-```{r, eval=F}
-results <- foreach(b = 1:B, .combine=rbind) %dopar% {
-  ...
-}
-```
-
-???
-+ That being said, it is unlikely that you need to write codes for parallel processing in your test. So don't worry about it. 
 
 ---
 

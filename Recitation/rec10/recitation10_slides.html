@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang xml:lang>
   <head>
-    <title>APEC8211: Recitation 10</title>
+    <title>APEC8212: Recitation 10</title>
     <meta charset="utf-8" />
     <meta name="author" content="Shunkei Kakimoto" />
     <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
@@ -5122,7 +5122,7 @@ background-color: var(--black);
 class: center, middle, inverse, title-slide
 
 .title[
-# APEC8211: Recitation 10
+# APEC8212: Recitation 10
 ]
 .author[
 ### Shunkei Kakimoto
@@ -5548,12 +5548,27 @@ slides &gt; slide {
 
 hitting letter &quot;o&quot; key will give you a panel view of the slides
 
+---
+class: middle 
+
+.content-box-green[**A heads-up**]
+
+I modified the slides in Recitation 9 uploaded on Canvas [[here](https://shunkei3.github.io/apec8211-8212/Recitation/rec9/recitation9_slides.html)]. 
+
++ Specifically, the slides about the example problem for the calculation of `\(s(\hat{\beta}_1, \hat{\beta}_2)\)` and the derivation of `\(\mathbf{R}\)` vector. 
++ I modified the PDF version of it as well. 
+
+???
++ Just a heads-up, 
 
 ---
 class: middle
 
 # Outline
 1.[Review Resampling methods](#Resampling)
+
++ [Exercise problem](#ex)
+
 2. [Code review for assignment 7](#code)
 
 ---
@@ -5567,14 +5582,158 @@ name: Resampling
 ---
 class: middle
 
-+ Paired bootstrap
-+ Wild bootstrap
-  * can handle heteroskedasticity better than paired bootstrap
+## Overview:Resampling methods
 
-+ Compare Paired bootstrap and Wild bootstrap under the presence of heteroskedasticity
+1. Jackknife resampling
+  * use the distribution of the leave-on-out estimator
+  * it is useful when an explicit asymptotic variance formula is not available (E 10.3)
+  * but &quot;the advent of the bootstrap has caused practitioners to lose interest in the jackknife&quot; (Kennedy 2008)
+
+2. Bootstrapping
+
+3. Randomization inference
+  * mostly used in RCT designs 
+    - but this approach also has been getting used in the context of regression discontinuity designs and regression kink designs (A good summary can be found in [Heß and Simon (2017)](https://journals.sagepub.com/doi/pdf/10.1177/1536867X1701700306))
+
+???
++ Resampling is to create new samples from the observed sample. 
++ We learned three different types of resampling methods. 
++ The first one is Jackknife resampling methods. 
+  * In this method, we resample the data by omitting each of the observations in turn and apply OLS to that resampled data. In other words, we repeat leave-one-out regression. So, if we have n observations, we need to run n regressions.
+  * The distribution of the coefficient estimates derived from leave-one-out regressions are called a Jacknife distribution. 
+  * Jacknife estimator was used when an asymptotic formula for covariance matrix estimator is not available. But, it has been replaced by bootstrap methods. 
+
++ The second one is bootstrap method, and we spent lots of time doing this. 
++ The third is randomization inference. 
 
 
 ---
+class: middle
+
+## Overview: Bootstrap methods
+
+.content-box-green[**Resampling principle:**]
+
++ Bootstrap DGP should replicate the feature of population DGP (e.g., heteroskedasticity, clustering, time dependence).
+
+&lt;br&gt;
+
+.content-box-green[**Asymptotic refinement:**]
+
++ Bootstrap an &lt;span style=&quot;color:blue&quot;&gt;asymptotically pivotal statistic&lt;/span&gt; gives a better better approximation oto the sampling distribution than the asymptotic distribution.
+  * Examples of asymptotically pivotal statistic are t-statistic `\((t \xrightarrow{d} N(0,1))\)`, Wald statistic `\((W\xrightarrow{d}\chi^2_q \quad(q \text{ means } q \text{ restrictions}))\)`.
+
+???
++ About bootstrap methods, there are two things that we should be aware of. 
++ In order to use bootstrap methods effectively, how you resample the data, which is called bootstrap data-generating process, should contain the features of the underlying population data-generating process such as heterogeneity and clustering. 
+
++ Although we never know about the true data-generating process, we need to guess it somehow and use an appropriate bootstrap DGP. This is the first thing. 
+
++ The second point is the asymptotic refinement of bootstrap. 
++ By the way, is it okay about the meaning of asymptotic pivotal statistics?
+
+
+---
+class: middle
+
+## Various bootstrap DGPs
+
+1.&lt;b&gt;&lt;span style=&quot;color:blue&quot;&gt;Paired (or nonparametric) bootstrap&lt;/span&gt;&lt;/b&gt;
+  * **Idea**: resample the data with size `\(n\)`
+
+&lt;br&gt;
+
+2.&lt;b&gt;&lt;span style=&quot;color:blue&quot;&gt;Wild bootstrap&lt;/span&gt;&lt;/b&gt;
+  * **Idea**: resample the residuals with size `\(n\)`
+  * can handle heteroskedasticity better than the paired bootstrap
+  * For hypothesis testing, use the &lt;b&gt;&lt;span style=&quot;color:red&quot;&gt;restricted wild bootstrap&lt;/span&gt;&lt;/b&gt;
+
+&lt;br&gt;
+
+3.&lt;b&gt;&lt;span style=&quot;color:blue&quot;&gt;Wild cluster bootstrap&lt;/span&gt;&lt;/b&gt;
+  * **Idea**: resample the `\(G\)` cluster-level residuals
+  * can handle both heteroskedasticity and within-cluster error correlation
+  * For hypothesis testing, use the &lt;b&gt;&lt;span style=&quot;color:red&quot;&gt;restricted wild cluster bootstrap&lt;/span&gt; &lt;/b&gt;([Cameron, Gelbach, and Miller (2008)](https://direct.mit.edu/rest/article-abstract/90/3/414/57731/Bootstrap-Based-Improvements-for-Inference-with?redirectedFrom=fulltext))
+
+
+???
++ https://core.ac.uk/download/pdf/6494253.pdf
++ So, bootstrap is the popular and powerful tool for inference but the key assumption is that we need to bootstrap data-generating process recreate features of the underlying true data-generating process for the data. 
++ Because of this, we have multiple bootstrap methods which assume different data-generating process. 
+
++ first one is the paired bootstrap method. The process is pretty simple. Suppose that the size of the data is `\(n\)`. Then we resample `\(n\)` observations allowing for duplicates. 
+
++ The wild bootstrap should be used for estimating standard errors or forming confidence intervals. But for hypothesis testing, we should use restricted wild bootstrap. Actually, one advantage of the wild bootstrap is that we can easily impose the null hypothesis on the bootstrap data-generating process. 
+
++ In the presence of clustered errors, we can use wild cluster bootstrap, and Cameron, Gelbach, and Miller (2008) recommend to use he restricted wild cluster bootstrap for hypothesis testing. 
+
+
+---
+class: middle 
+
+## Wild bootstrap: R implementation
+
+Use `boottest()` function from `fwildclusterboot` package
++ For further details see [[this](https://s3alfisc.github.io/fwildclusterboot/articles/fwildclusterboot.html)] 
+
+.content-box-green[**Syntax:**]
+
+
+```r
+boottest(
+  regression result,
+  B = the number of bootstrap replications,
+  param = name of the model parameter to be tested,
+  clustid = name of the clustering variables 
+)
+```
+
+But, `boottest()` is currently not supported for hypotheses about more than one parameter.
+
+---
+class: middle
+name: Ex4
+## Exercise 4: 2022 Final Test Problem 4 (modified)
+.small[
+Suppose `\(Y=\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + e\)`.
+
+We studied Wald tests about multiple regression coefficients. Suppose `\(H_0: \, \beta_1=\beta_2=\beta_3=0\)`.
+
+(a) After running the regression, what are the steps involved in calculating the Wald statistic? You can write down a version of the Wald statistic and describe how you get the various parts.)
+
+&lt;span style=&quot;color:blue&quot;&gt;Hint:&lt;/span&gt;
++ Wald statistic: `\(W =(\hat{\theta}-\theta)^{\prime}\hat{\mathbf{V}}^{-1}_{\hat{\theta}}(\hat{\theta}-\theta)\)`
+  * What are `\(\hat{\theta}\)` and `\(\theta\)` in this case?
+  * How to obtain `\(\hat{V}_{\hat{\theta}}\)`? Note that we know the estimated covariance matrix of `\(\hat{\beta}\)` (i.e. `\(\hat{V}_{\hat{\beta}}\)`) from the regression result. 
+
+
+(b) Now that you have your Wald statistic, what should you do with it to determine whether to reject the null hypothesis? (Assume a regression where clustering is not an issue.)
+]
+
+---
+class: middle
+name: Ex4
+## Exercise 4: 2022 Final Test Problem 4 (modified)
+.small[
+Suppose `\(Y=\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + e\)`.
+
+We studied Wald tests about multiple regression coefficients. Suppose `\(H_0: \, \beta_1=\beta_2=\beta_3=0\)`.
+
+(a) After running the regression, what are the steps involved in calculating the Wald statistic? You can write down a version of the Wald statistic and describe how you get the various parts.)
+
+&lt;span style=&quot;color:blue&quot;&gt;Hint:&lt;/span&gt;
++ Wald statistic: `\(W =(\hat{\theta}-\theta)^{\prime}\hat{\mathbf{V}}^{-1}_{\hat{\theta}}(\hat{\theta}-\theta)\)`
+  * What are `\(\hat{\theta}\)` and `\(\theta\)` in this case?
+  * How to obtain `\(\hat{V}_{\hat{\theta}}\)`? Note that we know the estimated covariance matrix of `\(\hat{\beta}\)` (i.e. `\(\hat{V}_{\hat{\beta}}\)`) from the regression result. 
+
+
+(b) Now that you have your Wald statistic, what should you do with it to determine whether to reject the null hypothesis? (Assume a regression where clustering is not an issue.)
+
+]
+
+---
+
+
 class: inverse, center, middle
 name: code
 
@@ -5583,16 +5742,12 @@ name: code
 &lt;html&gt;&lt;div style=&#39;float:left&#39;&gt;&lt;/div&gt;&lt;hr color=&#39;#EB811B&#39; size=1px width=796px&gt;&lt;/html&gt;
 
 &lt;!-- https://cran.r-project.org/web/packages/foreach/vignettes/foreach.html --&gt;
-
-
 ---
 class: middle
 
 ## `foreach()` from `foreach` package
 
 `foreach()` function is another way of doing loop.
-
-&lt;br&gt;
 
 .content-box-green[**Basic syntax**]
 
@@ -5615,8 +5770,9 @@ The syntax of `for each` function looks alike `for loop` function, but it&#39;s 
 ---
 class: middle
 
-.content-box-green[**Example**] Compute `\(\sqrt{x}\)` for `\(x=\{1,2,3\}\)`.
+Let&#39;s see the difference between `foreach` and `for loop`.
 
+.content-box-green[**Example**] Compute `\(\sqrt{x}\)` for `\(x=\{1,2,3\}\)`.
 
 .left5[
 .content-box-blue[`foreach` way]
@@ -5663,12 +5819,8 @@ result
 .content-box-green[**NOTE 2**:]
 
 `foreach()` returns the results in a list (by default).
-  * the output can be you can  `.combine` to specify 
-  * 
-+ note that you need to create an object to store results before starting `for loop`!!
-
-
-So, unlike `for loop`, you don&#39;t need to create a storage object in using `foreach`. 
+  * the format of output can be specified with  `.combine`.
+  * So, unlike `for loop`, you don&#39;t need to create a storage object! 
 
 ???
 + `foreach()` is different from `for loop` function in that `foreach()` returns 
@@ -5676,11 +5828,37 @@ So, unlike `for loop`, you don&#39;t need to create a storage object in using `f
 ---
 ## Parallel computing using `foreach` package
 
-`foreach()` can do with 
+Another difference from `for loop` is that `foreach()` can do with 
 
-+ https://ethen8181.github.io/Business-Analytics/R/efficient_looping/efficient_looping.html
+&lt;!-- + https://ethen8181.github.io/Business-Analytics/R/efficient_looping/efficient_looping.html --&gt;
 
+.content-box-green[**step1:Tell R to do parallel processing**]
 
+```r
+# === Preparation === #
+library(foreach)
+library(future)
+library(doFuture)
+# Tells future package to use multiple cores on your computer.
+plan(multisession, workers=availableCores()-1) 
+
+# For reproducibility, use random number generator for parallel processing
+library(doRNG)
+registerDoFuture()
+registerDoRNG(seed=580724) 
+```
+
+.content-box-green[**step2: Run `foreach()` function using `%dopar%`**]
+For example,
+
+```r
+results &lt;- foreach(b = 1:B, .combine=rbind) %dopar% {
+  ...
+}
+```
+
+???
++ That being said, it is unlikely that you need to write codes for parallel processing in your test. So don&#39;t worry about it. 
 
 ---
 
