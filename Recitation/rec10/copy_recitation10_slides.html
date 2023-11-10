@@ -5578,8 +5578,7 @@ I modified the slides in Recitation 9 uploaded on Canvas [[here](https://shunkei
 class: middle
 
 # Outline
-
-1. [Review Resampling methods](#Resampling)
+1.[Review Resampling methods](#Resampling)
 
 + [Exercise problem](#ex)
 
@@ -5613,6 +5612,17 @@ class: middle
   * mostly used in RCT designs 
     - but this approach also has been getting used in the context of regression discontinuity designs and regression kink designs (A good summary can be found in [Heß and Simon (2017)](https://journals.sagepub.com/doi/pdf/10.1177/1536867X1701700306))
 
+???
++ Resampling is to create new samples from the observed sample. 
++ We learned three different types of resampling methods. 
++ The first one is Jackknife resampling methods. 
+  * In this method, we resample the data by omitting each of the observations in turn and apply OLS to that resampled data. In other words, we repeat leave-one-out regression. So, if we have n observations, we need to run n regressions.
+  * The distribution of the coefficient estimates derived from leave-one-out regressions are called a Jacknife distribution. 
+  * Jacknife estimator was used when an asymptotic formula for covariance matrix estimator is not available. But, it has been replaced by bootstrap methods. 
+
++ The second one is bootstrap method, and we spent lots of time doing this. 
++ The third is randomization inference. 
+
 
 ---
 class: middle
@@ -5630,6 +5640,14 @@ class: middle
 + Bootstrap an &lt;span style=&quot;color:blue&quot;&gt;asymptotically pivotal statistic&lt;/span&gt; gives a better better approximation oto the sampling distribution than the asymptotic distribution.
   * Examples of asymptotically pivotal statistic are t-statistic `\((t \xrightarrow{d} N(0,1))\)`, Wald statistic `\((W\xrightarrow{d}\chi^2_q \quad(q \text{ means } q \text{ restrictions}))\)`.
 
+???
++ About bootstrap methods, there are two things that we should be aware of. 
++ In order to use bootstrap methods effectively, how you resample the data, which is called bootstrap data-generating process, should contain the features of the underlying population data-generating process such as heterogeneity and clustering. 
+
++ Although we never know about the true data-generating process, we need to guess it somehow and use an appropriate bootstrap DGP. This is the first thing. 
+
++ The second point is the asymptotic refinement of bootstrap. 
++ By the way, is it okay about the meaning of asymptotic pivotal statistics?
 
 
 ---
@@ -5654,6 +5672,17 @@ class: middle
   * can handle both heteroskedasticity and within-cluster error correlation
   * For hypothesis testing, use the &lt;b&gt;&lt;span style=&quot;color:red&quot;&gt;restricted wild cluster bootstrap&lt;/span&gt; &lt;/b&gt;([Cameron, Gelbach, and Miller (2008)](https://direct.mit.edu/rest/article-abstract/90/3/414/57731/Bootstrap-Based-Improvements-for-Inference-with?redirectedFrom=fulltext))
 
+
+???
++ https://core.ac.uk/download/pdf/6494253.pdf
++ So, bootstrap is the popular and powerful tool for inference but the key assumption is that we need to bootstrap data-generating process recreate features of the underlying true data-generating process for the data. 
++ Because of this, we have multiple bootstrap methods which assume different data-generating process. 
+
++ first one is the paired bootstrap method. The process is pretty simple. Suppose that the size of the data is `\(n\)`. Then we resample `\(n\)` observations allowing for duplicates. 
+
++ The wild bootstrap should be used for estimating standard errors or forming confidence intervals. But for hypothesis testing, we should use restricted wild bootstrap. Actually, one advantage of the wild bootstrap is that we can easily impose the null hypothesis on the bootstrap data-generating process. 
+
++ In the presence of clustered errors, we can use wild cluster bootstrap, and Cameron, Gelbach, and Miller (2008) recommend to use he restricted wild cluster bootstrap for hypothesis testing. 
 
 
 ---
@@ -5824,6 +5853,9 @@ results &lt;- foreach(b = 1:B, .combine=rbind) %dopar% {
   ...
 }
 ```
+
+???
++ That being said, it is unlikely that you need to write codes for parallel processing in your test. So don&#39;t worry about it. 
 
 
 
