@@ -103,14 +103,18 @@ class: middle
 
 ## Overview:Resampling methods
 
-1. Jackknife resampling
+.content-box-green[**1. Jackknife resampling**]
   * use the distribution of the leave-on-out estimator
   * it is useful when an explicit asymptotic variance formula is not available (E 10.3)
   * but "the advent of the bootstrap has caused practitioners to lose interest in the jackknife" (Kennedy 2008)
 
-2. Bootstrapping
+<br>
 
-3. Randomization inference
+.content-box-green[**2. Bootstrapping**]
+
+<br>
+
+.content-box-green[**3. Randomization inference**]
   * mostly used in RCT designs 
     - but this approach also has been getting used in the context of regression discontinuity designs and regression kink designs (A good summary can be found in [Heß and Simon (2017)](https://journals.sagepub.com/doi/pdf/10.1177/1536867X1701700306))
 
@@ -210,7 +214,7 @@ But, `boottest()` is currently not supported for hypotheses about more than one 
 
 ---
 class: middle
-name: Ex4
+name: ex
 ## Exercise 4: 2022 Final Test Problem 4 (modified)
 .small[
 Suppose $Y=\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + e$.
@@ -225,28 +229,7 @@ We studied Wald tests about multiple regression coefficients. Suppose $H_0: \, \
   * How to obtain $\hat{V}_{\hat{\theta}}$? Note that we know the estimated covariance matrix of $\hat{\beta}$ (i.e. $\hat{V}_{\hat{\beta}}$) from the regression result. 
 
 
-(b) Now that you have your Wald statistic, what should you do with it to determine whether to reject the null hypothesis? (Assume a regression where clustering is not an issue.)
-]
-
----
-class: middle
-name: Ex4
-## Exercise 4: 2022 Final Test Problem 4 (modified)
-.small[
-Suppose $Y=\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + e$.
-
-We studied Wald tests about multiple regression coefficients. Suppose $H_0: \, \beta_1=\beta_2=\beta_3=0$.
-
-(a) After running the regression, what are the steps involved in calculating the Wald statistic? You can write down a version of the Wald statistic and describe how you get the various parts.)
-
-<span style="color:blue">Hint:</span>
-+ Wald statistic: $W =(\hat{\theta}-\theta)^{\prime}\hat{\mathbf{V}}^{-1}_{\hat{\theta}}(\hat{\theta}-\theta)$
-  * What are $\hat{\theta}$ and $\theta$ in this case?
-  * How to obtain $\hat{V}_{\hat{\theta}}$? Note that we know the estimated covariance matrix of $\hat{\beta}$ (i.e. $\hat{V}_{\hat{\beta}}$) from the regression result. 
-
-
-(b) Now that you have your Wald statistic, what should you do with it to determine whether to reject the null hypothesis? (Assume a regression where clustering is not an issue.)
-
+(b) Now that you have your Wald statistic, what should you do with it to determine whether to reject the null hypothesis? Consider two cases: a regression where clustering is not an issue and one where there are 40 clusters. 
 ]
 
 ---
@@ -326,7 +309,8 @@ result
 .content-box-green[**NOTE 2**:]
 
 `foreach()` returns the results in a list (by default).
-  * the format of output can be specified with  `.combine`.
+  * how the list of results is combined into a single object can be specified with  `.combine`.
+    - e.g. `.combine="c"`
   * So, unlike `for loop`, you don't need to create a storage object! 
 
 ???
@@ -335,7 +319,7 @@ result
 ---
 ## Parallel computing using `foreach` package
 
-Another difference from `for loop` is that `foreach()` can do with 
+Another difference from `for loop` is that `foreach()` can do parallel processing by its own . 
 
 <!-- + https://ethen8181.github.io/Business-Analytics/R/efficient_looping/efficient_looping.html -->
 
@@ -365,7 +349,6 @@ results <- foreach(b = 1:B, .combine=rbind) %dopar% {
 ???
 + That being said, it is unlikely that you need to write codes for parallel processing in your test. So don't worry about it. 
 
----
 
 
 
