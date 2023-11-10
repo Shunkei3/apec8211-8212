@@ -78,7 +78,7 @@ I modified the slides in Recitation 9 uploaded on Canvas [[here](https://shunkei
 + I modified the PDF version of it as well. 
 
 ???
-+ Just a heads-up, 
++ Just a heads-up, I found critical mistakes in recitation 9 slides, so I modified them  and re-uploaded the new slides on Canvas. 
 
 ---
 class: middle
@@ -89,6 +89,9 @@ class: middle
 + [Exercise problem](#ex)
 
 2. [Code review for assignment 7](#code)
+
+???
++ Okay, today, we gonna do a quick review of resampling methods, and do one exercise problem. The exercise problem is from last year's final exam. 
 
 ---
 class: inverse, center, middle
@@ -101,7 +104,7 @@ name: Resampling
 ---
 class: middle
 
-## Overview:Resampling methods
+## Overview: Resampling methods
 
 .content-box-green[**1. Jackknife resampling**]
   * use the distribution of the leave-on-out estimator
@@ -119,15 +122,20 @@ class: middle
     - but this approach also has been getting used in the context of regression discontinuity designs and regression kink designs (A good summary can be found in [Heß and Simon (2017)](https://journals.sagepub.com/doi/pdf/10.1177/1536867X1701700306))
 
 ???
-+ Resampling is to create new samples from the observed sample. 
++ Resampling is an approach to create new samples from the observed sample and estimate whatever you want to estimate using those bunch of resampled samples.
+
 + We learned three different types of resampling methods. 
+
 + The first one is Jackknife resampling methods. 
   * In this method, we resample the data by omitting each of the observations in turn and apply OLS to that resampled data. In other words, we repeat leave-one-out regression. So, if we have n observations, we need to run n regressions.
   * The distribution of the coefficient estimates derived from leave-one-out regressions are called a Jacknife distribution. 
   * Jacknife estimator was used when an asymptotic formula for covariance matrix estimator is not available. But, it has been replaced by bootstrap methods. 
 
-+ The second one is bootstrap method, and we spent lots of time doing this. 
++ The second one is bootstrap method, which I'm gonna talk about it a bit later. 
+
 + The third is randomization inference. 
+  * Basically, in randomization inference, we repeat to scramble the treatment assignments and estimate the treatment effects many many times.  
+  * this is mostly used in the context of RCT settings.
 
 
 ---
