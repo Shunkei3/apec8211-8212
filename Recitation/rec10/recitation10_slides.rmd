@@ -133,7 +133,7 @@ class: middle
 
 .content-box-green[**Asymptotic refinement:**]
 
-+ Bootstrap an <span style="color:blue">asymptotically pivotal statistic</span> gives a better better approximation oto the sampling distribution than the asymptotic distribution.
++ Bootstrap an <span style="color:blue">asymptotically pivotal statistic</span> gives a better better approximation to the sampling distribution than the asymptotic distribution.
   * Examples of asymptotically pivotal statistic are t-statistic $(t \xrightarrow{d} N(0,1))$, Wald statistic $(W\xrightarrow{d}\chi^2_q \quad(q \text{ means } q \text{ restrictions}))$.
 
 

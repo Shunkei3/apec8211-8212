@@ -1,0 +1,138 @@
+---
+title: "APEC 8212 - Recitation 11"
+output: html_notebook
+---
+
+Today in recitation, we will replicate some of the tables from Glewwe (2016) and use wild cluster bootstrap.
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE)
+setwd("/Users/stephenpitts/Dropbox/umn/ta/fall2022/recitations/recitation11")
+library(rio)
+library(lmtest)
+library(sandwich)
+load("glewwe_cleaned.Rdata")
+```
+
+
+
+Table 1 descriptive statistics
+```{r}
+i8.subset<- subset(basicinfo, ittsamp8==TRUE)
+i8.subset.badvision <- subset(i8.subset, badvision==TRUE)
+i9.subset <- subset(basicinfo, ittsamp9==TRUE)
+i9.subset.badvision <- subset(i9.subset, badvision==TRUE)
+```
+
+A few things in Table 1. Here we get the first four entries in the third column.
+```{r}
+nrow(i8.subset)
+sum(i8.subset$badvision, na.rm=TRUE)
+sum(!i8.subset.badvision$glsbefor)
+sum(i8.subset.badvision$glsbefor)
+```
+
+Mean differences for Table 3. Here we get the first row.
+```{r}
+county1 <- subset(i8.subset, countycode==1)
+county1.treated <- subset(county1, trttown == 1)
+county1.control <- subset(county1, trttown == 0)
+mean(county1.treated$sdchi04s2, na.rm=TRUE)
+mean(county1.control$sdchi04s2, na.rm=TRUE)
+```
+
+Run two models: with and without fixed effects for schools. Note that
+without fixed effects treatment assignment appears to be related to
+Chinese score. In other words, the balance test fails. 
+
+```{r}
+library(stargazer)
+county1.clean <- na.omit(county1[c("sdchi04s2", "trttown", "schoolid", "townid")])
+model1 <- lm(sdchi04s2 ~ trttown, county1.clean)
+model2 <- lm(sdchi04s2 ~ trttown + factor(schoolid), county1.clean)
+stargazer(type="text",model1, model2)
+```
+
+Now we will use wild cluster bootstrap to compute the p-values with the
+standard linear regression.
+
+First, we run the basic linear model again to test for the impact of
+treatment assignment on Chinese test scores.
+
+```{r}
+# set up the data frame
+wc.df <- county1.clean[c("sdchi04s2", "trttown", "schoolid")]
+
+# run the model; save the residuals and the fitted y values
+model <- lm(sdchi04s2 ~ trttown, wc.df)
+wc.df$ehat <- residuals(model)
+wc.df$yhat <- fitted(model)
+```
+
+Next, we implement the algorithm from slide 31 of the resampling deck.
+```{r}
+wild <- function(wc.df) {
+  # draw one z variable from each school 
+  schoolids <- unique(wc.df$schoolid)
+  zvalues <- sample(c(-1,1), length(schoolids), replace=TRUE)
+  school.df <- data.frame(schoolid=schoolids, z=zvalues)
+  
+  # and assign it back to the data frame
+  wcb.df <- merge(wc.df, school.df, by=c("schoolid"))
+  wcb.df$ebhat <- wcb.df$z * wcb.df$ehat
+  wcb.df$ybhat <- wcb.df$yhat + wcb.df$ebhat
+  
+  # run the regression
+  model.b <- lm(ybhat ~ trttown, wcb.df)
+  
+  # get our cluster-adjusted standard errors
+  se.b <- sqrt(diag(vcovCL(model.b, cluster=wcb.df$schoolid, type="HC3")))
+  ttest.b <- coef(model.b) / se.b
+  
+  ttest.b
+}
+```
+
+Now we run the bootstrap 500 times.
+```{r}
+B <- 500
+tstats <- matrix(NA, nrow=B, ncol=2)
+for(b in 1:B) {
+  tstats[b,] <- wild(wc.df)
+}
+```
+
+Graph the bootstrapped t-statistic distribution
+for the `trttown` variable.
+
+```{r}
+betahat <- coef(model)
+se0 <- sqrt(diag(vcovCL(model, cluster=wc.df$schoolid, type="HC3")))
+tstat <- betahat / se0
+```
+
+Here is the distribution of bootstrapped t-statistics. We use
+it to find the power of the t-statistic that we obtained
+from the cluster-robust estimator above. 
+
+```{r}
+library(ggplot2)
+tstats.df <- data.frame(tstats)
+colnames(tstats.df) <- c("Beta0", "Beta1")
+qs <- quantile(tstats.df$Beta1, probs=c(0.025, 0.975))
+ggplot(tstats.df) + geom_density(aes(Beta1)) +
+  ggtitle("Beta1 (Trttown) T-Stat") +
+  geom_vline(xintercept=tstat[2], color="red")
+```
+
+Now we can compute a p-value for trttown.
+This matches the first line of Table 3. Note that we
+did not have to use any distributional assumptions.
+```{r}
+p_value <- sum(tstats[,2] > tstat[2])/500
+```
+
+
+
+
+

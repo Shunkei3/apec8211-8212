@@ -1,0 +1,221 @@
+---
+title: "Recitation 12"
+author: "Stephen Pitts SJ"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Recitation 12
+
+First, we return to the Glewwe (2016) paper from last week.
+
+```{r}
+library(rio)
+library(lmtest)
+library(sandwich)
+```
+
+## Load the data
+```{r}
+load("glewwe_cleaned.Rdata")
+```
+
+Table 1 descriptive statistics
+```{r}
+i8.subset<- subset(basicinfo, ittsamp8==TRUE)
+i8.subset.badvision <- subset(i8.subset, badvision==TRUE)
+i9.subset <- subset(basicinfo, ittsamp9==TRUE)
+i9.subset.badvision <- subset(i9.subset, badvision==TRUE)
+```
+
+A few things in Table 1. Here we get the first four entries in the third column.
+```{r}
+nrow(i8.subset)
+sum(i8.subset$badvision, na.rm=TRUE)
+sum(!i8.subset.badvision$glsbefor)
+sum(i8.subset.badvision$glsbefor)
+```
+And here we get the first four entries in the sixth column.
+```{r}
+nrow(i9.subset)
+sum(i9.subset$badvision, na.rm=TRUE)
+sum(!i9.subset.badvision$glsbefor)
+sum(i9.subset.badvision$glsbefor)
+```
+
+Now we move to Table 3. 
+```{r}
+county1 <- subset(basicinfo, countycode==1 & ittsamp8 == 1)
+county1.treated <- subset(county1, trttown == 1)
+county1.control <- subset(county1, trttown == 0)
+mean(county1.treated$sdchi04s2, na.rm=TRUE)
+mean(county1.control$sdchi04s2, na.rm=TRUE)
+```
+
+Is this difference significant?
+```{r}
+county1.clean <- na.omit(county1[c("sdchi04s2", "trttown", "schoolid", "townid")])
+model1a <- lm(sdchi04s2 ~ trttown, county1.clean)
+summary(model1a)
+```
+
+But up until now we have assumed that the units are independent and that the 
+variance is homoskedastic. Write out the matrix. What are the assumptions
+involved? 
+
+```{r}
+vcov.basic <- vcov(model1a)
+vcov.basic
+coeftest(model1a, vcov.basic)
+```
+
+How does the CV1 matrix fix the issue?
+```{r}
+vcov.cl.cv1 <- vcovCL(model1a, cluster=~schoolid)
+coeftest(model1a, vcov.cl.cv1)
+```
+
+What about the CV3 matrix? Recall how the matrix is different.
+```{r}
+vcov.cl.cv3 <- vcovCL(model1a, cluster=~schoolid, type="HC3")
+coeftest(model1a, vcov.cl.cv3)
+```
+
+Asymptotics gave us one answer. Now bootstrapping will give us another
+answer.
+First, we run the basic linear model again to test for the impact of
+treatment assignment on Chinese test scores.
+
+```{r}
+# run the model; save the residuals and the fitted y values
+model1b <- lm(sdchi04s2 ~ trttown, county1.clean)
+wc.df <- county1.clean
+wc.df$ehat <- residuals(model1b)
+wc.df$yhat <- fitted(model1b)
+```
+
+Next, we implement the algorithm from slide 31 of the resampling deck.
+```{r}
+wild <- function(wc.df, hc.type) {
+  # draw one z variable from each school 
+  schoolids <- unique(wc.df$schoolid)
+  zvalues <- sample(c(-1,1), length(schoolids), replace=TRUE)
+  school.df <- data.frame(schoolid=schoolids, z=zvalues)
+  
+  # and assign it back to the data frame
+  wcb.df <- merge(wc.df, school.df, by=c("schoolid"))
+  wcb.df$ebhat <- wcb.df$z * wcb.df$ehat
+  wcb.df$ybhat <- wcb.df$yhat + wcb.df$ebhat
+  
+  # run the regression
+  model.b <- lm(ybhat ~ trttown, wcb.df)
+  
+  # get our cluster-adjusted standard errors
+  se.b <- sqrt(diag(vcovCL(model.b, cluster=wcb.df$schoolid, type=hc.type)))
+  ttest.b <- coef(model.b) / se.b
+  
+  ttest.b
+}
+```
+
+Now we run the bootstrap 500 times.
+```{r}
+B <- 500
+tstats <- matrix(NA, nrow=B, ncol=2)
+
+start_time = Sys.time()
+for(b in 1:B) {
+  tstats[b,] <- wild(wc.df,type="HC3")
+}
+end_time = Sys.time()
+
+elapsed = end_time - start_time
+```
+
+Graph the bootstrapped t-statistic distribution
+for the `trttown` variable.
+
+```{r}
+betahat <- coef(model)
+se0.cv1 <- sqrt(diag(vcovCL(model1b, cluster=wc.df$schoolid, type="HC1")))
+tstat.cv1 <- betahat / se0.cv1
+se0.cv3 <- sqrt(diag(vcovCL(model1b, cluster=wc.df$schoolid, type="HC3")))
+tstat.cv3 <- betahat / se0.cv3
+list(tstat.cv1=tstat.cv1, tstat.cv3=tstat.cv3)
+```
+
+Here is the distribution of bootstrapped t-statistics. We use
+it to find the power of the t-statistic that we obtained
+from the cluster-robust estimator above. 
+
+```{r}
+library(ggplot2)
+tstats.df <- data.frame(tstats)
+colnames(tstats.df) <- c("Beta0", "Beta1")
+ggplot(tstats.df) + geom_density(aes(Beta1)) +
+  ggtitle("Beta1 (Trttown) T-Stat") +
+  geom_vline(xintercept=tstat[2], color="red")
+```
+
+Now we can compute a p-value for trttown.
+This matches the first line of Table 3. Note that we
+did not have to use any distributional assumptions.
+```{r}
+p_value_cv1 <- sum(tstats[,2] > tstat.cv1[2])/500
+p_value_cv3 <- sum(tstats[,2] > tstat.cv3[2])/500
+list(p_value_cv1=p_value_cv1, p_value_cv3=p_value_cv3)
+```
+
+How do this faster? Two approaches.
+The first uses parallel processing in R.
+```{r}
+# setup for parallel processing
+library(foreach)
+library(future)
+library(doFuture)
+plan(multisession)
+library(doRNG)
+registerDoFuture()
+registerDoRNG() 
+```
+
+```{r}
+start_time = Sys.time()
+B <- 1000
+tstats.parallel <- foreach(b = 1:B, .combine=rbind) %dopar% {
+  wild(wc.df=wc.df, type="HC3") 
+}
+end_time = Sys.time()
+elapsed.parallel <- end_time - start_time
+```
+
+Recalculate the p-values with a finer curve.
+
+```{r}
+p_value_cv1_parallel <- sum(tstats.parallel[,2] > tstat.cv1[2])/1000
+p_value_cv3_parallel <- sum(tstats.parallel[,2] > tstat.cv3[2])/1000
+list(p_value_cv1_parallel=p_value_cv1_parallel, 
+     p_value_cv3_parallel=p_value_cv3_parallel)
+```
+
+```{r}
+library(fwildclusterboot)
+```
+
+```{r}
+boot.11 <- boottest(model1b, B=9999, param="trttown", clustid=c("schoolid"),
+                 engine="R", bootstrap_type = "fnw11")
+summary(boot.11)
+```
+
+```{r}
+boot.13 <- boottest(model1b, B=9999, param="trttown", clustid=c("schoolid"),
+                 engine="R", bootstrap_type = "13")
+summary(boot.13)
+```
+
+
