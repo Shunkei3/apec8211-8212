@@ -1,0 +1,337 @@
+---
+title: "Replicate: Glewwe et al. (2016)"
+author: "Shunkei Kakimoto"
+output:
+  html_document:
+    number_sections: yes
+    theme: cerulean
+    toc_float: yes
+    toc: yes
+    toc_depth: 4
+geometry: margin=1in
+---
+
+```{r setup, include=FALSE}
+# library(here)
+# here::i_am("")
+
+# opts_knit$set(root.dir = "")
+# opts_knit$set(root.dir = here())
+
+knitr::opts_chunk$set(
+  echo = TRUE,
+  cache = FALSE,
+  comment = NA,
+  message = FALSE,
+  warning = FALSE,
+  tidy = FALSE,
+  cache.lazy = FALSE
+)
+```
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+xaringanExtra::use_clipboard()
+```
+
+<style type="text/css">
+  body{
+  font-size: 12pt;
+}
+</style>
+
+```{r, eval=F, echo=F}
+# httpgd::hgd()
+# httpgd::hgd_browse()
+```
+
+# Objective
++ To replicate some of the tables from "A better vision for development: Eyeglasses and academic performance in rural primary schools in China" by Glewwe et al. (2016) [[here](https://www.sciencedirect.com/science/article/abs/pii/S0304387816300402?casa_token=IfEDnZXp-WcAAAAA:5xgI0-rX4NlO2jg3nBIOGAZdzan3qIqWS0XSyzLMwQE4AzqbeERSS7zr_SwKi631r5nCs9Lf)] and use wild cluster bootstrap.
+
+
+# Data
+
+First, run this code chunk. 
+
+```{r}
+# === Package === #
+library(data.table)
+library(dplyr)
+library(sandwich)
+library(rio)
+library(stargazer)
+library(foreach)
+
+# === Load the data === #
+load("data/glewwe_cleaned.Rdata")
+data <- data.table(basicinfo)
+
+# --- Select the compliant sample --- #
+data <- data[ittsamp8==1,]
+```
+
+## Variables
++ `countycode`: takes 1 for County 1, and 2 for County 2. 
++ `badvision`: takes 1 if the student had bad vision, and 0 for the student with good vision. 
++ `trttown`: Treatment indicator. `trttown` takes 1 if the student belongs to a school in the treated townships, 0 otherwise. 
++ `chinese04s2`, `math04s2`, `science04s2`: Exam scores on Chinese, math and science  before the program (2003-04 school year)
++ `chinese05s2`, `math05s2`, `science05s2`: Exam scores on Chinese, math and science  before the program (2004-05 school year)
++ `sdchi04s2`, `sdmat04s2`, `sdsci04s2` : Standardized test scores before the program.  
++  `sdchi05s2`, `sdmat05s2`, `sdsci05s2` : Standardized test scores before the program
+
+
++  "To ease interpretation, all estimates in this paper use test scores that are standardized by subtracting the control school's mean and dividing by the control schools' (student level) standard deviation, separately for each subject and grade." (p173)
+
+
+
+# Table 1: Descriptive statistics for 25 "compliant" townships
+
+```{r}
+#/*--------------------------------*/
+#' ## Table 1 (25 compliant townships)
+#/*--------------------------------*/
+# === 1. The number of children by county === #
+row1 <- data[, .(count = .N), by=countycode]
+
+county1 <- data[countycode==1, ]
+county2 <- data[countycode==2, ]
+
+nrow()
+
+print(row1[order(countycode),])
+
+# === 2. The number of Children with vision problem === #
+row2 <- data[,.(count=.N), by=.(countycode, badvision)]
+
+print(row2[order(countycode),])
+
+# --- report of the percentage  --- #
+# row2 <- subdata[,.(count=.N), by=.(countycode, badvision)] %>%
+# 	.[,county_pop := sum(count), by=countycode] %>%
+# 	.[, frac := count/county_pop*100] %>%
+# 	.[badvision==1,]
+# row2
+
+# === 3. The number of students with bad vision by whether the student has glasses or not. === #
+row3 <- 
+	data[badvision==1, .(count=.N), by=.(countycode, glsbefor)]
+
+print(row3[order(countycode, -glsbefor),])
+
+# === Mean pre-test scores by student's vision status === #
+row4_5 <- 
+	data[,.(
+		avg_chinease = round(mean(chinese04s2, na.rm=TRUE),1),
+		avg_math = round(mean(math04s2, na.rm=TRUE),1),
+		avg_science = round(mean(science04s2, na.rm=TRUE),1)
+		), by=.(countycode, badvision)]
+
+print(row4_5[order(countycode, badvision),])
+```
+
+
+# Table 3 (for County 1)
+
+Let's check whether the treatment and control townships in the compliant sample are similar or not.
+
+For example, is there any significant pre-program difference in the standardized scores on Chinese exam between the treatment and control groups?
+
+## Mean difference
+
+```{r, results="asis"}
+# We only look at data of County 1
+cty1 <- data[countycode==1,]
+
+#/*--------------------------------*/
+#' ## Mean difference
+#/*--------------------------------*/
+# --- manual --- #
+chi_trt <- mean(cty1[trttown==1, sdchi04s2], na.rm=TRUE)
+chi_cltr <- mean(cty1[trttown==0, sdchi04s2], na.rm=TRUE)
+
+chi_trt - chi_cltr
+
+# --- Regression --- #
+ch_reg0 <- lm(sdchi04s2~trttown, data=cty1)
+coef(ch_reg0)[["trttown"]]
+```
+
+
+
+## Inference
+
+For inference, we consider 
+
++ Naive asymptomatic inference
++ Asymptomatic inference with hete-robust se
++ Asymptomatic inference with cluster-robust se
++ Restricted Wild bootstrap
++ Wild cluster restricted bootstrap
+
+to compute the p-value.
+
+### Asymptotic inference
+
+```{r}
+#/*--------------------------------*/
+#' ## Inference
+#/*--------------------------------*/
+# Run regression with fixed effects
+reg <- lm(sdchi04s2~trttown+factor(schoolid), data=cty1)
+
+# === Naive === #
+se <- sqrt(diag(vcov(reg)))
+t_value <- coef(reg)[["trttown"]]/se[["trttown"]]
+p_value <- 2*(1 - pnorm(abs(t_value)))
+
+
+# === With hete-robust se === #
+se_het <- sqrt(diag(vcovHC(reg, type="HC3")))
+t_value_het <- coef(reg)[["trttown"]]/se_het[["trttown"]]
+p_value_het <- 2*(1 - pnorm(abs(t_value_het)))
+
+
+# /*===== With cluster-robust se =====*/
+# the number of township
+length(unique(cty1$townid))
+
+se_cl <- sqrt(diag(vcovCL(reg, cluster= ~ townid, type = "HC1")))
+t_value_cl <- coef(reg)[["trttown"]]/se_cl[["trttown"]]
+p_value_cl <- 2*(1 - pnorm(abs(t_value_cl)))
+```
+
+
+
+### WCR Bootstrap
+
+Let's get the p-value with the Wild cluster restricted bootstrap. 
+
+
+<span style="color:blue">**Step 0:**</span>
+
+```{r, eval=T}
+# /*===== Preparation =====*/
+# for simplicity, prepare a regression data that only contains the variables to run the regression.
+reg_dt <- 
+	cty1[,.(sdchi04s2, trttown, schoolid, townid)] %>%
+	na.omit()
+```
+
+<br>
+
+First, Regress Y on X and calculate t_hat (we already did this part). 
+
++ include school random effects
++ cluster by township
+
+```{r, eval=T}
+# === Unrestricted regression === #
+reg <- lm(sdchi04s2 ~ trttown, data=reg_dt)
+se_cl <- sqrt(diag(vcovCL(reg, cluster= ~ townid, type = "HC3")))
+t_value_cl <- coef(reg)[["trttown"]]/se_cl[["trttown"]]
+```
+
+<br>
+
+Next, regress $Y$ on $X_{-j}$ (i.e., imposing $H_0$) to get $\beta_{-j}$ and the residuals $\hat{e}_g$.
+
+```{r, eval=T}
+# === Restricted regression: Regress Y on X_{-j}   === #
+reg_restrict <- lm(sdchi04s2 ~ 1, data=reg_dt)
+
+# save the residuals and cluster id (townid) for later
+reg_dt[,`:=`(
+	y_hat = fitted(reg_restrict),
+	e_hat = resid(reg_restrict)
+	)]
+```
+
+
+```{r, eval=F}
+# the number of clusters
+g_num <- length(unique(reg_dt$townid))
+
+
+# === Set up for parallel processing === #
+library(future)
+library(doFuture)
+plan(multisession, workers=availableCores()-1)
+library(doRNG)
+
+registerDoFuture()
+registerDoRNG(seed=82122020)
+
+# --- bootstrap iterations --- #
+B=4999
+
+t_wild_b <- 
+	foreach(i=1:B, .combine="c")%dopar%{
+		
+		# /*===== Step 1: Generate e_b =====*/
+		z_b <- sample(c(-1,1), g_num, prob=c(0.5,0.5), replace=TRUE)
+		
+		z_dt <- 
+			data.frame(
+				townid=unique(reg_dt$townid),
+				z_b=z_b
+			)
+		
+		# --- Merge e_hat_dt and e_hat_b ---
+		reg_dt_b <- merge(reg_dt, z_dt, by="townid")
+
+		# --- Multiply the residuals by Rademacher random variable (z_b)  --- #
+		reg_dt_b <- reg_dt_b[, e_b := z_b*e_hat]
+
+		# /*===== Step 2: Generate y_b with new residuals e_b =====*/
+		reg_dt_b <- reg_dt_b[, y_b := y_hat + e_b]
+		
+		# /*===== Step 3: Estimate the model  =====*/
+		reg_b <- lm(y_b ~ trttown, data=reg_dt_b)
+
+		# /*===== Step 4: Compute t-value =====*/
+		se_b <- sqrt(diag(vcovCL(reg_b, cluster= ~ schoolid, type = "HC3")))
+		t_b <- coef(reg_b)[["trttown"]]/se_b[["trttown"]]
+		t_b
+	}
+
+
+p_value_wcrb <- sum(t_wild_b > t_value_cl)/B
+print(p_value_wcrb)
+```
+
+
+```{r}
+vis_ data <- 
+	data.table(
+		t_wild_b = t_wild_b,
+		) 
+
+hist(t_wild_b)
+abline(v=t_value_cl, col="blue")
+```
+
+
+
+### Fastest WCRB
+```{r}
+library(fwildclusterboot)
+boot_lm <- 
+	boottest(
+  	reg, 
+  	clustid = "townid",
+  	param = "trttown",
+  	B = B,
+  	R = 1,
+  	r = 0
+)
+```
+
+
+### With random fixed effects
+
+```{r}
+# === Random fixed effects === #
+library(lme4)
+reg <- lmer(sdchi04s2 ~ trttown + (1 | schoolid), data = reg_dt)
+coef_beta <- unique(coef(reg)$schoolid[,"trttown"])
+se_cl <- sqrt(diag(vcovCL(reg, cluster= ~ townid, type = "HC3")))
+```

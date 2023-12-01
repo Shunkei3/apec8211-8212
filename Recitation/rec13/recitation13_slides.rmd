@@ -1,0 +1,204 @@
+---
+title: "APEC8212: Recitation 13"
+author: 
+  - "Shunkei Kakimoto" 
+header-includes:
+   - \usepackage{mathtools}
+   - \usepackage{color}
+   - \usepackage{amsmath}
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    css: ../xaringan-themer.css 
+    lib_dir: libs
+    nature: 
+      highlightStyle: github
+      highlightLines: true
+---
+class: middle
+
+```{r, child = '../setup.rmd', cache = FALSE}
+```
+
+```{r xaringan-scribble, echo=FALSE}
+xaringanExtra::use_scribble()
+```
+
+
+```{r setup, include=FALSE, cache = FALSE, eval=F}
+options(htmltools.dir.version = FALSE)
+
+# /*===== Reference =====*/
+suppressMessages(library(RefManageR))
+
+BibOptions(
+  check.entries = FALSE,
+  bib.style = "authoryear",
+  style = "markdown",
+  hyperlink = FALSE,
+  dashed = TRUE,
+  max.names = 2,
+  longnamesfirst = FALSE
+)
+bib <- ReadBib("cite.bib")
+```
+
+```{r, include = F, cache = FALSE}
+library(data.table)
+library(ggplot2)
+library(dplyr)
+library(gganimate)
+library(gifski)
+library(gganimate)
+# library(learnr)
+```
+
+```{r, include = F, eval=F, cache = FALSE}
+httpgd::hgd()
+httpgd::hgd_browse()
+```
+
+```{r xaringan-tachyons, echo=FALSE}
+xaringanExtra::use_tachyons()
+```
+
+
+.content-box-green[**A Useful tip:**]
+
+hitting letter "o" key will give you a panel view of the slides
+
+---
+class: middle
+
+# Outline
+1.[Review panel data analysis](#Resampling)
+
+2.[Implementation with R](#R)
+
+2. [Code review for assignment 7](#code)
+
+???
++ Okay, today, we gonna do a quick review of resampling methods, and do one exercise problem. The exercise problem is from last year's final exam. 
+
+---
+class: inverse, center, middle
+name: Resampling
+
+# Panel data analysis
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+class: middle
+
+# Panel (longitudinal) Data
+
+.content-box-green[**Definition**]
+
+Data follows the same individuals, families, firms, cities, states or whatever, across time
+
+<br>
+
+.content-box-green[**Example**]
+
++ Randomly select people from a population at a given point in time
++ Then the same people are re-interviewed at several subsequent points in time, which would result in data on wages, hours, education, and so on, for the same group of people in different years.
+
+???
++ As you know, panel data follows the same individuals...
++ With panel data, you can address the issues that cannot be studied using time series or cross-sectional data alone
+  * For example, you can control unobserved individual heterogeneity  
+
+---
+class: middle
+
+.content-box-green[**Central Question**]
+
+Can we do anything to deal with endogeneity problem taking advantage of the panel data structure?
+
+
+---
+class: middle
+
+# One-way error component model
+
+$$Y_{it} = X_{it}^{\prime} \beta + \color{blue}{e_{it}}$$
+
+<p style="text-align: center;">&darr;</p>
+
+$$Y_{it} = X_{it}^{\prime} \beta + \color{blue}{u_{i} + \varepsilon_{it}}$$
+
++ $u_{i}$: a (time-invariant unobserved) individual-specific effect 
++ $\varepsilon_{it}$: idiosyncratic errors 
+
+
+???
+
+---
+# Random effect model
+
+$$Y_{it} = X_{it}^{\prime} \beta + \color{blue}{u_{i} + \varepsilon_{it}}$$
+
+---
+# Fixed effect model
+
+[Mundlak (1961)](https://www.jstor.org/stable/1235460)
+
+$$Y_{it} = X_{it}^{\prime} \beta + \color{blue}{u_{i} + \varepsilon_{it}}$$
+
++ $u_{i}$: an individual-specific effect 
+
+.content-box-red[**Assumption**]
+
+
+
+within-transformation or demeaning.
+
+---
+class: middle
+
+Lots of interesting discussions on fixed effects estimation for causal inference are going on. For example, 
+
+[Imai and Kim (2019)](https://onlinelibrary.wiley.com/doi/abs/10.1111/ajps.12417)
+
+[Imai and Kim (2021)](https://www.cambridge.org/core/journals/political-analysis/article/abs/on-the-use-of-twoway-fixed-effects-regression-models-for-causal-inference-with-panel-data/F10006D0210407C5F9C7CAC1EEE3EF0D)
+
+[Millimet and Bellemare (2023)](https://docs.iza.org/dp16202.pdf)
+
+In the context of climate economics, 
+
+[Blanc and Schlenker (2017)](https://www.journals.uchicago.edu/doi/abs/10.1093/reep/rex016?journalCode=reep)
+
+???
++ Okay, these are the very basic knowledge about fixed effect estimations, but 
++ Causal inference is all about the question of how to credibly estimate the counterfactual outcomes through the comparison of treated and control observations
+
+
+
+---
+
+.content-box-green[**Summary**]
+
++ As long as the omitted variable that affects both the dependent and independent variables are constant over time (time-invariant), then using only the variations over time (ignoring variations across cross-sectional units) can eliminate the omitted variable bias
+
++ First-differencing the data and then regressing changes on changes does the trick of ignoring variations across cross-sectional units
+
++ Of course, first-differencing is possible only because the same cross-sectional units are observed multiple times over time.
+
+---
+class: inverse, center, middle
+name: intro
+
+# RE and FE estimation with R
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+---
+
+
+
+
+---
+
+
+
+

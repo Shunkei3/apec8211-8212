@@ -12,6 +12,7 @@ library(rio)
 library(lmtest)
 library(sandwich)
 load("glewwe_cleaned.Rdata")
+load("data/glewwe_cleaned.Rdata")
 ```
 
 
@@ -61,7 +62,7 @@ treatment assignment on Chinese test scores.
 
 ```{r}
 # set up the data frame
-wc.df <- county1.clean[c("sdchi04s2", "trttown", "schoolid")]
+wc.df <- county1.clean[c("sdchi04s2", "trttown", "schoolid", "townid")]
 
 # run the model; save the residuals and the fitted y values
 model <- lm(sdchi04s2 ~ trttown, wc.df)
@@ -72,6 +73,7 @@ wc.df$yhat <- fitted(model)
 Next, we implement the algorithm from slide 31 of the resampling deck.
 ```{r}
 wild <- function(wc.df) {
+  # wc.df
   # draw one z variable from each school 
   schoolids <- unique(wc.df$schoolid)
   zvalues <- sample(c(-1,1), length(schoolids), replace=TRUE)
@@ -91,10 +93,38 @@ wild <- function(wc.df) {
   
   ttest.b
 }
+
+
+wild_c <- function(wc.df) {
+  # wc.df
+  # draw one z variable from each school 
+  townids <- unique(wc.df$townid)
+  zvalues <- sample(c(-1,1), length(townid), replace=TRUE)
+  townid.df <- data.frame(townid=townids, z=zvalues)
+  
+  # and assign it back to the data frame
+  wcb.df <- merge(wc.df, townid.df, by=c("townid"))
+  wcb.df$ebhat <- wcb.df$z * wcb.df$ehat
+  wcb.df$ybhat <- wcb.df$yhat + wcb.df$ebhat
+  
+  # run the regression
+  model.b <- lm(ybhat ~ trttown, wcb.df)
+  
+  # get our cluster-adjusted standard errors
+  se.b <- sqrt(diag(vcovCL(model.b, cluster=wcb.df$townid, type="HC3")))
+  ttest.b <- coef(model.b) / se.b
+  
+  ttest.b
+}
+
+
+
 ```
 
 Now we run the bootstrap 500 times.
 ```{r}
+wild(wc.df)
+
 B <- 500
 tstats <- matrix(NA, nrow=B, ncol=2)
 for(b in 1:B) {
