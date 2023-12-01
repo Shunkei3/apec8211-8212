@@ -5547,7 +5547,6 @@ slides &gt; slide {
 
 
 
-
 .content-box-green[**A Useful tip:**]
 
 hitting letter &quot;o&quot; key will give you a panel view of the slides
@@ -5591,53 +5590,152 @@ Data follows the same individuals, families, firms, cities, states or whatever, 
 
 ???
 + As you know, panel data follows the same individuals...
-+ With panel data, you can address the issues that cannot be studied using time series or cross-sectional data alone
-  * For example, you can control unobserved individual heterogeneity  
+
+---
+class: middle
+
+Panel data have several attractive features: 
+
+&lt;span style=&quot;color:blue&quot;&gt;Kennedy (2008)&lt;/span&gt;:
+
+&gt; 1. Panel data can be used to deal with heterogeneity in the micro units...
+&gt; 2. Panel data create more variability, through combining variation across micro units with variation over time,..... With this more informative data, more efficient estimation is possible. 
+&gt; 3. ...
+&gt; 4. Panel data allow better analysis of dynamic adjustment while cross-sectional data can tell us nothing about dynamics and time series data need to be very lengthy to provide good estimates of dynamic behavior .... Panel data avoid the need for a lengthy time series by exploiting information on the dynamic reactions of each of several units. 
+
+???
+
++ With panel data, we can do lots of things that cross-sectional or time-series data cannot do. 
++ For example, we can address the problem of omitted variable bias by controlling for cross-sectional heterogeneity that might correlated with our key variables
++ Also, in addition to cross-sectional variation, temporal variation in panel data leads to more efficient estimation, and so on... 
 
 ---
 class: middle
 
 .content-box-green[**Central Question**]
 
-Can we do anything to deal with endogeneity problem taking advantage of the panel data structure?
+Is there anything we can do to deal with endogeneity problem taking advantage of the panel data structure?
 
 
 ---
 class: middle
 
 # One-way error component model
-
+Instead of this model, 
 `$$Y_{it} = X_{it}^{\prime} \beta + \color{blue}{e_{it}}$$`
 
 &lt;p style=&quot;text-align: center;&quot;&gt;&amp;darr;&lt;/p&gt;
-
+We use this model, 
 `$$Y_{it} = X_{it}^{\prime} \beta + \color{blue}{u_{i} + \varepsilon_{it}}$$`
 
-+ `\(u_{i}\)`: a (time-invariant unobserved) individual-specific effect 
++ `\(u_{i}\)`: an (time-invariant unobservable) individual-specific effect 
+  * e.g., ability of individual `\(i\)`
 + `\(\varepsilon_{it}\)`: idiosyncratic errors 
 
 
+.content-box-green[**Idea:**]
+
++ We model each `\(u_i\)` as a different intercept for each cross-sectional unit.
+  * Random effects model
+  * Fixed effects model 
+
 ???
++ This motivates the one-way error component model. 
++ Now we decomposes the error term `\(e_{it}\)` into the two parts, which are individual-specific effect and an idiosyncratic errors. 
++ The idea is that we want to model each `\(u_i\)` as a different intercept for each cross-sectional unit. There are mainly two modeling approach to do this. 
 
 ---
+class: middle
+
 # Random effect model
 
 `$$Y_{it} = X_{it}^{\prime} \beta + \color{blue}{u_{i} + \varepsilon_{it}}$$`
 
+
+
 ---
+class: middle
+
 # Fixed effect model
 
 [Mundlak (1961)](https://www.jstor.org/stable/1235460)
 
 `$$Y_{it} = X_{it}^{\prime} \beta + \color{blue}{u_{i} + \varepsilon_{it}}$$`
 
-+ `\(u_{i}\)`: an individual-specific effect 
++ Now, we assume that `\(u_{i}\)` is correlated with `\(X_{it}\)`. Then, `\(u_{i}\)` is called a **fixed effect**,
+
+.content-box-green[**Idea:**]
++ Put in a dummy for each individual and run OLS (this is called least squares dummy variables, LSDV) 
+  * This allows for each individual to have a different intercept. 
++ Algebraically, this is equivalent to within-transformation (i.e., subtracting the individual-specific mean from the variables). 
+
+
+???
++ These individual dummies absorb whatever individual specific effects, therefore it immunes to omitted variable bias. 
+
+
+---
+class: middle
+
+# Fixed effect model
+
+[Mundlak (1961)](https://www.jstor.org/stable/1235460)
+
+`$$Y_{it} = X_{it}^{\prime} \beta + \color{blue}{u_{i} + \varepsilon_{it}}$$`
+
++ Now, we assume that `\(u_{i}\)` is correlated with `\(X_{it}\)`. Then, `\(u_{i}\)` is called a **fixed effect**,
+
+.content-box-green[**Idea:**]
++ Put in a dummy for each individual and run OLS (this is called least squares dummy variables, LSDV) 
+  * This allows for each individual to have a different intercept. 
++ Algebraically, this is equivalent to within-transformation (i.e., subtracting the individual-specific mean from the variables). 
+
+&lt;br&gt;
+
+.content-box-green[**Drawback:**]
++ By including bunch of individual dummies, we loss lots of degree of freedom &amp;rarr; inefficient estimate
++ We cannot estimate the coefficients on time-invariant variables (e.g., gender, race, or religion)
+
+???
++ Meanwhile, there are some drawbacks. By including bunch of individual dummies, we loss lots of degree of freedom. For example, if we have 1000 dummies, then we lose 999 degrees of freedom. So, compared to the RE model, FE models are inefficient. 
++ Also, since within-transformation wipes out any time-invariant factors, so fixed effects model does not allow us to estimate coefficients on time-invariant variables such as gender, race, or religion. This might be a problematic, if you are interested in measuring discrimination. 
++ but we can recover the such coefficients using IV estimator, which will be covered in the next semester. 
+
+---
+class: middle
+
+## Critical assumption for the unbiasedness of FE estimator
 
 .content-box-red[**Assumption**]
 
+Strict exogeneity:
+`$$E[\varepsilon_{it}|\mathbf{X}_{it}]=0$$`
 
+**Verbally**: The idiosyncratic errors is mean independent of all explanatory variables in all time period. 
 
-within-transformation or demeaning.
+---
+class: middle
+
+## Critical assumption for the unbiasedness of FE estimator
+
+.content-box-red[**Assumption**]
+
+Strict exogeneity:
+`$$E[\varepsilon_{it}|\mathbf{X}_{it}]=0$$`
+
+**Verbally**: The idiosyncratic errors is mean independent of all explanatory variables in all time period. 
+
+&lt;br&gt;
+
+.content-box-green[**Question:**]
+
+---
+class: middle
+
+# Dynamic panel models
+
+Don&#39;t worry, we will learn the details in APEC 8213. 
+
 
 ---
 class: middle
@@ -5650,13 +5748,22 @@ Lots of interesting discussions on fixed effects estimation for causal inference
 
 [Millimet and Bellemare (2023)](https://docs.iza.org/dp16202.pdf)
 
+&lt;br&gt;
+
 In the context of climate economics, 
 
 [Blanc and Schlenker (2017)](https://www.journals.uchicago.edu/doi/abs/10.1093/reep/rex016?journalCode=reep)
 
 ???
-+ Okay, these are the very basic knowledge about fixed effect estimations, but 
++ Okay, these are very basic econometric facts about fixed effect estimations. Fixed effect estimation can remove any time-invariant unobserved individual specific-effects, therefore it is immune to the endogeneity problem. Great. But this is a truly theoretical point of view. 
++ From the application point of view, I feel like we need to think more carefully about the operation that the fixed effect is implicitly invoking. 
++ I feel like this, because there are lots of interesting discussion about fixed effect estimator are going on in recent years. 
++ For longer time period, say 20 years, time-invariant factors that we assume might not be actually time-invariant. For example, people&#39;s preference.
+
 + Causal inference is all about the question of how to credibly estimate the counterfactual outcomes through the comparison of treated and control observations
+
++ For example, after the within-transformation, what kind of variations are left? Is it the variation what we want or not?
++ In the context of climate economics, fixed effect model has been used a lot utilizing the exogeneity of the realization of weather. But, within-transformation, in other words, demeaning  the means   the main goal is to understand the correct damage function of climate to project what would be the future impact of climate change. 
 
 
 
