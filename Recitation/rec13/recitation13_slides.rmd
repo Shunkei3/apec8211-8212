@@ -70,18 +70,13 @@ hitting letter "o" key will give you a panel view of the slides
 class: middle
 
 # Outline
-1.[Review panel data analysis](#Resampling)
+1.[Review panel data analysis](#panel)
 
-2.[Implementation with R](#R)
-
-2. [Code review for assignment 7](#code)
-
-???
-+ Okay, today, we gonna do a quick review of resampling methods, and do one exercise problem. The exercise problem is from last year's final exam. 
+2.[Panel estimation with R](#R)
 
 ---
 class: inverse, center, middle
-name: Resampling
+name: panel
 
 # Panel data analysis
 
@@ -243,6 +238,28 @@ $$E[\varepsilon_{it}|\mathbf{X}_{it}]=0$$
 <br>
 
 .content-box-green[**Question:**]
++ 
+
+
+---
+class: middle
+
+## Fixed effects estimator vs Differenced estimator
+
+.content-box-green[**Differenced estimator**]
+
+
+Supplement of slides 22 in Lecture note on panel data:
+
+The relative efficiency of FE and FD estimators depend on the degree of serial correlation in the idiosyncratic errors ($Corr(\varspsilon_{i,t}, \varspsilon_{i,t-1})$).
+
++ If the errors are serially uncorrelated ($Corr(\varspsilon_{i,t}, \varspsilon_{i,t-1})=0$), the FE estimator is more efficient
++ If the errors follow a random walk, the FD estimator is more efficient. 
+
+
+???
++ Fixed effects estimator is 
+
 
 ---
 class: middle
@@ -270,7 +287,7 @@ In the context of climate economics,
 [Blanc and Schlenker (2017)](https://www.journals.uchicago.edu/doi/abs/10.1093/reep/rex016?journalCode=reep)
 
 ???
-+ Okay, these are very basic econometric facts about fixed effect estimations. Fixed effect estimation can remove any time-invariant unobserved individual specific-effects, therefore it is immune to the endogeneity problem. Great. But this is a truly theoretical point of view. 
++ Okay, these are very basic econometric facts about fixed effects estimations. Fixed effect estimation can remove any time-invariant unobserved individual specific-effects, therefore it is immune to the endogeneity problem. Great. But this is a truly theoretical point of view. 
 + From the application point of view, I feel like we need to think more carefully about the operation that the fixed effect is implicitly invoking. 
 + I feel like this, because there are lots of interesting discussion about fixed effect estimator are going on in recent years. 
 + For longer time period, say 20 years, time-invariant factors that we assume might not be actually time-invariant. For example, people's preference.
@@ -281,30 +298,104 @@ In the context of climate economics,
 + In the context of climate economics, fixed effect model has been used a lot utilizing the exogeneity of the realization of weather. But, within-transformation, in other words, demeaning  the means   the main goal is to understand the correct damage function of climate to project what would be the future impact of climate change. 
 
 
-
----
-
-.content-box-green[**Summary**]
-
-+ As long as the omitted variable that affects both the dependent and independent variables are constant over time (time-invariant), then using only the variations over time (ignoring variations across cross-sectional units) can eliminate the omitted variable bias
-
-+ First-differencing the data and then regressing changes on changes does the trick of ignoring variations across cross-sectional units
-
-+ Of course, first-differencing is possible only because the same cross-sectional units are observed multiple times over time.
-
 ---
 class: inverse, center, middle
-name: intro
+name: R
 
-# RE and FE estimation with R
+# Panel estimation with R
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
----
-
-
-
 
 ---
+class: middle
+
+In the class we use `plm` package. 
+
+```{r, eval=FALSE}
+# === Install R package === #
+install.packages("plm")
+```
+
+<br>
+
+.content-box-green[**Other options:**]
+
++ `feols()` function from `fixest` package 
+
+---
+class: middle 
+
+## Preparation
+
+```{r}
+library(plm)
+
+# === Load Data === #
+library(stargazer)
+library(AER)
+data(Fatalities)
+# --- data.table (you don't need to) --- #
+setDT(Fatalities)
+```
+
+```{r, eval=F}
+# === Take a look at the data === #
+head(Fatalities)
+# === See the information about the data  === #
+?Fatalities
+```
+
+Define the traffic fatality rate, measured as the number of fatalities per 10000 inhabitants. 
+```{r}
+# --- Define the fatality rate --- #
+Fatalities[,fatal_rate:= fatal/pop*10000]
+# or you can do with 
+# Fatalities$fatal_rate <- Fatalities$fatal/Fatalities$pop * 10000
+```
+
+---
+class: middle
+
+.content-box-green[**General syntax:**]
+
+**Step1**: Use `pdata.frame()` to tell R that the data is panel data. 
+
+```{r}
+panel_fatalities <- pdata.frame(Fatalities, index=c("state", "year"))
+```
+ + In `index=`, specify which columns indicate the individual and time indexes 
+
+<br>
+
+**Step2**: Use `plm()` to tell R that the data is panel data. 
+
+```{r}
+# Estimate the impact of beer tax (adjusted for 1988 dollars) and the traffic fatality rate
+
+# === Pooled OLS === #
+po_reg <- plm(fatal_rate ~ beertax, data = panel_fatalities, model = "pooling")
+
+# === Random effects model === #
+re_reg <- plm(fatal_rate ~ beertax, data = panel_fatalities, model = "random")
+
+# === Fixed effects model === #
+fe_reg <- plm(fatal_rate ~ beertax, data = panel_fatalities, model = "within")
+
+# === First difference === #
+fe_reg <- plm(fatal_rate ~ beertax, data = panel_fatalities, model = "fd")
+```
+
+
+---
+class: middle
+
+```{r}
+
+```
+
+
+
+
 
 
 
