@@ -157,15 +157,6 @@ $$Y_{it} = X_{it}^{\prime} \beta + \color{blue}{u_{i} + \varepsilon_{it}}$$
 ---
 class: middle
 
-# Random effect model
-
-$$Y_{it} = X_{it}^{\prime} \beta + \color{blue}{u_{i} + \varepsilon_{it}}$$
-
-
-
----
-class: middle
-
 # Fixed effect model
 
 [Mundlak (1961)](https://www.jstor.org/stable/1235460)
@@ -356,7 +347,7 @@ Fatalities[,fatal_rate:= fatal/pop*10000]
 ---
 class: middle
 
-.content-box-green[**General syntax:**]
+.content-box-green[**Syntax:**]
 
 **Step1**: Use `pdata.frame()` to tell R that the data is panel data. 
 
@@ -382,15 +373,18 @@ re_reg <- plm(fatal_rate ~ beertax, data = panel_fatalities, model = "random")
 fe_reg <- plm(fatal_rate ~ beertax, data = panel_fatalities, model = "within")
 
 # === First difference === #
-fe_reg <- plm(fatal_rate ~ beertax, data = panel_fatalities, model = "fd")
+fd_reg <- plm(fatal_rate ~ beertax, data = panel_fatalities, model = "fd")
 ```
 
 
 ---
 class: middle
 
-```{r}
-
+```{r, results="asis"}
+stargazer(
+  po_reg, re_reg, fe_reg, fd_reg,
+  type="html"
+  )
 ```
 
 

@@ -5655,15 +5655,6 @@ We use this model,
 ---
 class: middle
 
-# Random effect model
-
-`$$Y_{it} = X_{it}^{\prime} \beta + \color{blue}{u_{i} + \varepsilon_{it}}$$`
-
-
-
----
-class: middle
-
 # Fixed effect model
 
 [Mundlak (1961)](https://www.jstor.org/stable/1235460)
@@ -5858,7 +5849,7 @@ Fatalities[,fatal_rate:= fatal/pop*10000]
 ---
 class: middle
 
-.content-box-green[**General syntax:**]
+.content-box-green[**Syntax:**]
 
 **Step1**: Use `pdata.frame()` to tell R that the data is panel data. 
 
@@ -5886,7 +5877,7 @@ re_reg &lt;- plm(fatal_rate ~ beertax, data = panel_fatalities, model = &quot;ra
 fe_reg &lt;- plm(fatal_rate ~ beertax, data = panel_fatalities, model = &quot;within&quot;)
 
 # === First difference === #
-fe_reg &lt;- plm(fatal_rate ~ beertax, data = panel_fatalities, model = &quot;fd&quot;)
+fd_reg &lt;- plm(fatal_rate ~ beertax, data = panel_fatalities, model = &quot;fd&quot;)
 ```
 
 
@@ -5894,6 +5885,30 @@ fe_reg &lt;- plm(fatal_rate ~ beertax, data = panel_fatalities, model = &quot;fd
 class: middle
 
 
+```r
+stargazer(
+  po_reg, re_reg, fe_reg, fd_reg,
+  type=&quot;html&quot;
+  )
+```
+
+
+&lt;table style=&quot;text-align:center&quot;&gt;&lt;tr&gt;&lt;td colspan=&quot;5&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td colspan=&quot;4&quot;&gt;&lt;em&gt;Dependent variable:&lt;/em&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td colspan=&quot;4&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td colspan=&quot;4&quot;&gt;fatal_rate&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan=&quot;5&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;beertax&lt;/td&gt;&lt;td&gt;0.365&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.052&lt;/td&gt;&lt;td&gt;-0.656&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.014&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;(0.062)&lt;/td&gt;&lt;td&gt;(0.124)&lt;/td&gt;&lt;td&gt;(0.188)&lt;/td&gt;&lt;td&gt;(0.285)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Constant&lt;/td&gt;&lt;td&gt;1.853&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;2.067&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-0.003&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;(0.044)&lt;/td&gt;&lt;td&gt;(0.100)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.012)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan=&quot;5&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Observations&lt;/td&gt;&lt;td&gt;336&lt;/td&gt;&lt;td&gt;336&lt;/td&gt;&lt;td&gt;336&lt;/td&gt;&lt;td&gt;288&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.093&lt;/td&gt;&lt;td&gt;0.001&lt;/td&gt;&lt;td&gt;0.041&lt;/td&gt;&lt;td&gt;0.00001&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.091&lt;/td&gt;&lt;td&gt;-0.002&lt;/td&gt;&lt;td&gt;-0.120&lt;/td&gt;&lt;td&gt;-0.003&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;F Statistic&lt;/td&gt;&lt;td&gt;34.394&lt;sup&gt;***&lt;/sup&gt; (df = 1; 334)&lt;/td&gt;&lt;td&gt;0.175&lt;/td&gt;&lt;td&gt;12.190&lt;sup&gt;***&lt;/sup&gt; (df = 1; 287)&lt;/td&gt;&lt;td&gt;0.002 (df = 1; 286)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan=&quot;5&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan=&quot;4&quot; style=&quot;text-align:right&quot;&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
 
 
 
