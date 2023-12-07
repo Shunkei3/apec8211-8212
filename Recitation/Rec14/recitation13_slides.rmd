@@ -113,6 +113,11 @@ Panel data have several attractive features:
 > 3. ...
 > 4. Panel data allow better analysis of dynamic adjustment while cross-sectional data can tell us nothing about dynamics and time series data need to be very lengthy to provide good estimates of dynamic behavior .... Panel data avoid the need for a lengthy time series by exploiting information on the dynamic reactions of each of several units. 
 
+???
+
++ With panel data, we can do lots of things that cross-sectional or time-series data cannot do. 
++ For example, we can address the problem of omitted variable bias by controlling for cross-sectional heterogeneity that might correlated with our key variables
++ Also, in addition to cross-sectional variation, temporal variation in panel data leads to more efficient estimation, and so on... 
 
 ---
 class: middle
@@ -144,6 +149,10 @@ $$Y_{it} = X_{it}^{\prime} \beta + \color{blue}{u_{i} + \varepsilon_{it}}$$
   * Random effects model
   * Fixed effects model 
 
+???
++ This motivates the one-way error component model. 
++ Now we decomposes the error term $e_{it}$ into the two parts, which are individual-specific effect and an idiosyncratic errors. 
++ The idea is that we want to model each $u_i$ as a different intercept for each cross-sectional unit. There are mainly two modeling approach to do this. 
 
 ---
 class: middle
@@ -188,6 +197,10 @@ $$Y_{it} = X_{it}^{\prime} \beta + \color{blue}{u_{i} + \varepsilon_{it}}$$
 + By including bunch of individual dummies, we loss lots of degree of freedom &rarr; inefficient estimate
 + We cannot estimate the coefficients on time-invariant variables (e.g., gender, race, or religion)
 
+???
++ Meanwhile, there are some drawbacks. By including bunch of individual dummies, we loss lots of degree of freedom. For example, if we have 1000 dummies, then we lose 999 degrees of freedom. So, compared to the RE model, FE models are inefficient. 
++ Also, since within-transformation wipes out any time-invariant factors, so fixed effects model does not allow us to estimate coefficients on time-invariant variables such as gender, race, or religion. This might be a problematic, if you are interested in measuring discrimination. 
++ but we can recover the such coefficients using IV estimator, which will be covered in the next semester. 
 
 ---
 class: middle
@@ -263,6 +276,17 @@ Lots of interesting discussions on fixed effects estimation for causal inference
 In the context of climate economics, 
 
 [Blanc and Schlenker (2017)](https://www.journals.uchicago.edu/doi/abs/10.1093/reep/rex016?journalCode=reep)
+
+???
++ Okay, these are very basic econometric facts about fixed effects estimations. Fixed effect estimation can remove any time-invariant unobserved individual specific-effects, therefore it is immune to the endogeneity problem. Great. But this is a truly theoretical point of view. 
++ From the application point of view, I feel like we need to think more carefully about the operation that the fixed effect is implicitly invoking. 
++ I feel like this, because there are lots of interesting discussion about fixed effect estimator are going on in recent years. 
++ For longer time period, say 20 years, time-invariant factors that we assume might not be actually time-invariant. For example, people's preference.
+
++ Causal inference is all about the question of how to credibly estimate the counterfactual outcomes through the comparison of treated and control observations
+
++ For example, after the within-transformation, what kind of variations are left? Is it the variation what we want or not?
++ In the context of climate economics, fixed effect model has been used a lot utilizing the exogeneity of the realization of weather. But, within-transformation, in other words, demeaning  the means   the main goal is to understand the correct damage function of climate to project what would be the future impact of climate change. 
 
 
 ---
@@ -343,7 +367,7 @@ panel_fatalities <- pdata.frame(Fatalities, index=c("state", "year"))
 po_reg <- plm(fatal_rate ~ beertax, data = panel_fatalities, model = "pooling")
 
 # === Random effects model === #
-re_reg <- plm(fatal_rate ~ beertax, data = panel_fatalities, model = "random")
+re_reg <- plm(fatal_rate ~ beertax| x+y, data = panel_fatalities, model = "random")
 
 # === Fixed effects model === #
 fe_reg <- plm(fatal_rate ~ beertax, data = panel_fatalities, model = "within")
