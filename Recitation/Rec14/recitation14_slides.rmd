@@ -67,16 +67,6 @@ xaringanExtra::use_tachyons()
 hitting letter "o" key will give you a panel view of the slides
 
 ---
-class: inverse, center, middle
-name: DID
-
-# basic DID
-
-<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
-
-
-
----
 class: middle
 
 ## Example: The effect of minimum wage on employment
@@ -103,8 +93,8 @@ knitr::include_graphics("photos/did1_1.png")
 .content-box-green[**Question**]
 
 1. Which differences are observed? Which differences are not observed?
-2. Which difference is the DID estimand?
-3. In what condition and how the estimand of DID is identified? 
+2. Which difference is the DID estimand, in other words ATT?
+3. In what condition ATT is identified and how ? 
 
 
 
@@ -117,8 +107,7 @@ class: middle
 knitr::include_graphics("photos/did1_2.png")
 ```
 
-<p style="text-align: center;"> <span style="color:red"><b>(2)</b></span> = <span style="color:red"><b>(3)</b></span> </p>
-So, 
+<p style="text-align: center;">If <span style="color:red"><b>(2)</b></span> = <span style="color:red"><b>(3)</b></span> </p>, 
 
 $$ATT = (1) = (4) - \color{red}{(2)} = (4) - \color{red}{(3)}$$
 
@@ -142,24 +131,6 @@ ATT
   &= E[Y_{i,2}(1) - Y_{i,1}(1)|D_i=1] - E[Y_{i,2}(0)Y_{i,1}(0)|D_i=0]
 \end{align*}$$
 
-
-
----
-class: middle 
-
-```{r, echo=F, out.width = "50%"}
-knitr::include_graphics("photos/did1_2.png")
-```
-
-.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
-<span style="color:blue">**Parallel trend assumption**</span>
-
-$$E[Y_{i,2}(0)-Y_{i,1}(0)|D_i=1]=E[Y_{i,2}(0)-Y_{i,1}(0)|D_i=0]$$
-
-Verbally: In the absence of treatment, the difference between the treatment and control group is constant over time.
-]
-
-
 ---
 class: middle 
 
@@ -172,8 +143,6 @@ knitr::include_graphics("photos/did3_vio1.png")
 
 .content-box-green[**Question**]
 Is ATT estimate from DID approach biased upward or downward?
-
-
 
 ---
 class: middle
@@ -202,7 +171,7 @@ knitr::include_graphics("photos/did3_vio2.png")
 ---
 class: middle
 
-+ D needs to be exogenous event 
+Treatment needs to be an exogenous event.
 <!--   * Specifically, conditional on $X_{it}$ for $\forall t$, $D_{it}$ and the idiosyncratic errors $\varepsilon_{it}$ are statistically independent
     - CIA implies no anticipation effect -->
 
@@ -218,6 +187,8 @@ Card and Krueger (1994):
 ---
 class: middle 
 
+.content-box-green[**Example**]
+
 Eissa and Liebman (1996):
 + Question: Does tax credit affect labor supply and work hours?
 + Exogenous event: Major expansions of EITC of Tax Reform Act in 1986
@@ -225,9 +196,8 @@ Eissa and Liebman (1996):
 DiTella and Schargrodsky (2004): 
 
 + Question: Does the street presence of police officer reduces car theft?
+  * The key problem here is police forces are not allocated exogenously
 + Exogenous event: ?
-
-
 
 ---
 

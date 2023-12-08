@@ -5565,16 +5565,6 @@ slides &gt; slide {
 hitting letter &quot;o&quot; key will give you a panel view of the slides
 
 ---
-class: inverse, center, middle
-name: DID
-
-# basic DID
-
-&lt;html&gt;&lt;div style=&#39;float:left&#39;&gt;&lt;/div&gt;&lt;hr color=&#39;#EB811B&#39; size=1px width=796px&gt;&lt;/html&gt;
-
-
-
----
 class: middle
 
 ## Example: The effect of minimum wage on employment
@@ -5595,8 +5585,8 @@ class: middle
 .content-box-green[**Question**]
 
 1. Which differences are observed? Which differences are not observed?
-2. Which difference is the DID estimand?
-3. In what condition and how the estimand of DID is identified? 
+2. Which difference is the DID estimand, in other words ATT?
+3. In what condition ATT is identified and how ? 
 
 
 
@@ -5607,8 +5597,7 @@ class: middle
 
 &lt;img src=&quot;data:image/png;base64,#photos/did1_2.png&quot; width=&quot;60%&quot; style=&quot;display: block; margin: auto;&quot; /&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt; &lt;span style=&quot;color:red&quot;&gt;&lt;b&gt;(2)&lt;/b&gt;&lt;/span&gt; = &lt;span style=&quot;color:red&quot;&gt;&lt;b&gt;(3)&lt;/b&gt;&lt;/span&gt; &lt;/p&gt;
-So, 
+&lt;p style=&quot;text-align: center;&quot;&gt;If &lt;span style=&quot;color:red&quot;&gt;&lt;b&gt;(2)&lt;/b&gt;&lt;/span&gt; = &lt;span style=&quot;color:red&quot;&gt;&lt;b&gt;(3)&lt;/b&gt;&lt;/span&gt; &lt;/p&gt;, 
 
 `$$ATT = (1) = (4) - \color{red}{(2)} = (4) - \color{red}{(3)}$$`
 
@@ -5630,22 +5619,6 @@ ATT
   &amp;= E[Y_{i,2}(1) - Y_{i,1}(1)|D_i=1] - E[Y_{i,2}(0)Y_{i,1}(0)|D_i=0]
 \end{align*}$$`
 
-
-
----
-class: middle 
-
-&lt;img src=&quot;data:image/png;base64,#photos/did1_2.png&quot; width=&quot;50%&quot; style=&quot;display: block; margin: auto;&quot; /&gt;
-
-.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
-&lt;span style=&quot;color:blue&quot;&gt;**Parallel trend assumption**&lt;/span&gt;
-
-`$$E[Y_{i,2}(0)-Y_{i,1}(0)|D_i=1]=E[Y_{i,2}(0)-Y_{i,1}(0)|D_i=0]$$`
-
-Verbally: In the absence of treatment, the difference between the treatment and control group is constant over time.
-]
-
-
 ---
 class: middle 
 
@@ -5656,8 +5629,6 @@ For example,
 
 .content-box-green[**Question**]
 Is ATT estimate from DID approach biased upward or downward?
-
-
 
 ---
 class: middle
@@ -5684,7 +5655,7 @@ For example,
 ---
 class: middle
 
-+ D needs to be exogenous event 
+Treatment needs to be an exogenous event.
 &lt;!--   * Specifically, conditional on `\(X_{it}\)` for `\(\forall t\)`, `\(D_{it}\)` and the idiosyncratic errors `\(\varepsilon_{it}\)` are statistically independent
     - CIA implies no anticipation effect --&gt;
 
@@ -5700,6 +5671,8 @@ Card and Krueger (1994):
 ---
 class: middle 
 
+.content-box-green[**Example**]
+
 Eissa and Liebman (1996):
 + Question: Does tax credit affect labor supply and work hours?
 + Exogenous event: Major expansions of EITC of Tax Reform Act in 1986
@@ -5707,9 +5680,8 @@ Eissa and Liebman (1996):
 DiTella and Schargrodsky (2004): 
 
 + Question: Does the street presence of police officer reduces car theft?
+  * The key problem here is police forces are not allocated exogenously
 + Exogenous event: ?
-
-
 
 ---
 
