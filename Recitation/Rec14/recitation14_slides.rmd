@@ -67,14 +67,6 @@ xaringanExtra::use_tachyons()
 hitting letter "o" key will give you a panel view of the slides
 
 ---
-class: middle
-
-# Outline
-1.[Review DID](#DID)
-
-2.[Panel estimation with R](#R)
-
----
 class: inverse, center, middle
 name: DID
 
@@ -82,8 +74,7 @@ name: DID
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
 
-???
-+ Okay, so in the class, we leaned DID framework using potential outcome framework. 
+
 
 ---
 class: middle
@@ -94,11 +85,6 @@ class: middle
 knitr::include_graphics("photos/did0_0.png")
 ```
 
-???
-+ Here is an example. 
-+ Like Card and Krueger (1994), suppose that we want to estimate the causal impact of minimum wage on employment. some intervention of minimum wage on employment happens in a treated state. 
-+ The black solid like indicate the observed trend of employment trend in treatment state and control state, and the dashed line is the counterfactual employment trend in treatment state. 
-
 ---
 class: middle
 
@@ -106,11 +92,6 @@ class: middle
 knitr::include_graphics("photos/did1_1.png")
 ```
 
-???
-+ Now, we can see four types of differences in this graph. 
-+ (1) ATT or differnce in changes over time
-+ (2) time trend in treatment group if it had not been treated
-+ (3) time trend in control group
 
 ---
 class: middle
@@ -122,12 +103,10 @@ knitr::include_graphics("photos/did1_1.png")
 .content-box-green[**Question**]
 
 1. Which differences are observed? Which differences are not observed?
-2. Which differences is the DID estimand?
+2. Which difference is the DID estimand?
 3. In what condition and how the estimand of DID is identified? 
 
-???
-+ Here are the questions for you guys. 
-+ Which differences are observed and which differences are not observed?å
+
 
 ---
 class: middle
@@ -163,8 +142,7 @@ ATT
   &= E[Y_{i,2}(1) - Y_{i,1}(1)|D_i=1] - E[Y_{i,2}(0)Y_{i,1}(0)|D_i=0]
 \end{align*}$$
 
-???
-+ Change in outcomes for the treatment group before and after if the treatment group had not been treated. 
+
 
 ---
 class: middle 
@@ -195,8 +173,7 @@ knitr::include_graphics("photos/did3_vio1.png")
 .content-box-green[**Question**]
 Is ATT estimate from DID approach biased upward or downward?
 
-???
-+ Okay, let's think about what if the parallel trend assumption is violated. 
+
 
 ---
 class: middle
@@ -205,10 +182,6 @@ class: middle
 
 What if the assumption of no anticipation effect is violated? What does the figure look like?
 
-???
-+ First of all, what does the assumption of no anticipation? 
-+ Mathematically? $Y_{i,1}(0)=Y_{i,1}(1)$
-  * That is, the potential outcomes in period 1 don't depend on treatment status in period 2. 
 
 ---
 
@@ -241,10 +214,7 @@ Card and Krueger (1994):
 
 + Exogenous event:  New Jersy's 1992 increase of the minimum hourly wage 
 
-???
-+ To credibly estimate the policy effect, the 
 
-+ Policy change is generally regarded as an exogenous shock. In the case of Card and Krueger (1994), the policy of minimum wage actually started after the it was  adopted, maybe people and 
 ---
 class: middle 
 
@@ -257,9 +227,7 @@ DiTella and Schargrodsky (2004):
 + Question: Does the street presence of police officer reduces car theft?
 + Exogenous event: ?
 
-???
-+ DiTella and Schargrodsky (2004)'s study is interesting. They use DID approach to answer the question whether the street presence of police officers car theft. 
-+ What do you think? Do you have any idea about whether the presence of police officers is exogenous?
+
 
 ---
 
@@ -277,6 +245,3 @@ DiTella and Schargrodsky (2004):
 + Question: Does the street presence of police officer reduces car theft?
 + Exogenous event: An expansion of police deployment around the city due to a terrorist attack 
 
-???
-+ DiTella and Schargrodsky (2004)'s study is interesting. They use DID approach to answer the question whether the street presence of police officers car theft. 
-+ Do you have any idea about whether the 
