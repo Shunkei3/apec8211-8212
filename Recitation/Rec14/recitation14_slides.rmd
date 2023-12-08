@@ -172,6 +172,7 @@ knitr::include_graphics("photos/did3_vio2.png")
 class: middle
 
 Treatment needs to be an exogenous event.
+
 <!--   * Specifically, conditional on $X_{it}$ for $\forall t$, $D_{it}$ and the idiosyncratic errors $\varepsilon_{it}$ are statistically independent
     - CIA implies no anticipation effect -->
 
