@@ -117,6 +117,22 @@ $$ATT = (1) = (4) - \color{red}{(2)} = (4) - \color{red}{(3)}$$
 ---
 class: middle
 
+
+```{r, echo=F, out.width = "50%"}
+knitr::include_graphics("photos/did1_2.png")
+```
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-2.ph2.mt2[
+**Parallel trend assumption**
+
+$$E[Y_{i,2}(0)-Y_{i,1}(0)|D_i=1]=E[Y_{i,2}(0)-Y_{i,1}(0)|D_i=0]$$
+
+Verbally: In the absence of treatment, the difference between the treatment and control group is constant over time.
+]
+
+---
+class: middle
+
 ## Parallel trend assumption
 
 ```{r, echo=F, out.width = "50%"}
@@ -194,6 +210,8 @@ Eissa and Liebman (1996):
 + Question: Does tax credit affect labor supply and work hours?
 + Exogenous event: Major expansions of EITC of Tax Reform Act in 1986
 
+<br>
+
 DiTella and Schargrodsky (2004): 
 
 + Question: Does the street presence of police officer reduces car theft?
@@ -210,6 +228,8 @@ class: middle
 Eissa and Liebman (1996):
 + Question: Does tax credit affect labor supply and work hours?
 + Exogenous event: Major expansions of EITC of Tax Reform Act in 1986
+
+<br>
 
 DiTella and Schargrodsky (2004): 
 
