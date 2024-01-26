@@ -1,7 +1,7 @@
  # APEC 8211-12: Econometric Analysis
 This is the repository for APEC 8211-8212 at the University of Minnesota, where you can find slides I used in lab sessions.
 
-<!-- # APEC 8211: Slides
+ # APEC 8211: Slides
 + LaTeX math notations ([PDF](https://shunkei3.github.io/apec8211-8212/Demonstration/Demonstration.pdf))
 
 ## Slides
@@ -17,4 +17,4 @@ This is the repository for APEC 8211-8212 at the University of Minnesota, where 
 + Week 9 (([slides](https://shunkei3.github.io/apec8211-8212/Recitation/rec9/recitation9_slides.html)))
 + Week 10 (([slides](https://shunkei3.github.io/apec8211-8212/Recitation/rec10/recitation10_slides.html)))
 + Week 13 (([slides](https://shunkei3.github.io/apec8211-8212/Recitation/rec13/recitation13_slides.html)))
-+ Week 14 (([slides](https://shunkei3.github.io/apec8211-8212/Recitation/rec14/recitation14_slides.html)))-->
++ Week 14 (([slides](https://shunkei3.github.io/apec8211-8212/Recitation/rec14/recitation14_slides.html)))
